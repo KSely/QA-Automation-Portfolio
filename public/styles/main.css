@@ -1,0 +1,354 @@
+/* ------------------------------
+   Global
+------------------------------ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #1e293b;
+  background-color: #ffffff;
+}
+
+.section-padding {
+  padding: 90px 0;
+}
+
+.section-label {
+  color: #2563eb;
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-size: 0.85rem;
+}
+
+.section-title {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+
+/* ------------------------------
+   Navigation
+------------------------------ */
+
+.portfolio-navbar {
+  background-color: #0b1220;
+  padding: 18px 0;
+}
+
+.navbar-brand {
+  color: #ffffff;
+}
+
+.nav-link {
+  color: #cbd5e1;
+  margin-left: 18px;
+  transition: 0.3s;
+}
+
+.nav-link:hover {
+  color: #38bdf8;
+}
+
+
+/* ------------------------------
+   Hero
+------------------------------ */
+
+.hero-section {
+  min-height: 85vh;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0b1220 0%,
+      #0f2747 55%,
+      #0f4c5c 100%
+    );
+
+  color: white;
+}
+
+.min-vh-75 {
+  min-height: 75vh;
+}
+
+.hero-label {
+  color: #38bdf8;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.hero-subtitle {
+  color: #cbd5e1;
+}
+
+.hero-testing-types {
+  color: #5eead4;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.hero-img {
+  border-radius: 18px;
+
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.35);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.hero-img:hover {
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 28px 60px rgba(0, 0, 0, 0.45);
+}
+
+
+/* ------------------------------
+   About
+------------------------------ */
+
+.about-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #475569;
+}
+
+
+/* ------------------------------
+   Skills
+------------------------------ */
+
+.skills-section {
+  background-color: #f8fafc;
+}
+
+.skill-card {
+  background-color: white;
+
+  padding: 30px;
+
+  height: 100%;
+
+  border-radius: 14px;
+
+  border: 1px solid #e2e8f0;
+
+  box-shadow:
+    0 8px 25px rgba(15, 23, 42, 0.06);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.skill-card:hover {
+  transform: translateY(-6px);
+
+  box-shadow:
+    0 16px 35px rgba(15, 23, 42, 0.12);
+}
+
+.skill-card h3 {
+  font-size: 1.3rem;
+  color: #0f172a;
+  margin-bottom: 15px;
+}
+
+.skill-card p {
+  color: #64748b;
+  margin-bottom: 0;
+}
+
+
+/* ------------------------------
+   QA Project
+------------------------------ */
+
+.project-section {
+  background-color: #0b1220;
+  color: white;
+}
+
+.project-section h2 {
+  color: white;
+}
+
+.project-description {
+  color: #cbd5e1;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.technology-item {
+  background-color: #162235;
+
+  border: 1px solid #334155;
+
+  padding: 15px 18px;
+
+  border-radius: 10px;
+
+  color: #e2e8f0;
+
+  font-weight: 500;
+}
+
+.project-summary-card {
+  background-color: #111c2e;
+
+  border: 1px solid #334155;
+
+  border-radius: 18px;
+
+  padding: 35px;
+
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.25);
+}
+
+.project-list {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.project-list li {
+  padding: 12px 0;
+  color: #cbd5e1;
+  border-bottom: 1px solid #334155;
+}
+
+.project-list li::before {
+  content: "✓";
+  color: #2dd4bf;
+  font-weight: bold;
+  margin-right: 12px;
+}
+
+.project-list li:last-child {
+  border-bottom: none;
+}
+
+
+/* ------------------------------
+   Contact
+------------------------------ */
+
+.contact-text {
+  color: #64748b;
+  font-size: 1.05rem;
+}
+
+
+/* ------------------------------
+   Buttons
+------------------------------ */
+
+.btn-primary {
+  background-color: #2563eb;
+  border-color: #2563eb;
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+.btn-info {
+  background-color: #14b8a6;
+  border-color: #14b8a6;
+  color: white;
+}
+
+.btn-info:hover {
+  background-color: #0f9f91;
+  border-color: #0f9f91;
+  color: white;
+}
+
+
+/* ------------------------------
+   Footer
+------------------------------ */
+
+.portfolio-footer {
+  background-color: #070d18;
+  color: #94a3b8;
+  padding: 25px 0;
+}
+
+
+/* ------------------------------
+   Responsive
+------------------------------ */
+
+@media (max-width: 991px) {
+
+  .hero-section {
+    text-align: center;
+  }
+
+  .hero-img {
+    margin-top: 30px;
+  }
+
+  .navbar-nav {
+    padding-top: 15px;
+  }
+
+  .nav-link {
+    margin-left: 0;
+  }
+
+}
+
+
+@media (max-width: 576px) {
+
+  .section-padding {
+    padding: 65px 0;
+  }
+
+  .hero-section h1 {
+    font-size: 2.3rem;
+  }
+
+  .hero-img {
+    border-radius: 12px;
+  }
+}
+
+
+/* Scroll to top button */
+
+#scroll-top-button {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+
+  width: 50px;
+  height: 50px;
+
+  border: none;
+  border-radius: 50%;
+
+  background-color: #2563eb;
+  color: white;
+
+  font-size: 24px;
+
+  display: none;
+  cursor: pointer;
+}
+
+#scroll-top-button.show {
+  display: block;
+}
+
