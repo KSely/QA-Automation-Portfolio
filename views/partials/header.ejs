@@ -14,5 +14,59 @@
 
   <link rel="stylesheet" href="/styles/main.css">
 </head>
-
 <body>
+  <nav class="navbar navbar-expand-lg portfolio-navbar sticky-top">
+  <div class="container">
+
+    <a class="navbar-brand fw-bold" href="/">
+      Kate | QA Automation Portfolio
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#portfolioNavbar"
+      aria-controls="portfolioNavbar"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="portfolioNavbar">
+      <div class="navbar-nav ms-auto">
+
+        <% if (page === "project") { %>
+
+          <a class="nav-link" href="#overview">Overview</a>
+          <a class="nav-link" href="#architecture">Architecture</a>
+          <a class="nav-link" href="#tech-stack">Tech Stack</a>
+          <a class="nav-link" href="#qa-stack">QA Stack</a>
+          <a class="nav-link" href="#test-strategy">Test Strategy</a>
+          <a class="nav-link" href="#api-testing">API</a>
+          <a class="nav-link" href="#database-testing">Database</a>
+          <a class="nav-link" href="/project/automation">Automation</a>
+
+        <% } else if (page === "automation") { %>
+
+          <a class="nav-link" href="/project">Project Overview</a>
+          <a class="nav-link" href="#ui-automation">UI Automation</a>
+          <a class="nav-link" href="#api-automation">API Testing</a>
+          <a class="nav-link" href="#performance-testing">Performance</a>
+          <a class="nav-link" href="#test-results">Test Results</a>
+
+        <% } else { %>
+
+          <a class="nav-link" href="#home">Home</a>
+          <a class="nav-link" href="#about">About</a>
+          <a class="nav-link" href="#skills">Skills</a>
+          <a class="nav-link" href="#project">QA Project</a>
+          <a class="nav-link" href="#contact">Contact</a>
+
+        <% } %>
+
+      </div>
+    </div>
+  </div>
+</nav>

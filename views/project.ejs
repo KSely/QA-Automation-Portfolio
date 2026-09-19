@@ -1,0 +1,553 @@
+<%- include('partials/header.ejs'); -%>
+
+<!-- Project Overview -->
+<section id="overview" class="project-hero section-padding">
+  <div class="container">
+    <p class="section-label">QA AUTOMATION PROJECT</p>
+
+    <h1 class="display-5 fw-bold mb-4">Full-Stack QA Automation Project</h1>
+
+    <p class="lead">
+      Web Application · UI Automation · API Testing · Database Validation
+    </p>
+
+    <hr class="my-5" />
+
+    <div class="row g-5">
+      <div class="col-lg-7">
+        <p class="section-label">PROJECT OVERVIEW</p>
+
+        <h2 class="section-title mb-4">Application Under Test</h2>
+
+        <p class="about-text">
+          This project is a full-stack web application developed as an
+          Application Under Test (AUT) for demonstrating practical software
+          testing and QA automation.
+        </p>
+
+        <p class="about-text">
+          The application includes a responsive user interface, server-side
+          processing, HTTP endpoints, form validation, and PostgreSQL database
+          integration.
+        </p>
+
+        <p class="about-text">
+          The project is designed to demonstrate testing across multiple
+          application layers, including UI, API, backend, and database
+          validation.
+        </p>
+      </div>
+
+      <div class="col-lg-5">
+        <div class="skill-card project-goals-card">
+          <h3>Project Goals</h3>
+
+          <p>
+            Build and test a realistic full-stack application using professional
+            QA practices and automation tools.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Application Architecture -->
+<section id="architecture" class="skills-section section-padding">
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="section-label">SYSTEM DESIGN</p>
+
+      <h2 class="section-title">Application Architecture</h2>
+
+      <p class="about-text mt-3">
+        The application follows a layered full-stack architecture connecting the
+        client interface, server-side application logic, data access, and
+        PostgreSQL database.
+      </p>
+    </div>
+
+    <!-- Architecture Diagram -->
+    <div class="architecture-diagram">
+      <div class="architecture-node">
+        <span class="architecture-label">CLIENT</span>
+        <h3>User / Browser</h3>
+      </div>
+
+      <div class="architecture-connector">
+        <span>HTTP / HTTPS</span>
+        <div class="architecture-arrow">↓</div>
+      </div>
+
+      <div class="architecture-node">
+        <span class="architecture-label">FRONTEND</span>
+        <h3>Web Application UI</h3>
+        <p>HTML · CSS · Bootstrap · EJS · JavaScript</p>
+      </div>
+
+      <div class="architecture-connector">
+        <span>HTTP Requests / Fetch</span>
+        <div class="architecture-arrow">↓</div>
+      </div>
+
+      <div class="architecture-node">
+        <span class="architecture-label">APPLICATION SERVER</span>
+        <h3>Node.js / Express.js</h3>
+      </div>
+
+      <div class="architecture-connector">
+        <div class="architecture-arrow">↓</div>
+      </div>
+
+      <div class="architecture-application-layer">
+        <span class="architecture-label">APPLICATION LAYER</span>
+
+        <div class="architecture-layer-content">
+          <div>
+            <h3>Routing</h3>
+            <p>Page Routes · API Endpoints · Form Requests</p>
+          </div>
+
+          <div>
+            <h3>Request Processing</h3>
+            <p>Validation · Processing · Response Handling</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="architecture-connector">
+        <span>Data Access / Parameterized Queries</span>
+        <div class="architecture-arrow">↓</div>
+      </div>
+
+      <div class="architecture-node">
+        <span class="architecture-label">DATABASE</span>
+        <h3>PostgreSQL</h3>
+        <p>Application Data · Persistent Storage</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Technology Stack -->
+<section id="tech-stack" class="section-padding">
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="section-label">APPLICATION TECHNOLOGIES</p>
+
+      <h2 class="section-title">Technology Stack</h2>
+
+      <p class="about-text mt-3">
+        Technologies used to build and run the full-stack Application Under
+        Test.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="technology-stack-card">
+          <span class="technology-category">FRONTEND</span>
+          <h3>Web Interface</h3>
+          <p>HTML · CSS · Bootstrap · JavaScript · Fetch API</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="technology-stack-card">
+          <span class="technology-category">TEMPLATING</span>
+          <h3>Server-Side Views</h3>
+          <p>EJS</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="technology-stack-card">
+          <span class="technology-category">BACKEND</span>
+          <h3>Application Server</h3>
+          <p>Node.js · Express.js</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="technology-stack-card">
+          <span class="technology-category">MIDDLEWARE</span>
+          <h3>Request Parsing</h3>
+          <p>body-parser</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="technology-stack-card">
+          <span class="technology-category">DATABASE</span>
+          <h3>Data Persistence</h3>
+          <p>PostgreSQL · SQL · pg</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="technology-stack-card">
+          <span class="technology-category">CONFIGURATION</span>
+          <h3>Environment Configuration</h3>
+          <p>dotenv · Environment Variables</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4 offset-lg-2">
+        <div class="technology-stack-card">
+          <span class="technology-category">DEVELOPMENT</span>
+          <h3>Runtime & Tooling</h3>
+          <p>npm · nodemon</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="technology-stack-card">
+          <span class="technology-category">VERSION CONTROL</span>
+          <h3>Source Control</h3>
+          <p>Git</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testing Stack -->
+<section id="qa-stack" class="skills-section section-padding">
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="section-label">QUALITY ENGINEERING</p>
+
+      <h2 class="section-title">QA & Testing Stack</h2>
+
+      <p class="about-text mt-3">
+        Tools, frameworks, and testing practices used to validate application
+        quality across UI, API, database, performance, and cross-browser layers.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      <!-- UI Automation -->
+      <div class="col-md-6 col-lg-4">
+        <div class="testing-stack-card">
+          <span class="testing-category">UI AUTOMATION</span>
+          <h3>Selenium WebDriver</h3>
+          <p>Java · TestNG · Maven</p>
+        </div>
+      </div>
+
+      <!-- Modern UI Automation -->
+      <div class="col-md-6 col-lg-4">
+        <div class="testing-stack-card">
+          <span class="testing-category">UI AUTOMATION</span>
+          <h3>Playwright</h3>
+          <p>JavaScript</p>
+        </div>
+      </div>
+
+      <!-- API Testing -->
+      <div class="col-md-6 col-lg-4">
+        <div class="testing-stack-card">
+          <span class="testing-category">API TESTING</span>
+          <h3>Postman</h3>
+          <p>HTTP Requests · Response Validation</p>
+        </div>
+      </div>
+
+      <!-- Database Testing -->
+      <div class="col-md-6 col-lg-4">
+        <div class="testing-stack-card">
+          <span class="testing-category">DATABASE TESTING</span>
+          <h3>PostgreSQL</h3>
+          <p>SQL · Data Integrity · Backend Validation</p>
+        </div>
+      </div>
+
+      <!-- Performance Testing -->
+      <div class="col-md-6 col-lg-4">
+        <div class="testing-stack-card">
+          <span class="testing-category">PERFORMANCE TESTING</span>
+          <h3>Apache JMeter</h3>
+          <p>Load · Stress · Endurance</p>
+        </div>
+      </div>
+
+      <!-- Cross-Browser Testing -->
+      <div class="col-md-6 col-lg-4">
+        <div class="testing-stack-card">
+          <span class="testing-category">CROSS-BROWSER TESTING</span>
+          <h3>Browser Coverage</h3>
+          <p>Chrome · Firefox · Edge</p>
+        </div>
+      </div>
+
+      <!-- Test Design -->
+      <div class="col-md-6 col-lg-4">
+        <div class="testing-stack-card">
+          <span class="testing-category">TEST DESIGN</span>
+          <h3>Test Coverage</h3>
+          <p>Smoke · Regression · Positive · Negative</p>
+        </div>
+      </div>
+
+      <!-- Test Reporting -->
+      <div class="col-md-6 col-lg-4">
+        <div class="testing-stack-card">
+          <span class="testing-category">TEST REPORTING</span>
+          <h3>Automation Results</h3>
+          <p>TestNG Reports · Playwright Reports</p>
+        </div>
+      </div>
+
+      <!-- Test Data -->
+      <div class="col-md-6 col-lg-4">
+        <div class="testing-stack-card">
+          <span class="testing-category">TEST DATA</span>
+          <h3>Data-Driven Testing</h3>
+          <p>Positive · Negative · Boundary Data</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Test Strategy & Coverage -->
+<section id="test-strategy" class="section-padding">
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="section-label">TEST STRATEGY</p>
+
+      <h2 class="section-title">Test Strategy & Coverage</h2>
+
+      <p class="about-text mt-3">
+        Multi-layer testing strategy designed to validate functionality,
+        integration, data integrity, reliability, and application behavior
+        across the full system.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      <!-- UI Testing -->
+      <div class="col-md-6">
+        <div class="test-strategy-card">
+          <span class="testing-category">UI LAYER</span>
+          <h3>Functional & UI Testing</h3>
+
+          <ul>
+            <li>Page navigation and user workflows</li>
+            <li>Contact form submission</li>
+            <li>Client-side validation</li>
+            <li>Positive and negative scenarios</li>
+            <li>Cross-browser behavior</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- API Testing -->
+      <div class="col-md-6">
+        <div class="test-strategy-card">
+          <span class="testing-category">API LAYER</span>
+          <h3>API & HTTP Validation</h3>
+
+          <ul>
+            <li>API endpoint validation</li>
+            <li>HTTP methods and requests</li>
+            <li>Response status codes</li>
+            <li>Response body validation</li>
+            <li>Error and invalid-request handling</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Backend & Database -->
+      <div class="col-md-6">
+        <div class="test-strategy-card">
+          <span class="testing-category">DATA LAYER</span>
+          <h3>Backend & Database Validation</h3>
+
+          <ul>
+            <li>Server-side input validation</li>
+            <li>Database record creation</li>
+            <li>Stored data accuracy</li>
+            <li>Data integrity verification</li>
+            <li>UI/API-to-database consistency</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Performance -->
+      <div class="col-md-6">
+        <div class="test-strategy-card">
+          <span class="testing-category">PERFORMANCE LAYER</span>
+          <h3>Performance & Reliability</h3>
+
+          <ul>
+            <li>Response time measurement</li>
+            <li>Load testing</li>
+            <li>Stress testing</li>
+            <li>Endurance testing</li>
+            <li>Application stability under load</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- API Coverage -->
+<section id="api-testing" class="skills-section section-padding">
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="section-label">API VALIDATION</p>
+
+      <h2 class="section-title">API Coverage & Endpoints</h2>
+
+      <p class="about-text mt-3">
+        HTTP endpoints are validated for request handling, response content,
+        status codes, input validation, and error scenarios.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Status Endpoint -->
+      <div class="col-md-6">
+        <div class="api-endpoint-card">
+          <span class="api-method get-method">GET</span>
+
+          <h3>/api/status</h3>
+
+          <p>
+            Verifies that the application backend is running and responding
+            correctly.
+          </p>
+
+          <ul>
+            <li>Expected status: 200 OK</li>
+            <li>JSON response validation</li>
+            <li>Backend availability check</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Contact Endpoint -->
+      <div class="col-md-6">
+        <div class="api-endpoint-card">
+          <span class="api-method post-method">POST</span>
+
+          <h3>/contact</h3>
+
+          <p>
+            Processes contact form submissions and stores validated data in
+            PostgreSQL.
+          </p>
+
+          <ul>
+            <li>Valid submission: 200 OK</li>
+            <li>Missing fields: 400 Bad Request</li>
+            <li>Invalid email: 400 Bad Request</li>
+            <li>Response body validation</li>
+            <li>Database persistence validation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Database Validation -->
+<section id="database-testing" class="section-padding">
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="section-label">DATABASE VALIDATION</p>
+
+      <h2 class="section-title">Database Testing</h2>
+
+      <p class="about-text mt-3">
+        Contact form data is validated across the application flow from request
+        processing through persistent storage in PostgreSQL.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Database Schema -->
+      <div class="col-lg-6">
+        <div class="database-validation-card">
+          <span class="database-category">DATABASE SCHEMA</span>
+
+          <h3>messages</h3>
+
+          <div class="database-field">
+            <span>id</span>
+            <span>SERIAL PRIMARY KEY</span>
+          </div>
+
+          <div class="database-field">
+            <span>name</span>
+            <span>VARCHAR(255)</span>
+          </div>
+
+          <div class="database-field">
+            <span>email</span>
+            <span>VARCHAR(255)</span>
+          </div>
+
+          <div class="database-field">
+            <span>message</span>
+            <span>TEXT</span>
+          </div>
+
+          <div class="database-field">
+            <span>created_at</span>
+            <span>TIMESTAMP</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Data Validation -->
+      <div class="col-lg-6">
+        <div class="database-validation-card">
+          <span class="database-category">DATA VALIDATION</span>
+
+          <h3>UI → API → Database</h3>
+
+          <ul class="database-validation-list">
+            <li>Contact form data submission</li>
+            <li>Server-side input validation</li>
+            <li>Database record creation</li>
+            <li>Name, email, and message verification</li>
+            <li>Stored data accuracy</li>
+            <li>Timestamp verification</li>
+            <li>UI/API-to-database consistency</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Automation & Test Artifacts -->
+<section class="automation-cta-section section-padding">
+  <div class="container">
+    <div class="text-center">
+
+      <p class="section-label">TEST AUTOMATION</p>
+
+      <h2 class="section-title mb-3">
+        Automation & Test Artifacts
+      </h2>
+
+      <p class="about-text mb-4">
+        Explore the automation frameworks, API tests, performance tests,
+        and test results created for this project.
+      </p>
+
+      <p class="automation-tools mb-4">
+        Selenium · Playwright · Postman · JMeter · Test Reports
+      </p>
+
+      <a
+        href="/project/automation"
+        class="btn btn-primary btn-lg px-4"
+      >
+        View Automation Details
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer.ejs'); -%>
