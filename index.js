@@ -22,7 +22,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  res.render("index.ejs");
+  res.render("index.ejs", { page: "home" });
+});
+
+app.get("/project", (req, res) => {
+  res.render("project.ejs", { page: "project" });
+});
+
+app.get("/project/automation", (req, res) => {
+  res.render("automation.ejs", { page: "automation" });
 });
 
 app.get("/api/status", (req, res) => {
@@ -38,7 +46,7 @@ app.post("/contact", async (req, res) => {
   const email = req.body.email;
   const message = req.body.message;
 
-  if (!name || !email || !message) {
+  if (!name || !email || !message || !name.trim() || !email.trim() || !message.trim()) {
     return res.status(400).json({
       success: false,
       message: "All fields are required."
