@@ -53,12 +53,12 @@ app.post("/contact", async (req, res) => {
     });
   }
 
-  if (!email.includes("@")) {
-    return res.status(400).json({
-      success: false,
-      message: "Invalid email address."
-    });
-  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+  return res.status(400).json({
+    success: false,
+    message: "Invalid email address."
+  });
+}
 
   console.log("Name: " + name);
   console.log("Email: " + email);
