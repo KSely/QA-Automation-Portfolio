@@ -1,6 +1,5 @@
-/* ------------------------------
-   Global
------------------------------- */
+/* ==================== GLOBAL ==================== */
+/* General page styles and reusable section formatting */
 
 html {
   scroll-behavior: smooth;
@@ -28,9 +27,9 @@ body {
   color: #0f172a;
 }
 
-/* ------------------------------
-   Navigation
------------------------------- */
+
+/* ==================== NAVIGATION ==================== */
+/* Main navigation bar and links */
 
 .portfolio-navbar {
   background-color:  #0f1f35;
@@ -51,9 +50,9 @@ body {
   color: #38bdf8;
 }
 
-/* ------------------------------
-   Hero
------------------------------- */
+
+/* ==================== HERO ==================== */
+/* Main hero section and portfolio image */
 
 .hero-section {
   min-height: 85vh;
@@ -99,9 +98,8 @@ body {
   box-shadow: 0 28px 60px rgba(0, 0, 0, 0.45);
 }
 
-/* ------------------------------
-   About
------------------------------- */
+/* ==================== ABOUT ==================== */
+/* About section text */
 
 .about-text {
   font-size: 1.1rem;
@@ -109,9 +107,9 @@ body {
   color: #475569;
 }
 
-/* ------------------------------
-   Skills
------------------------------- */
+
+/* ==================== SKILLS ==================== */
+/* Skills section and reusable skill cards */
 
 .skills-section {
   background-color: #eef3f8;
@@ -156,9 +154,9 @@ body {
   margin-bottom: 0;
 }
 
-/* ------------------------------
-   QA Project
------------------------------- */
+
+/* ==================== QA PROJECT ==================== */
+/* Featured QA project section and technology list */
 
 .project-section {
   background-color: #0b1220;
@@ -189,7 +187,8 @@ body {
   font-weight: 500;
 }
 
-/* Application Flow */
+
+/* Application flow from UI to database */
 
 .application-flow {
   display: flex;
@@ -209,6 +208,8 @@ body {
   font-size: 1.4rem;
   font-weight: 700;
 }
+
+/* Project summary card and checklist */
 
 .project-summary-card {
   background-color: #111c2e;
@@ -245,9 +246,9 @@ body {
   border-bottom: none;
 }
 
-/* ------------------------------
-   Project Page Hero
------------------------------- */
+
+/* ==================== PROJECT PAGE HERO ==================== */
+/* Header section for the project details page */
 
 .project-hero {
   background: linear-gradient(135deg, #0b1220 0%, #0f2747 55%, #0f4c5c 100%);
@@ -279,9 +280,9 @@ body {
   height: auto;
 }
 
-/* ------------------------------
-   Application Architecture
------------------------------- */
+
+/* ==================== APPLICATION ARCHITECTURE ==================== */
+/* Layout and styling for the application architecture diagram */
 
 .architecture-diagram {
   max-width: 760px;
@@ -323,6 +324,8 @@ body {
   margin-bottom: 0;
 }
 
+/* Connections and arrows between architecture layers */
+
 .architecture-connector {
   text-align: center;
   color: #64748b;
@@ -336,6 +339,8 @@ body {
   line-height: 1;
   margin-top: 3px;
 }
+
+/* Application layer with routing and request processing */
 
 .architecture-application-layer {
   width: 100%;
@@ -370,9 +375,8 @@ body {
   margin-bottom: 0;
 }
 
-/* ------------------------------
-   Technology Stack
------------------------------- */
+/* ==================== TECHNOLOGY STACK ==================== */
+/* Cards for the technologies used in the application */
 
 .technology-stack-card {
   height: 100%;
@@ -405,9 +409,9 @@ body {
   line-height: 1.6;
 }
 
-/* ------------------------------
-   QA & Testing Stack
------------------------------- */
+
+/* ==================== QA & TESTING STACK ==================== */
+/* Cards for QA tools, frameworks, and testing areas */
 
 .testing-stack-card {
   height: 100%;
@@ -440,9 +444,8 @@ body {
   line-height: 1.6;
 }
 
-/* ------------------------------
-   Test Strategy & Coverage
------------------------------- */
+/* ==================== TEST STRATEGY ==================== */
+/* Cards for the main testing areas and test coverage */
 
 .test-strategy-card {
   height: 100%;
@@ -474,9 +477,9 @@ body {
   margin-bottom: 0;
 }
 
-/* ------------------------------
-   API Coverage & Endpoints
------------------------------- */
+
+/* ==================== API COVERAGE ==================== */
+/* Cards for API endpoints and request methods */
 
 .api-endpoint-card {
   height: 100%;
@@ -496,6 +499,8 @@ body {
   border-radius: 6px;
   margin-bottom: 12px;
 }
+
+/* Different colors for GET and POST methods */
 
 .get-method {
   background-color: #e0f2fe;
@@ -535,9 +540,9 @@ body {
   margin-bottom: 0;
 }
 
-/* ------------------------------
-   Database Validation
------------------------------- */
+
+/* ==================== DATABASE VALIDATION ==================== */
+/* Database schema and validation cards */
 
 .database-validation-card {
   height: 100%;
@@ -563,7 +568,8 @@ body {
   margin-bottom: 18px;
 }
 
-/* Database schema fields */
+
+/* Database table fields and data types */
 
 .database-field {
   display: flex;
@@ -589,7 +595,8 @@ body {
   text-align: right;
 }
 
-/* Validation list */
+
+/* Database validation checklist */
 
 .database-validation-list {
   margin-bottom: 0;
@@ -606,18 +613,17 @@ body {
   margin-bottom: 0;
 }
 
-/* ------------------------------
-   Contact
------------------------------- */
+/* ==================== CONTACT ==================== */
+/* Contact section text */
 
 .contact-text {
   color: #64748b;
   font-size: 1.05rem;
 }
 
-/* ------------------------------
-   Buttons
------------------------------- */
+
+/* ==================== BUTTONS ==================== */
+/* Main button styles and hover states */
 
 .btn-primary {
   background-color: #2563eb;
@@ -641,9 +647,9 @@ body {
   color: white;
 }
 
-/* ------------------------------
-   Footer
------------------------------- */
+
+/* ==================== FOOTER ==================== */
+/* Footer background, text color, and spacing */
 
 .portfolio-footer {
   background-color: #070d18;
@@ -651,9 +657,9 @@ body {
   padding: 25px 0;
 }
 
-/* ------------------------------
-   Responsive
------------------------------- */
+
+/* ==================== RESPONSIVE ==================== */
+/* Adjust layout for tablets and smaller screens */
 
 @media (max-width: 991px) {
   .hero-section {
@@ -672,6 +678,9 @@ body {
     margin-left: 0;
   }
 }
+
+
+/* Adjust layout for mobile screens */
 
 @media (max-width: 576px) {
   .section-padding {
@@ -708,7 +717,9 @@ body {
   }
 }
 
-/* Scroll to top button */
+
+/* ==================== SCROLL TO TOP ==================== */
+/* Floating button used to return to the top of the page */
 
 #scroll-top-button {
   position: fixed;
@@ -730,11 +741,15 @@ body {
   cursor: pointer;
 }
 
+/* Show the button after scrolling down */
+
 #scroll-top-button.show {
   display: block;
 }
 
-/* Testing Expertise */
+
+/* ==================== TESTING EXPERTISE ==================== */
+/* Badge styles for testing skills and areas of experience */
 
 #skills .badge {
   font-size: 0.9rem;

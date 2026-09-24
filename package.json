@@ -5,12 +5,22 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "qa",
+    "software-testing",
+    "test-automation",
+    "sdet",
+    "selenium",
+    "playwright",
+    "jmeter",
+    "nodejs",
+    "express",
+    "postgresql"
+  ],
+  "author": "Kate",
+  "license": "UNLICENSED",
   "type": "module",
   "dependencies": {
     "body-parser": "^2.3.0",

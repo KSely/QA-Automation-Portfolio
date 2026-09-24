@@ -1,10 +1,12 @@
 <%- include('partials/header.ejs'); -%>
 
-<!-- Hero -->
+<!-- ==================== HERO SECTION ==================== -->
+<!-- Main introduction with portfolio title, navigation buttons, and image (Hero Section) -->
 <section id="home" class="hero-section">
   <div class="container py-5">
     <div class="row align-items-center g-5 min-vh-75">
-      <!-- Text -->
+
+      <!-- Main introduction and navigation buttons (Hero Content) -->
       <div class="col-lg-6">
         <p class="hero-label mb-2">Hi, I'm Kate</p>
 
@@ -37,7 +39,7 @@
         </div>
       </div>
 
-      <!-- Image -->
+      <!-- Main portfolio image (Hero Image) -->
       <div class="col-lg-6 text-center">
         <img
           id="hero-image"
@@ -50,7 +52,9 @@
   </div>
 </section>
 
-<!-- About -->
+
+<!-- ==================== ABOUT SECTION ==================== -->
+<!-- Short overview of QA experience and professional background (About Section) -->
 <section id="about" class="section-padding">
   <div class="container">
     <div class="row justify-content-center">
@@ -78,7 +82,9 @@
   </div>
 </section>
 
-<!-- Skills -->
+
+<!-- ==================== SKILLS SECTION ==================== -->
+<!-- QA tools, technologies, and testing experience (Skills Section) -->
 <section id="skills" class="skills-section section-padding">
   <div class="container">
     <div class="text-center mb-5">
@@ -87,6 +93,7 @@
       <h2 class="section-title">QA, Automation & Technical Skills</h2>
     </div>
 
+    <!-- Main technical skill categories (Skill Cards) -->
     <div class="row g-4">
       <div class="col-md-6 col-lg-4">
         <div id="skill-automation" class="skill-card">
@@ -139,6 +146,7 @@
       </div>
     </div>
 
+    <!-- Testing methods and areas of experience (Testing Expertise) -->
     <div class="mt-5 text-center">
       <h3 class="mb-4">Testing Expertise</h3>
 
@@ -169,11 +177,14 @@
   </div>
 </section>
 
-<!-- Featured Project -->
+
+<!-- ==================== FEATURED PROJECT SECTION ==================== -->
+<!-- Overview of the full-stack application and its testing layers (Featured Project) -->
 <section id="project" class="project-section section-padding">
   <div class="container">
     <div class="row align-items-center g-5">
-      <!-- Project Overview -->
+
+      <!-- Project purpose and application structure (Project Overview) -->
       <div class="col-lg-7">
         <p class="section-label text-info">FEATURED PROJECT</p>
 
@@ -189,7 +200,7 @@
           backend, and database layers.
         </p>
 
-        <!-- Application Flow -->
+        <!-- Show how data moves through the application (Application Flow) -->
         <div class="mt-4">
           <p class="mb-3 text-info fw-semibold">Application Flow</p>
 
@@ -217,7 +228,7 @@
         </div>
       </div>
 
-      <!-- Testing Layers -->
+      <!-- Testing areas covered by the project (Testing Layers) -->
       <div class="col-lg-5">
         <div class="project-summary-card">
           <h3 class="mb-4">Testing Layers</h3>
@@ -241,7 +252,9 @@
   </div>
 </section>
 
-<!-- Contact -->
+
+<!-- ==================== CONTACT SECTION ==================== -->
+<!-- Contact form for sending messages to the backend (Contact Form) -->
 <section id="contact" class="section-padding">
   <div class="container">
     <div class="row justify-content-center">
@@ -254,6 +267,7 @@
           <p class="contact-text">Send me a message using the form below.</p>
         </div>
 
+        <!-- Display a confirmation after a successful submission (Success Message) -->
         <div
           id="success-message"
           class="alert alert-success d-none"
@@ -262,6 +276,7 @@
           Message sent successfully!
         </div>
 
+        <!-- Send the entered contact information to the backend (POST Form) -->
         <form id="contact-form" action="/contact" method="post">
           <div class="mb-3">
             <label for="name" class="form-label"> Name </label>

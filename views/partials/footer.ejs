@@ -1,8 +1,10 @@
-<!-- Footer -->
+<!-- ==================== FOOTER ==================== -->
+<!-- Displays the portfolio copyright information and current year (Page Footer) -->
 <footer class="portfolio-footer">
 
   <div class="container text-center">
 
+    <!-- Automatically displays the current year using EJS (Dynamic Content) -->
     <p class="mb-0">
       © <%= new Date().getFullYear() %> Kate | QA Automation Portfolio
     </p>
@@ -12,14 +14,18 @@
 </footer>
 
 
+<!-- ==================== SCROLL TO TOP BUTTON ==================== -->
+<!-- Allows the user to quickly return to the top of the page (Page Navigation) -->
 <button id="scroll-top-button" aria-label="Scroll to top">
   ↑
 </button>
 
 
 <script>
+  // Find the scroll-to-top button on the page (DOM Selection)
   var scrollButton = document.querySelector("#scroll-top-button");
 
+  // Show the button after the user scrolls down the page (Scroll Event)
   window.addEventListener("scroll", function() {
 
     if (window.scrollY > 400) {
@@ -35,6 +41,7 @@
   });
 
 
+  // Smoothly return to the top when the button is clicked (Click Event)
   scrollButton.addEventListener("click", function() {
 
     window.scrollTo({
@@ -45,27 +52,40 @@
   });
 </script>
 
+
 <script>
+  // ==================== CONTACT FORM ====================
+
+  // Find the form, success message, and submit button on the page (DOM Selection)
   var contactForm = document.querySelector("#contact-form");
   var successMessage = document.querySelector("#success-message");
   var sendButton = document.querySelector("#send-message-button");
 
+  // Handle the contact form when the user submits it (Form Submission)
   contactForm.addEventListener("submit", function(event) {
 
+    // Prevent the browser from reloading the page (Default Behavior Prevention)
     event.preventDefault();
 
+    // Disable the button and show that the request is being processed (Loading State)
     sendButton.disabled = true;
     sendButton.textContent = "Sending...";
 
-  var formData = new FormData(contactForm);
+    // Collect the values entered into the contact form (Form Data)
+    var formData = new FormData(contactForm);
 
+    // Send the contact information to the backend without reloading the page (Fetch Request)
     fetch("/contact", {
       method: "POST",
       body: new URLSearchParams(formData)
     })
+
+    // Convert the server response from JSON into JavaScript data (Response Processing)
     .then(function(response) {
       return response.json();
     })
+
+    // Handle a successful response from the backend (Success Handling)
     .then(function(data) {
 
       if (data.success) {
@@ -74,13 +94,15 @@
 
         sendButton.disabled = false;
         sendButton.textContent = "Send Message";
-        }
+      }
     });
 
   });
 </script>
 
 
+<!-- ==================== BOOTSTRAP JAVASCRIPT ==================== -->
+<!-- Loads Bootstrap components used by the responsive interface (Bootstrap Bundle) -->
 <script
   src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
 </script>

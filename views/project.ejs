@@ -1,6 +1,8 @@
 <%- include('partials/header.ejs'); -%>
 
-<!-- Project Overview -->
+
+<!-- ==================== PROJECT OVERVIEW ==================== -->
+<!-- Introduces the application, its purpose, and main project goals (Project Overview) -->
 <section id="overview" class="project-hero section-padding">
   <div class="container">
     <p class="section-label">QA AUTOMATION PROJECT</p>
@@ -14,6 +16,8 @@
     <hr class="my-5" />
 
     <div class="row g-5">
+
+      <!-- Describe the application and what it was built for (Application Under Test) -->
       <div class="col-lg-7">
         <p class="section-label">PROJECT OVERVIEW</p>
 
@@ -38,6 +42,7 @@
         </p>
       </div>
 
+      <!-- Describe the main goals of the project (Project Goals) -->
       <div class="col-lg-5">
         <div class="skill-card project-goals-card">
           <h3>Project Goals</h3>
@@ -52,7 +57,9 @@
   </div>
 </section>
 
-<!-- Application Architecture -->
+
+<!-- ==================== APPLICATION ARCHITECTURE ==================== -->
+<!-- Shows how the main parts of the application work together (Application Architecture) -->
 <section id="architecture" class="skills-section section-padding">
   <div class="container">
     <div class="text-center mb-5">
@@ -67,8 +74,10 @@
       </p>
     </div>
 
-    <!-- Architecture Diagram -->
+    <!-- Show how requests and data move through the application (Architecture Diagram) -->
     <div class="architecture-diagram">
+
+      <!-- User accesses the application through a web browser (Client Layer) -->
       <div class="architecture-node">
         <span class="architecture-label">CLIENT</span>
         <h3>User / Browser</h3>
@@ -79,6 +88,7 @@
         <div class="architecture-arrow">↓</div>
       </div>
 
+      <!-- User interface displayed in the browser (Frontend Layer) -->
       <div class="architecture-node">
         <span class="architecture-label">FRONTEND</span>
         <h3>Web Application UI</h3>
@@ -90,6 +100,7 @@
         <div class="architecture-arrow">↓</div>
       </div>
 
+      <!-- Backend server receives and processes application requests (Application Server) -->
       <div class="architecture-node">
         <span class="architecture-label">APPLICATION SERVER</span>
         <h3>Node.js / Express.js</h3>
@@ -99,6 +110,7 @@
         <div class="architecture-arrow">↓</div>
       </div>
 
+      <!-- Handles routes, validation, requests, and responses (Application Layer) -->
       <div class="architecture-application-layer">
         <span class="architecture-label">APPLICATION LAYER</span>
 
@@ -120,6 +132,7 @@
         <div class="architecture-arrow">↓</div>
       </div>
 
+      <!-- Stores application data in PostgreSQL (Database Layer) -->
       <div class="architecture-node">
         <span class="architecture-label">DATABASE</span>
         <h3>PostgreSQL</h3>
@@ -128,7 +141,10 @@
     </div>
   </div>
 </section>
-<!-- Technology Stack -->
+
+
+<!-- ==================== TECHNOLOGY STACK ==================== -->
+<!-- Shows the main technologies used to build and run the application (Technology Stack) -->
 <section id="tech-stack" class="section-padding">
   <div class="container">
     <div class="text-center mb-5">
@@ -142,7 +158,10 @@
       </p>
     </div>
 
+    <!-- Main technologies grouped by their role in the application (Technology Categories) -->
     <div class="row g-4">
+
+      <!-- Technologies used to build the web interface (Frontend) -->
       <div class="col-md-6 col-lg-4">
         <div class="technology-stack-card">
           <span class="technology-category">FRONTEND</span>
@@ -151,6 +170,7 @@
         </div>
       </div>
 
+      <!-- EJS templates used to build application pages (Templating) -->
       <div class="col-md-6 col-lg-4">
         <div class="technology-stack-card">
           <span class="technology-category">TEMPLATING</span>
@@ -159,6 +179,7 @@
         </div>
       </div>
 
+      <!-- Node.js and Express handle the server-side application logic (Backend) -->
       <div class="col-md-6 col-lg-4">
         <div class="technology-stack-card">
           <span class="technology-category">BACKEND</span>
@@ -167,6 +188,7 @@
         </div>
       </div>
 
+      <!-- Processes form data sent to the server (Middleware Configuration) -->
       <div class="col-md-6 col-lg-4">
         <div class="technology-stack-card">
           <span class="technology-category">MIDDLEWARE</span>
@@ -175,6 +197,7 @@
         </div>
       </div>
 
+      <!-- Stores and manages application data in PostgreSQL (Database) -->
       <div class="col-md-6 col-lg-4">
         <div class="technology-stack-card">
           <span class="technology-category">DATABASE</span>
@@ -183,6 +206,7 @@
         </div>
       </div>
 
+      <!-- Keeps database settings outside the application code (Environment Configuration) -->
       <div class="col-md-6 col-lg-4">
         <div class="technology-stack-card">
           <span class="technology-category">CONFIGURATION</span>
@@ -191,6 +215,7 @@
         </div>
       </div>
 
+      <!-- Tools used to run and develop the application locally (Development Tools) -->
       <div class="col-md-6 col-lg-4 offset-lg-2">
         <div class="technology-stack-card">
           <span class="technology-category">DEVELOPMENT</span>
@@ -199,6 +224,7 @@
         </div>
       </div>
 
+      <!-- Tracks changes made to the project source code (Version Control) -->
       <div class="col-md-6 col-lg-4">
         <div class="technology-stack-card">
           <span class="technology-category">VERSION CONTROL</span>
@@ -210,7 +236,9 @@
   </div>
 </section>
 
-<!-- Testing Stack -->
+
+<!-- ==================== QA & TESTING STACK ==================== -->
+<!-- Shows the tools and frameworks used to test different parts of the application (Testing Stack) -->
 <section id="qa-stack" class="skills-section section-padding">
   <div class="container">
     <div class="text-center mb-5">
@@ -224,8 +252,10 @@
       </p>
     </div>
 
+    <!-- Main testing tools grouped by testing area (QA Toolset) -->
     <div class="row g-4">
-      <!-- UI Automation -->
+
+      <!-- Selenium framework for browser-based automated testing (UI Automation) -->
       <div class="col-md-6 col-lg-4">
         <div class="testing-stack-card">
           <span class="testing-category">UI AUTOMATION</span>
@@ -234,7 +264,7 @@
         </div>
       </div>
 
-      <!-- Modern UI Automation -->
+      <!-- Playwright framework for browser-based automated testing (UI Automation) -->
       <div class="col-md-6 col-lg-4">
         <div class="testing-stack-card">
           <span class="testing-category">UI AUTOMATION</span>
@@ -243,7 +273,7 @@
         </div>
       </div>
 
-      <!-- API Testing -->
+      <!-- Validates HTTP requests and responses through Postman (API Testing) -->
       <div class="col-md-6 col-lg-4">
         <div class="testing-stack-card">
           <span class="testing-category">API TESTING</span>
@@ -252,7 +282,7 @@
         </div>
       </div>
 
-      <!-- Database Testing -->
+      <!-- Verifies stored data and database behavior using SQL (Database Testing) -->
       <div class="col-md-6 col-lg-4">
         <div class="testing-stack-card">
           <span class="testing-category">DATABASE TESTING</span>
@@ -261,7 +291,7 @@
         </div>
       </div>
 
-      <!-- Performance Testing -->
+      <!-- Measures application behavior under different levels of load (Performance Testing) -->
       <div class="col-md-6 col-lg-4">
         <div class="testing-stack-card">
           <span class="testing-category">PERFORMANCE TESTING</span>
@@ -270,7 +300,7 @@
         </div>
       </div>
 
-      <!-- Cross-Browser Testing -->
+      <!-- Checks application behavior across supported browsers (Cross-Browser Testing) -->
       <div class="col-md-6 col-lg-4">
         <div class="testing-stack-card">
           <span class="testing-category">CROSS-BROWSER TESTING</span>
@@ -279,7 +309,7 @@
         </div>
       </div>
 
-      <!-- Test Design -->
+      <!-- Covers different test levels and test scenarios (Test Design) -->
       <div class="col-md-6 col-lg-4">
         <div class="testing-stack-card">
           <span class="testing-category">TEST DESIGN</span>
@@ -288,7 +318,7 @@
         </div>
       </div>
 
-      <!-- Test Reporting -->
+      <!-- Provides results from automated test execution (Test Reporting) -->
       <div class="col-md-6 col-lg-4">
         <div class="testing-stack-card">
           <span class="testing-category">TEST REPORTING</span>
@@ -297,7 +327,7 @@
         </div>
       </div>
 
-      <!-- Test Data -->
+      <!-- Uses different input values to cover multiple test scenarios (Data-Driven Testing) -->
       <div class="col-md-6 col-lg-4">
         <div class="testing-stack-card">
           <span class="testing-category">TEST DATA</span>
@@ -308,7 +338,10 @@
     </div>
   </div>
 </section>
-<!-- Test Strategy & Coverage -->
+
+
+<!-- ==================== TEST STRATEGY & COVERAGE ==================== -->
+<!-- Shows how different parts of the application are tested (Test Strategy) -->
 <section id="test-strategy" class="section-padding">
   <div class="container">
     <div class="text-center mb-5">
@@ -323,8 +356,10 @@
       </p>
     </div>
 
+    <!-- Testing is organized by the main application layers (Test Coverage) -->
     <div class="row g-4">
-      <!-- UI Testing -->
+
+      <!-- Checks user workflows, form behavior, and browser compatibility (UI Testing) -->
       <div class="col-md-6">
         <div class="test-strategy-card">
           <span class="testing-category">UI LAYER</span>
@@ -340,7 +375,7 @@
         </div>
       </div>
 
-      <!-- API Testing -->
+      <!-- Checks API requests, responses, status codes, and errors (API Testing) -->
       <div class="col-md-6">
         <div class="test-strategy-card">
           <span class="testing-category">API LAYER</span>
@@ -356,7 +391,7 @@
         </div>
       </div>
 
-      <!-- Backend & Database -->
+      <!-- Checks server-side validation and stored application data (Backend & Database Testing) -->
       <div class="col-md-6">
         <div class="test-strategy-card">
           <span class="testing-category">DATA LAYER</span>
@@ -372,7 +407,7 @@
         </div>
       </div>
 
-      <!-- Performance -->
+      <!-- Measures response times and application behavior under load (Performance Testing) -->
       <div class="col-md-6">
         <div class="test-strategy-card">
           <span class="testing-category">PERFORMANCE LAYER</span>
@@ -390,7 +425,9 @@
     </div>
   </div>
 </section>
-<!-- API Coverage -->
+
+<!-- ==================== API COVERAGE ==================== -->
+<!-- Shows the application endpoints and the main checks performed against them (API Testing) -->
 <section id="api-testing" class="skills-section section-padding">
   <div class="container">
     <div class="text-center mb-5">
@@ -405,7 +442,8 @@
     </div>
 
     <div class="row g-4">
-      <!-- Status Endpoint -->
+
+      <!-- Checks that the backend is available and returns the expected response (GET Endpoint) -->
       <div class="col-md-6">
         <div class="api-endpoint-card">
           <span class="api-method get-method">GET</span>
@@ -425,7 +463,7 @@
         </div>
       </div>
 
-      <!-- Contact Endpoint -->
+      <!-- Checks contact form requests, validation, and database storage (POST Endpoint) -->
       <div class="col-md-6">
         <div class="api-endpoint-card">
           <span class="api-method post-method">POST</span>
@@ -449,7 +487,10 @@
     </div>
   </div>
 </section>
-<!-- Database Validation -->
+
+
+<!-- ==================== DATABASE VALIDATION ==================== -->
+<!-- Shows the database structure and how submitted data is verified (Database Testing) -->
 <section id="database-testing" class="section-padding">
   <div class="container">
     <div class="text-center mb-5">
@@ -464,7 +505,8 @@
     </div>
 
     <div class="row g-4">
-      <!-- Database Schema -->
+
+      <!-- Shows the fields and data types used to store contact messages (Database Schema) -->
       <div class="col-lg-6">
         <div class="database-validation-card">
           <span class="database-category">DATABASE SCHEMA</span>
@@ -498,7 +540,7 @@
         </div>
       </div>
 
-      <!-- Data Validation -->
+      <!-- Checks that submitted data is correctly processed and stored (Data Validation) -->
       <div class="col-lg-6">
         <div class="database-validation-card">
           <span class="database-category">DATA VALIDATION</span>
@@ -519,7 +561,10 @@
     </div>
   </div>
 </section>
-<!-- Automation & Test Artifacts -->
+
+
+<!-- ==================== AUTOMATION & TEST ARTIFACTS ==================== -->
+<!-- Provides access to the automation frameworks, tests, and test results (Test Artifacts) -->
 <section class="automation-cta-section section-padding">
   <div class="container">
     <div class="text-center">
@@ -535,10 +580,12 @@
         and test results created for this project.
       </p>
 
+      <!-- Shows the main testing tools and available test results (Automation Tools) -->
       <p class="automation-tools mb-4">
         Selenium · Playwright · Postman · JMeter · Test Reports
       </p>
 
+      <!-- Opens the detailed automation and testing page (Automation Details) -->
       <a
         href="/project/automation"
         class="btn btn-primary btn-lg px-4"
