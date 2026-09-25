@@ -19,6 +19,12 @@ The application includes:
 
 The project is supported by separate Selenium, Playwright, and JMeter repositories that demonstrate different testing approaches and automation frameworks.
 
+### Testing Repositories
+
+- [Selenium Automation](https://github.com/KSely/QA-Portfolio-Selenium) — Java, Selenium WebDriver, REST Assured, JDBC, Allure
+- [Playwright Automation](https://github.com/KSely/QA-Portfolio-Playwright) — JavaScript, Playwright, UI, API, database, and cross-browser testing
+- [JMeter Performance Testing](https://github.com/KSely/QA-Portfolio-Performance) — baseline, load, stress, and endurance testing
+
 ## Technologies Used
 
 ### Frontend
@@ -62,25 +68,16 @@ The project is supported by separate Selenium, Playwright, and JMeter repositori
 
 ## Testing Scope
 
-The portfolio demonstrates testing across multiple application layers:
+The portfolio demonstrates testing across multiple application layers and test levels:
 
-- Functional Testing
-- UI Testing
-- API Testing
-- Database Testing
-- Integration Testing
-- Regression Testing
-- Smoke Testing
-- Responsive Testing
-- Cross-Browser Testing
-- Positive and Negative Testing
-- Form Validation Testing
-- Performance Testing
-- Load Testing
-- Stress Testing
-- Endurance Testing
+- **Functional Testing:** positive and negative scenarios, form validation, smoke, and regression testing
+- **UI Testing:** user interface, responsive behavior, and cross-browser compatibility
+- **API Testing:** REST endpoint validation, status codes, response bodies, and error handling
+- **Database Testing:** PostgreSQL data validation and persistence checks
+- **Integration Testing:** validation of data flow between the UI, backend API, and database
+- **Performance Testing:** baseline, load, stress, and endurance testing
 
-## Automation & Testing Projects
+## Test Automation & Performance Projects
 
 The application is tested through separate automation and performance testing projects.
 
@@ -144,7 +141,6 @@ QA-Automation-Portfolio/
 │
 ├── .env.example
 ├── .gitignore
-├── index-legacy.html
 ├── index.js
 ├── package.json
 ├── package-lock.json
@@ -162,7 +158,7 @@ EJS / Bootstrap / JavaScript
       ↓
 Node.js / Express
       ↓
-REST API & Server-Side Validation
+Routes / REST API / Server-Side Validation
       ↓
 PostgreSQL Database
 ```
@@ -197,6 +193,15 @@ The endpoint:
 - Stores valid messages in PostgreSQL
 - Returns JSON success or error responses
 
+Example successful response:
+
+```json
+{
+  "success": true,
+  "message": "Message sent successfully!"
+}
+``` 
+
 ## Database
 
 PostgreSQL is used to store messages submitted through the contact form.
@@ -209,7 +214,7 @@ The `messages` table contains:
 - `message` — submitted message
 - `created_at` — date and time of submission
 
-Database testing verifies that valid form submissions are stored correctly and that the saved data matches the information sent through the application.
+Database testing verifies that contact form submissions are stored correctly in PostgreSQL. Automated tests validate that the saved name, email, and message values match the submitted data and confirm successful data persistence between the application and database.
 
 ## Getting Started
 
