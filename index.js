@@ -6,26 +6,28 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 
 // ==================== DATABASE CONNECTION ====================
 
-// Connect to PostgreSQL using environment variables (Database Configuration)
-const db = new pg.Client({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DATABASE,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
-});
-
-db.connect();
+const db = new pg.Client(
+  process.env.DATABASE_URL
+    ? {
+        connectionString: process.env.DATABASE_URL,
+      }
+    : {
+        user: process.env.DB_USER,
+        host: process.env.DB_HOST,
+        database: process.env.DB_DATABASE,
+        password: process.env.DB_PASSWORD,
+        port: process.env.DB_PORT,
+      }
+);
 
 
 // ==================== APPLICATION SETUP ====================
 
-// Handle form data and public files (Middleware Configuration)
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
@@ -66,7 +68,14 @@ app.post("/contact", async (req, res) => {
   const message = req.body.message;
 
   // Make sure all required fields are filled in (Input Validation)
-  if (!name || !email || !message || !name.trim() || !email.trim() || !message.trim()) {
+  if (
+    !name ||
+    !email ||
+    !message ||
+    !name.trim() ||
+    !email.trim() ||
+    !message.trim()
+  ) {
     return res.status(400).json({
       success: false,
       message: "All fields are required."
@@ -100,7 +109,16 @@ app.post("/contact", async (req, res) => {
 
 // ==================== SERVER ====================
 
-// Start the application server (Server Startup)
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+// Connect to PostgreSQL first, then start the application server
+db.connect()
+  .then(() => {
+    console.log("Connected to PostgreSQL");
+
+    app.listen(port, () => {
+      console.log(`Server running on port ${port}`);
+    });
+  })
+  .catch((error) => {
+    console.error("PostgreSQL connection error:", error);
+    process.exit(1);
+  });
