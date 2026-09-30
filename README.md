@@ -2,7 +2,9 @@
 
 A full-stack QA Automation Portfolio application created to showcase my software testing experience, technical skills, and automation projects.
 
-The application also serves as an Application Under Test (AUT) for UI, API, database, and performance testing.
+The application also serves as an Application Under Test (AUT) for UI, API, database, integration, regression, cross-browser, and performance testing.
+
+---
 
 ## About the Project
 
@@ -15,15 +17,62 @@ The application includes:
 - REST API endpoints
 - Contact form with input validation
 - PostgreSQL database integration
-- UI, API, database, and performance testing
+- UI, API, database, integration, and performance testing
+- Defect investigation and regression testing
+- Requirements traceability and test reporting
 
 The project is supported by separate Selenium, Playwright, and JMeter repositories that demonstrate different testing approaches and automation frameworks.
 
-### Testing Repositories
+---
 
-- [Selenium Automation](https://github.com/KSely/QA-Portfolio-Selenium) — Java, Selenium WebDriver, REST Assured, JDBC, Allure
-- [Playwright Automation](https://github.com/KSely/QA-Portfolio-Playwright) — JavaScript, Playwright, UI, API, database, and cross-browser testing
-- [JMeter Performance Testing](https://github.com/KSely/QA-Portfolio-Performance) — baseline, load, stress, and endurance testing
+## Testing Repositories
+
+### Selenium Automation
+
+Java-based automation framework using:
+
+- Java
+- Selenium WebDriver
+- TestNG
+- Maven
+- REST Assured
+- JDBC
+- PostgreSQL
+- Allure
+
+Repository: [QA-Portfolio-Selenium](https://github.com/KSely/QA-Portfolio-Selenium)
+
+### Playwright Automation
+
+JavaScript-based automation framework using:
+
+- Playwright
+- JavaScript
+- UI testing
+- API testing
+- Database validation
+- Regression testing
+- Cross-browser testing
+
+Repository: [QA-Portfolio-Playwright](https://github.com/KSely/QA-Portfolio-Playwright)
+
+### JMeter Performance Testing
+
+Apache JMeter performance testing project covering:
+
+- Smoke testing
+- Baseline testing
+- Load testing
+- Stress testing
+- Endurance testing
+- Response time analysis
+- Percentile analysis
+- Throughput analysis
+- Error rate analysis
+
+Repository: [QA-Portfolio-Performance](https://github.com/KSely/QA-Portfolio-Performance)
+
+---
 
 ## Technologies Used
 
@@ -52,12 +101,15 @@ The project is supported by separate Selenium, Playwright, and JMeter repositori
 
 - Selenium WebDriver
 - Java
+- TestNG
 - Maven
 - Playwright
 - JavaScript
 - REST Assured
+- JDBC
 - Postman
 - Apache JMeter
+- Allure
 
 ### Development Tools
 
@@ -65,17 +117,224 @@ The project is supported by separate Selenium, Playwright, and JMeter repositori
 - IntelliJ IDEA
 - Git
 - GitHub
+- GitHub Actions
+
+---
 
 ## Testing Scope
 
-The portfolio demonstrates testing across multiple application layers and test levels:
+The portfolio demonstrates testing across multiple application layers and test levels.
 
-- **Functional Testing:** positive and negative scenarios, form validation, smoke, and regression testing
-- **UI Testing:** user interface, responsive behavior, and cross-browser compatibility
-- **API Testing:** REST endpoint validation, status codes, response bodies, and error handling
-- **Database Testing:** PostgreSQL data validation and persistence checks
-- **Integration Testing:** validation of data flow between the UI, backend API, and database
-- **Performance Testing:** baseline, load, stress, and endurance testing
+### Functional Testing
+
+Covers:
+
+- Positive scenarios
+- Negative scenarios
+- Form validation
+- Application workflows
+- Smoke testing
+- Regression testing
+
+### UI Testing
+
+Covers:
+
+- User interface behavior
+- Navigation
+- Form interactions
+- Responsive behavior
+- Browser-side validation
+- JavaScript error detection
+- Cross-browser compatibility
+
+### API Testing
+
+Covers:
+
+- REST endpoint validation
+- HTTP status codes
+- Response bodies
+- Positive and negative scenarios
+- Validation behavior
+- Error responses
+
+### Database Testing
+
+Covers:
+
+- PostgreSQL persistence validation
+- Data verification
+- Database schema expectations
+- Contact form persistence
+- Verification that rejected submissions are not stored
+
+### Integration Testing
+
+Validates data flow between:
+
+- Browser UI
+- Express backend
+- REST endpoints
+- PostgreSQL database
+
+### Performance Testing
+
+Covers:
+
+- Smoke performance testing
+- Baseline testing
+- Load testing
+- Stress testing
+- Endurance testing
+- Response time
+- Percentiles
+- Throughput
+- Error rate
+
+---
+
+## QA Documentation
+
+The repository includes a structured QA documentation set created from the implemented application behavior and completed verification cycles.
+
+### [Test Plan](docs/qa/TEST_PLAN.md)
+
+Defines:
+
+- Testing scope
+- Test strategy
+- Test levels and types
+- Risks
+- Priorities
+- Entry criteria
+- Exit criteria
+- Suspension and resumption criteria
+- Environments
+- Test deliverables
+- Reporting approach
+
+### [Requirements](docs/qa/REQUIREMENTS.md)
+
+Documents source-derived application and verification requirements covering:
+
+- User interface
+- Navigation
+- Contact form
+- API
+- Database
+- Automation
+- Verification expectations
+
+### [Test Design](docs/qa/TEST_DESIGN.md)
+
+Documents test design approaches and techniques including:
+
+- Equivalence Partitioning
+- Boundary Value Analysis
+- Decision Table Testing
+- State Transition Testing
+- Use Case Testing
+- Error Guessing
+- Checklist-Based Testing
+
+### [Test Cases](docs/qa/TEST_CASES.md)
+
+Provides a consolidated test catalogue covering:
+
+- Selenium UI testing
+- Selenium API testing
+- Selenium database testing
+- Playwright UI testing
+- Playwright API testing
+- Playwright database testing
+- JMeter performance testing
+
+### [Requirements Traceability Matrix](docs/qa/RTM.md)
+
+Maps:
+
+- Requirements
+- Test coverage
+- Test execution evidence
+- Defects
+- Verification results
+
+### [Defect Log](docs/qa/DEFECT_LOG.md)
+
+Documents:
+
+- Defect reproduction
+- Severity and priority
+- Expected and actual results
+- Root-cause observations
+- Regression coverage
+- Fixes
+- Retest results
+- Remaining limitations
+
+### [Test Summary Report](docs/qa/TEST_SUMMARY_REPORT.md)
+
+Summarizes completed verification cycles including:
+
+- Test execution results
+- Defect verification
+- Regression results
+- Scope limitations
+- Remaining coverage gaps
+
+---
+
+## Defect & Regression Workflow
+
+The project includes documented defect lifecycles demonstrating a test-first regression workflow.
+
+### DEF-001 — Shared Footer JavaScript Error
+
+A shared JavaScript handler attempted to attach a contact-form event listener on pages where the contact form was not present.
+
+The issue was:
+
+1. Identified during source review
+2. Reproduced in the browser
+3. Logged as a confirmed defect
+4. Covered with Playwright regression tests
+5. Reproduced automatically as a pre-fix failure
+6. Fixed using null-safe event binding
+7. Retested successfully
+8. Verified through broader Chromium regression testing
+9. Documented in the defect log, RTM, test design, requirements, test cases, test plan, and test summary report
+
+### DEF-002 — Contact Form Recovery After Server-Side Rejection
+
+A server-side validation rejection returned:
+
+```json
+{
+  "success": false,
+  "message": "All fields are required."
+}
+```
+
+The backend correctly rejected invalid data, but the UI remained disabled in the `Sending...` state.
+
+The issue was:
+
+1. Reproduced using browser-valid input that failed server-side validation
+2. Logged as a confirmed defect
+3. Covered with a focused Playwright regression test
+4. Confirmed through a pre-fix automated failure
+5. Fixed by restoring the submit button after a valid JSON response
+6. Retested successfully
+7. Verified against the existing successful contact submission flow
+8. Verified through broader Chromium UI regression testing
+9. Documented through the QA reporting and traceability workflow
+
+The defect workflow demonstrates:
+
+**Identify → Reproduce → Document → Automate → Fail → Fix → Retest → Regression → Report**
+
+---
 
 ## Test Automation & Performance Projects
 
@@ -83,24 +342,27 @@ The application is tested through separate automation and performance testing pr
 
 ### Selenium
 
-Java-based test automation framework covering:
+Java-based automation framework covering:
 
 - UI testing
 - API testing with REST Assured
 - Database validation with PostgreSQL and JDBC
-- Smoke and regression testing
-- Cross-browser testing with Chrome, Firefox, and Edge
+- Smoke testing
+- Regression testing
+- Cross-browser test configuration for Chrome, Firefox, and Edge
 - Allure test reporting
 
 ### Playwright
 
-JavaScript-based test automation framework covering:
+JavaScript-based automation framework covering:
 
 - UI testing
 - API testing
 - Database validation
-- Smoke and regression testing
-- Cross-browser testing with Chromium, Firefox, and WebKit
+- Smoke testing
+- Regression testing
+- Defect regression coverage
+- Cross-browser test configuration for Chromium, Firefox, and WebKit
 - Playwright HTML reporting
 
 ### JMeter
@@ -114,7 +376,10 @@ Apache JMeter performance testing project covering:
 - Endurance testing
 - Response time analysis
 - Percentile analysis
-- Throughput and error rate analysis
+- Throughput analysis
+- Error rate analysis
+
+---
 
 ## Project Structure
 
@@ -124,10 +389,21 @@ QA-Automation-Portfolio/
 ├── database/
 │   └── schema.sql
 │
+├── docs/
+│   └── qa/
+│       ├── DEFECT_LOG.md
+│       ├── REQUIREMENTS.md
+│       ├── RTM.md
+│       ├── TEST_CASES.md
+│       ├── TEST_DESIGN.md
+│       ├── TEST_PLAN.md
+│       └── TEST_SUMMARY_REPORT.md
+│
 ├── public/
 │   ├── assets/
 │   │   └── images/
 │   │       └── ImageLaptop.png
+│   │
 │   └── styles/
 │       └── main.css
 │
@@ -135,6 +411,7 @@ QA-Automation-Portfolio/
 │   ├── partials/
 │   │   ├── header.ejs
 │   │   └── footer.ejs
+│   │
 │   ├── index.ejs
 │   ├── project.ejs
 │   └── automation.ejs
@@ -147,9 +424,11 @@ QA-Automation-Portfolio/
 └── README.md
 ```
 
+---
+
 ## Application Architecture
 
-The portfolio application follows a simple full-stack architecture:
+The portfolio application follows a simple server-rendered full-stack architecture.
 
 ```text
 User Interface
@@ -162,15 +441,26 @@ Routes / REST API / Server-Side Validation
       ↓
 PostgreSQL Database
 ```
-The frontend provides the user interface and sends requests to the Express backend. The backend handles application routes, validates submitted data, communicates with PostgreSQL, and returns the appropriate response to the frontend.
 
-The same application is used as the AUT for Selenium, Playwright, API, database, and JMeter performance testing.
+The frontend provides the user interface and sends requests to the Express backend.
+
+The backend:
+
+- Handles application routes
+- Provides REST API endpoints
+- Performs server-side validation
+- Communicates with PostgreSQL
+- Returns JSON responses to the frontend
+
+The same application is used as the Application Under Test for Selenium, Playwright, API, database, integration, and JMeter performance testing.
+
+---
 
 ## API Endpoints
 
 The application includes REST endpoints used for backend and API testing.
 
-### GET /api/status
+### GET `/api/status`
 
 Checks whether the backend is running and returns the application status.
 
@@ -182,7 +472,8 @@ Example response:
   "message": "QA Automation Portfolio backend is running"
 }
 ```
-### POST /contact
+
+### POST `/contact`
 
 Processes contact form submissions.
 
@@ -191,6 +482,7 @@ The endpoint:
 - Validates required fields
 - Validates the email address format
 - Stores valid messages in PostgreSQL
+- Rejects invalid submissions
 - Returns JSON success or error responses
 
 Example successful response:
@@ -200,7 +492,18 @@ Example successful response:
   "success": true,
   "message": "Message sent successfully!"
 }
-``` 
+```
+
+Example validation rejection:
+
+```json
+{
+  "success": false,
+  "message": "All fields are required."
+}
+```
+
+---
 
 ## Database
 
@@ -214,7 +517,14 @@ The `messages` table contains:
 - `message` — submitted message
 - `created_at` — date and time of submission
 
-Database testing verifies that contact form submissions are stored correctly in PostgreSQL. Automated tests validate that the saved name, email, and message values match the submitted data and confirm successful data persistence between the application and database.
+Database testing verifies that:
+
+- Valid contact form submissions are stored correctly
+- Saved values match submitted values
+- Data persists successfully between the application and PostgreSQL
+- Rejected submissions do not create unexpected database records
+
+---
 
 ## Getting Started
 
@@ -228,25 +538,25 @@ Before running the application, make sure the following are installed:
 
 ### Installation
 
-1. Clone the repository:
+Clone the repository:
 
 ```bash
 git clone https://github.com/KSely/QA-Automation-Portfolio.git
 ```
 
-2. Navigate to the project directory:
+Navigate to the project directory:
 
 ```bash
 cd QA-Automation-Portfolio
 ```
 
-3. Install dependencies:
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-4. Create a `.env` file based on `.env.example` and configure your PostgreSQL connection:
+Create a `.env` file based on `.env.example` and configure your PostgreSQL connection:
 
 ```env
 DB_USER=postgres
@@ -256,13 +566,13 @@ DB_PASSWORD=your_password
 DB_PORT=5432
 ```
 
-5. Create the database table using:
+Create the database table using:
 
 ```text
 database/schema.sql
 ```
 
-6. Start the application:
+Start the application:
 
 ```bash
 npm start
@@ -274,11 +584,14 @@ For development with automatic server restart:
 npm run dev
 ```
 
-7. Open the application in your browser:
+Open the application in your browser:
 
 ```text
 http://localhost:3000
 ```
+
+---
+
 ## Related Testing Repositories
 
 This application serves as the Application Under Test (AUT) for the following QA projects:
@@ -287,22 +600,40 @@ This application serves as the Application Under Test (AUT) for the following QA
 
 Java-based automation framework covering UI, API, database, regression, smoke, and cross-browser testing.
 
-Repository: https://github.com/KSely/QA-Portfolio-Selenium
+Repository: [QA-Portfolio-Selenium](https://github.com/KSely/QA-Portfolio-Selenium)
 
 ### Playwright Automation
 
-JavaScript-based automation framework covering UI, API, database, regression, smoke, and cross-browser testing.
+JavaScript-based automation framework covering UI, API, database, regression, smoke, defect regression, and cross-browser testing.
 
-Repository: https://github.com/KSely/QA-Portfolio-Playwright
+Repository: [QA-Portfolio-Playwright](https://github.com/KSely/QA-Portfolio-Playwright)
 
 ### JMeter Performance Testing
 
 Apache JMeter project covering baseline, load, stress, and endurance performance testing with response time, percentile, throughput, and error rate analysis.
 
-Repository: https://github.com/KSely/QA-Portfolio-Performance
+Repository: [QA-Portfolio-Performance](https://github.com/KSely/QA-Portfolio-Performance)
+
+---
 
 ## Portfolio Use
 
-This project was created for portfolio and demonstration purposes to showcase my software testing and test automation experience.
+This project was created for portfolio and demonstration purposes to showcase my experience in:
 
-The source code is publicly available for review by potential employers and recruiters. It is not provided as an open-source project for reuse or redistribution.
+- Software testing
+- QA automation
+- Test design
+- UI testing
+- API testing
+- Database testing
+- Integration testing
+- Performance testing
+- Defect investigation
+- Regression testing
+- Requirements traceability
+- QA documentation
+- Test reporting
+
+The source code and QA documentation are publicly available for review by potential employers and recruiters.
+
+No open-source license is currently provided for this repository.
