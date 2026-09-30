@@ -62,7 +62,7 @@
   var sendButton = document.querySelector("#send-message-button");
 
   // Handle the contact form when the user submits it (Form Submission)
-  contactForm.addEventListener("submit", function(event) {
+  contactForm?.addEventListener("submit", function(event) {
 
     // Prevent the browser from reloading the page (Default Behavior Prevention)
     event.preventDefault();
@@ -91,10 +91,10 @@
       if (data.success) {
         successMessage.classList.remove("d-none");
         contactForm.reset();
-
-        sendButton.disabled = false;
-        sendButton.textContent = "Send Message";
       }
+
+      sendButton.disabled = false;
+      sendButton.textContent = "Send Message";
     });
 
   });
