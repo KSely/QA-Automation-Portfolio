@@ -88,6 +88,10 @@ JavaScript-based automation framework using:
 - Database validation
 - Regression testing
 - Cross-browser testing
+- Accessibility testing with axe-core
+- WCAG-oriented automated scans
+- Focus and Enter activation checks
+- Accessible-name and form-semantics checks
 
 Repository:
 
@@ -144,6 +148,7 @@ Repository:
 - TestNG
 - Maven
 - Playwright
+- axe-core
 - JavaScript
 - Jest
 - REST Assured
@@ -205,6 +210,35 @@ Covers:
 - JavaScript error detection
 - Cross-browser compatibility
 
+### Accessibility Testing
+
+Covers:
+
+- Automated accessibility scans with Playwright and axe-core
+- WCAG A/AA-oriented automated checks
+- Color-contrast validation
+- Accessible names and required form semantics
+- Link focus and Enter activation
+- Contact-form keyboard focus order
+
+Execution history:
+
+Initial accessibility execution:
+
+- 5 total
+- 3 passed
+- 2 failed
+- DEF-003 and DEF-004 identified
+
+Post-fix retest:
+
+- 5 total
+- 5 passed
+- 0 failed
+- 0 skipped
+
+Automated accessibility checks detect only some accessibility issues and do not establish full WCAG compliance. Manual accessibility assessment remains necessary for areas such as keyboard-only navigation, visible focus, zoom/reflow, screen-reader behavior, reading order, and usability of validation feedback.
+
 ### API Testing
 
 Covers:
@@ -254,7 +288,7 @@ Covers:
 
 The repository includes a structured QA documentation set created from the implemented application behavior and completed verification cycles.
 
-### Test Plan
+### [Test Plan](docs/qa/TEST_PLAN.md)
 
 Defines:
 
@@ -270,7 +304,7 @@ Defines:
 - Test deliverables
 - Reporting approach
 
-### Requirements
+### [Requirements](docs/qa/REQUIREMENTS.md)
 
 Documents source-derived application and verification requirements covering:
 
@@ -282,7 +316,7 @@ Documents source-derived application and verification requirements covering:
 - Automation
 - Verification expectations
 
-### Test Design
+### [Test Design](docs/qa/TEST_DESIGN.md)
 
 Documents test design approaches and techniques including:
 
@@ -294,7 +328,7 @@ Documents test design approaches and techniques including:
 - Error Guessing
 - Checklist-Based Testing
 
-### Test Cases
+### [Test Cases](docs/qa/TEST_CASES.md)
 
 Provides a consolidated test catalogue covering:
 
@@ -305,9 +339,12 @@ Provides a consolidated test catalogue covering:
 - Playwright UI testing
 - Playwright API testing
 - Playwright database testing
+- Playwright accessibility testing
 - JMeter performance testing
 
-### Requirements Traceability Matrix
+The catalogue contains **101 unique documented test cases**.
+
+### [Requirements Traceability Matrix](docs/qa/RTM.md)
 
 Maps:
 
@@ -317,7 +354,7 @@ Maps:
 - Defects
 - Verification results
 
-### Defect Log
+### [Defect Log](docs/qa/DEFECT_LOG.md)
 
 Documents:
 
@@ -330,7 +367,7 @@ Documents:
 - Retest results
 - Remaining limitations
 
-### Test Summary Report
+### [Test Summary Report](docs/qa/TEST_SUMMARY_REPORT.md)
 
 Summarizes completed verification cycles including:
 
@@ -387,6 +424,18 @@ The issue was:
 - Verified through broader Chromium UI regression testing
 - Documented through the QA reporting and traceability workflow
 
+### DEF-003 — Insufficient Color Contrast on "View Project Details" Button
+
+Playwright and axe-core detected a `color-contrast` violation on the Home-page project details button. Its initial **2.48:1** contrast ratio was below the required **4.5:1** minimum.
+
+The base contrast was fixed to **5.473:1**, while hover, focus, and active states now provide **7.584:1** contrast. The accessibility retest passed, and the defect is closed.
+
+### DEF-004 — Insufficient Color Contrast for Architecture Connector Labels
+
+Playwright and axe-core detected a `color-contrast` violation on the Project-page architecture connector labels. Their initial **4.263:1** contrast ratio was below the required **4.5:1** minimum.
+
+The contrast was fixed to **5.152:1**. The accessibility retest passed, and the defect is closed.
+
 The defect workflow demonstrates:
 
 ```text
@@ -439,7 +488,12 @@ JavaScript-based automation framework covering:
 - Smoke testing
 - Regression testing
 - Defect regression coverage
-- Cross-browser test configuration for Chromium, Firefox, and WebKit
+- Functional UI execution across Chromium, Firefox, and WebKit
+- Accessibility testing with axe-core
+- WCAG-oriented automated scans
+- Focus and keyboard interaction checks
+- Form semantics checks
+- Accessibility suite execution in Chromium only
 - Playwright HTML reporting
 
 ### JMeter
@@ -795,7 +849,7 @@ Java-based automation framework covering UI, API, database, regression, smoke, a
 
 ### Playwright Automation
 
-JavaScript-based automation framework covering UI, API, database, regression, smoke, defect regression, and cross-browser testing.
+JavaScript-based automation framework covering UI, API, database, regression, smoke, accessibility, defect regression, and cross-browser testing.
 
 [QA-Portfolio-Playwright](https://github.com/KSely/QA-Portfolio-Playwright)
 
@@ -816,6 +870,7 @@ This project was created for portfolio and demonstration purposes to showcase my
 - Unit testing with Jest
 - Test design
 - UI testing
+- Accessibility testing
 - API testing
 - Database testing
 - Integration testing
