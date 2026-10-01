@@ -2,7 +2,7 @@
 
 ## Purpose and baseline
 
-Status: Reviewed documentation baseline with completed DEF-001/DEF-002 evidence and verified Jest unit results. Execution status for the remaining catalogue is not assessed by this document.
+Status: Reviewed documentation baseline with completed DEF-001/DEF-002 evidence, verified Jest unit results, and verified Playwright accessibility evidence including closed DEF-003/DEF-004. Execution status for the remaining catalogue is not assessed by this document.
 
 Explain how the existing behaviors and automated cases can be classified, where formal techniques are defensible, and which conditions remain unimplemented. This document does not retrofit undocumented historical design intent or claim coverage measurements that were not collected.
 
@@ -28,7 +28,7 @@ The design process is informed by ISTQB terminology, but this document does not 
 | Dimension | Values | Interpretation in this portfolio |
 |---|---|---|
 | Test Level | Unit; Integration; System; End-to-End scope | Jest directly tests the contact validation module. E2E is a workflow-scope tag overlapping system/integration, not an exclusive extra level. |
-| Test Type / Purpose | Functional; Regression; Smoke; Cross-browser; API; Database; Performance; Load; Stress | Practical multi-tag taxonomy mixing objectives, selection purposes, interfaces, and workloads; not a mutually exclusive hierarchy. |
+| Test Type / Purpose | Functional; Regression; Smoke; Cross-browser; Accessibility; API; Database; Performance; Load; Stress | Practical multi-tag taxonomy mixing objectives, selection purposes, interfaces, and workloads; not a mutually exclusive hierarchy. |
 | Test Approach | Black-box; Gray-box; White-box; Undetermined | Relative to the selected test object and oracle. |
 | Test Design Technique | Equivalence Partitioning; Boundary Value Analysis; Decision Table; State Transition; Use Case; Error Guessing; Checklist-based; Not specifically technique-driven | Technique is based on condition selection, not programming language or runner. |
 | Scenario | Positive; Negative; Mixed / Not applicable | A negative scenario can have a Passed execution result. |
@@ -54,6 +54,7 @@ The design process is informed by ISTQB terminology, but this document does not 
 | P-UI-004: successful contact submission with DB verification | System/E2E scope; Integration verification; Functional/Regression/Cross-browser/Database; Gray-box; Use Case; Positive; UI + Database; Automated | Exercises the user journey and then reads PostgreSQL. |
 | P-API-004: omitted name | System; Functional/API; Black-box; Equivalence Partitioning; Negative; API; Automated | HTTP response assertions only; no DB assertion in this PW family. |
 | S-API-004: whitespace name | Integration; Functional/API/Database; Gray-box; Equivalence Partitioning; Negative; API + Database; Automated | Asserts 400/error body and checks non-persistence. |
+| P-A11Y-001: Home-page axe scan | System; Accessibility/Regression; Black-box; Checklist-based; Positive expectation; UI; Automated | Runs WCAG-oriented automated rules against the rendered page. Its initial failure confirmed DEF-003; its post-fix pass verifies the fix. The historical failure does not change the positive test-condition classification. |
 | J-PERF-007: 1,000-user plan | System; Performance/Stress; Black-box; Not specifically technique-driven; Positive requests under high workload; Performance endpoint; Automated | Workload configuration is not BVA; samples do not become separate cases. |
 
 ## Technique Selection Rationale
@@ -68,7 +69,7 @@ Techniques are selected from the behavior model and the question being investiga
 | State Transition Testing | Contact form lifecycle states and events; current coverage is partial |
 | Use Case Testing | The user's complete contact-submission goal and workflow |
 | Error Guessing | Experience-driven fault hypotheses grounded in concrete code observations |
-| Checklist-based Testing | Repeatable UI, content, and navigation checks |
+| Checklist-based Testing | Repeatable UI, content, navigation, semantic, keyboard, and automated accessibility checks |
 
 Simple existing visibility/navigation checks remain Not specifically technique-driven where a formal technique is not supported by their design.
 
@@ -216,13 +217,32 @@ DT identifiers identify analysis rules, not new final test-case IDs.
 
 **Project examples:** Required sections visible; link reaches destination; fields labelled; browser console free of relevant application errors; mobile menu operates; keyboard can reach controls.
 
-**Existing automated representation:** Visibility/navigation assertions resemble checklist items, but no formal checklist artifact or derivation exists. They remain Not specifically technique-driven in the catalogue. P-UI-015 and P-UI-016 are explicit Checklist-based Testing cases: each checks absence of startup JavaScript page errors after direct navigation to its route.
+**Existing automated representation:** Visibility/navigation assertions resemble checklist items, but no formal checklist artifact or derivation exists. They remain Not specifically technique-driven in the catalogue. P-UI-015 and P-UI-016 explicitly check absence of startup JavaScript page errors after direct navigation. P-A11Y-001–005 apply a defined automated accessibility checklist through three axe scans and two focused keyboard/semantic checks.
 
-**Identified gaps:** Explicit checklist ownership, automation-page rendering (REQ-UI-007) and navigation (REQ-UI-009), keyboard/mobile checks, and browser-error assertions beyond /project and /project/automation startup. DEF-001 partially addresses this gap; neither all pages nor console warnings/later interactions are covered.
+**Identified gaps:** Explicit checklist ownership, automation-page rendering (REQ-UI-007) and navigation (REQ-UI-009), comprehensive manual keyboard/mobile checks, and browser-error assertions beyond /project and /project/automation startup. DEF-001 partially addresses browser-error coverage. The accessibility layer covers selected routes and interactions only; it does not cover every page state, later interaction, or manual accessibility condition.
 
 **Proposed future conditions:** Create a reviewed checklist mapping each item to existing automation, a proposed case, or a manual check. A planned manual check is not a historical manual execution.
 
 **DEF-001 example:** Source inspection identified an unconditional handler on a possibly absent form → browser reproduction confirmed the TypeError on /project and /project/automation → two Black-box System regression checks registered pageerror listeners before navigation → both failed pre-fix with `TypeError: Cannot read properties of null (reading 'addEventListener')` → both passed after optional chaining guarded registration. The successful-contact check and broader 16-case Chromium UI run also passed. This evidence is limited to Chromium; see [DEFECT_LOG.md](DEFECT_LOG.md).
+
+## Accessibility Testing
+
+The implemented Playwright accessibility layer is classified as **System/UI Accessibility Testing**. It uses `@axe-core/playwright` and axe-core in a dedicated Chromium project. The three automated scans evaluate supported WCAG A/AA-oriented rule tags against the rendered Home, Project, and Automation pages. The two focused checks exercise one main-navigation focus/Enter path and selected contact-form accessible-name, required-attribute, and keyboard-focus behavior.
+
+The axe scans are Black-box checks of externally rendered behavior. Their WCAG-oriented rule selection is an automated oracle, not evidence that all WCAG success criteria can be machine tested. P-A11Y-001 and P-A11Y-002 initially failed on genuine `color-contrast` findings linked to DEF-003 and DEF-004, then passed after the targeted fixes. P-A11Y-003–005 passed in both the initial and post-fix local Chromium runs. Both defects are Closed / Fixed / Retest Passed.
+
+Automated accessibility coverage can detect issues such as missing accessible names, invalid ARIA, some landmark/semantic problems, and some color-contrast failures. It cannot establish full accessibility or full WCAG compliance.
+
+Manual accessibility remains separate and should include:
+
+- complete keyboard-only navigation and logical tab order;
+- visible focus across interactive states;
+- 200% zoom and responsive reflow;
+- screen-reader names, roles, states, and announcements;
+- meaningful heading structure and reading order; and
+- usability of validation and error feedback.
+
+No standalone accessibility product requirement exists in [REQUIREMENTS.md](REQUIREMENTS.md). The implemented cases and confirmed defects are traced without inventing one.
 
 ## Interpretation and ambiguity
 
@@ -240,7 +260,7 @@ DT identifiers identify analysis rules, not new final test-case IDs.
 
 ## Coverage gaps and future conditions
 
-Priorities for later design review: network/JSON failure recovery and rejection feedback/retry sequences, success reset/button verification, browser errors beyond the two covered startup routes, schema-length boundaries, additional combined-invalid conditions beyond the tested required-error precedence case, complete persisted fields/count, DB outages, automation-page navigation, mobile/keyboard behavior, and contact-write workload testing.
+Priorities for later design review: network/JSON failure recovery and rejection feedback/retry sequences, success reset/button verification, browser errors beyond the two covered startup routes, schema-length boundaries, additional combined-invalid conditions beyond the tested required-error precedence case, complete persisted fields/count, DB outages, automation-page navigation, comprehensive manual accessibility and accessibility requirement definition, mobile behavior, and contact-write workload testing.
 
 No final future case IDs are assigned here. Failure handling, revised API contracts, stronger DB assertions, isolation, CI/schema reproducibility, reporting, and performance improvements are not implemented by these documents.
 

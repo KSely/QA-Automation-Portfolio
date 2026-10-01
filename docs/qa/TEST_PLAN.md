@@ -2,8 +2,8 @@
 
 - Test Plan ID: TP-QAP-001
 - Status: Reviewed documentation baseline; proposed process criteria remain subject to human review.
-- Baseline: Reviewed implementation, with DEF-001/DEF-002 evidence and the verified Jest contact-validation unit layer recorded separately.
-- Execution status: Jest unit layer verified; execution status for the remaining catalogue is not assessed in this documentation baseline.
+- Baseline: Reviewed implementation, with DEF-001/DEF-002 evidence, the verified Jest contact-validation unit layer, and verified Playwright accessibility evidence recorded separately.
+- Execution status: Jest unit layer verified; the initial Playwright accessibility run recorded 3 passed and 2 failed, and the post-fix retest recorded 5 passed and 0 failed with DEF-003/DEF-004 closed; execution status for the remaining catalogue is not assessed in this documentation baseline.
 - Source authority: Source code, configuration, and executable test definitions take precedence over this snapshot.
 
 ## Purpose
@@ -55,7 +55,7 @@ The documentation hub and application-local unit layer are in QA-Automation-Port
 |---|---|
 | QA-Automation-Portfolio | Application under test plus application-local Jest unit tests for the contact validation module |
 | QA-Portfolio-Selenium | Java UI, REST Assured API, and JDBC database automation |
-| QA-Portfolio-Playwright | JavaScript UI, request-fixture API, and pg database automation |
+| QA-Portfolio-Playwright | JavaScript UI, accessibility, request-fixture API, and pg database automation |
 | QA-Portfolio-Performance | JMeter smoke, baseline, load, and stress-labelled status workloads |
 
 ### In Scope
@@ -67,6 +67,7 @@ The documentation hub and application-local unit layer are in QA-Automation-Port
 - Isolated Jest coverage of required-field, whitespace, email-format, and validation-error behavior in the contact validation module.
 - PostgreSQL connectivity, message persistence, non-persistence assertions, and test-data lifecycle.
 - Configured desktop cross-browser execution.
+- Chromium automated accessibility scans for Home, Project, and Automation pages, plus selected keyboard and contact-form semantic checks.
 - Existing status-endpoint JMeter workload profiles and result interpretation.
 
 In-scope features are not necessarily fully covered. Coverage status is recorded per requirement.
@@ -76,7 +77,7 @@ In-scope features are not necessarily fully covered. Coverage status is recorded
 - Authentication, authorization, payment, email-delivery, or CRUD features not implemented.
 - Production capacity certification, production readiness, and deployment/rollback testing.
 - Endurance execution and unsupported claims of Postman collection coverage.
-- Dedicated accessibility, visual regression, security, and mobile suites: not currently implemented; extensions need separate scope.
+- Complete manual accessibility assessment, accessibility certification, visual regression, security, and mobile suites.
 - Running tests, changing source, or modifying databases as part of creating this baseline.
 
 ## Application Under Test
@@ -106,7 +107,9 @@ The server listens on port 3000. Accepted contacts are stored; they are not emai
 
 ## Test Types
 
-Unit, functional, regression, smoke, cross-browser, API, database, and performance tags are used. Load and stress describe workload categories. The one-request JMeter smoke plan primarily verifies correctness/readiness of the test setup; it is not meaningful capacity evidence.
+Unit, functional, regression, smoke, cross-browser, accessibility, API, database, and performance tags are used. Load and stress describe workload categories. The one-request JMeter smoke plan primarily verifies correctness/readiness of the test setup; it is not meaningful capacity evidence.
+
+Automated Accessibility Testing uses Playwright and axe-core for system/UI-level WCAG-oriented rule evaluation. It does not establish full accessibility or full WCAG compliance. Manual keyboard-only navigation, focus visibility, zoom/reflow, screen-reader behavior, reading order, and validation-feedback usability remain separate.
 
 These tags mix quality objectives, selection purposes, interfaces, and workload categories. They are not a mutually exclusive formal hierarchy.
 
@@ -144,7 +147,7 @@ Counts and versions are a snapshot. Local templates do not prove that a working 
 
 - Selenium cross-browser suite: Chrome, Firefox, Edge.
 - Selenium current CI: default Chrome UI path, headless when CI is set; cross-browser suite not invoked.
-- Playwright: Chromium, Firefox, WebKit UI projects; API and database projects execute once.
+- Playwright: Chromium, Firefox, and WebKit UI projects; the accessibility project executes once in Chromium; API and database projects execute once.
 - Browser configuration is not evidence of successful compatibility testing.
 - No mobile viewport project or dedicated responsive suite was identified.
 
@@ -160,7 +163,7 @@ Current environment discrepancy: Selenium/Playwright CI align with the 255-chara
 
 - Application: Node.js, Express, EJS, Bootstrap, browser JavaScript, body-parser, dotenv, pg, and Jest 30.5.2 for application-local unit testing.
 - Selenium: Java, Selenium WebDriver, TestNG, Maven Surefire, REST Assured, JDBC, Allure.
-- Playwright: JavaScript, Playwright Test, built-in page/request fixtures, pg, HTML reporter.
+- Playwright: JavaScript, Playwright Test, `@axe-core/playwright` 4.13.0, axe-core 4.13.0, built-in page/request fixtures, pg, HTML reporter.
 - Performance: JMeter JMX plans, HTTP samplers, assertions, timers, JTL, CSV, HTML dashboards.
 - Execution orchestration: GitHub Actions.
 - Manifest/lockfiles and actual runtime observations remain authoritative for versions.
@@ -229,7 +232,7 @@ Source-only observations remain suspected defects until reproduced/confirmed. Th
 |---|---|---|
 | Jest | Console results from `npm test`; local module coverage from `npm run test:coverage` | Unit coverage is limited to the imported contact validation module; the CI workflow does not publish a coverage artifact |
 | Selenium | Allure metadata/results/screenshots; Surefire/TestNG outputs | Workflow uploads Allure results only on failure; environment properties describe Local/Windows even in Ubuntu CI |
-| Playwright | HTML, failure screenshots, first-retry traces; one retry | Independent suite commands reuse/replace the HTML report directory; failure-only upload |
+| Playwright | HTML, failure screenshots, first-retry traces; accessibility failures include concise axe rule/impact/selector diagnostics; one retry by default | Independent suite commands reuse/replace the HTML report directory; failure-only upload |
 | JMeter | JTL, logs, CSV summaries, local HTML dashboards | CI uploads raw results/logs only on failure; no latency/throughput acceptance gate |
 
 Artifact retention is seven days in the workflows. An output path is not evidence that a retained artifact exists. Some historical stress CSV/JTL counts disagree; do not attribute them to the same run without verification.
@@ -240,7 +243,7 @@ Artifact retention is seven days in the workflows. An output path is not evidenc
 |---|---|---|
 | [Application Unit Tests](../../.github/workflows/unit-tests.yml) | Push / pull request | Node.js 22 → `npm ci` → `npm test` |
 | [Selenium CI](https://github.com/KSely/QA-Portfolio-Selenium/blob/main/.github/workflows/selenium-ci.yml) | Push to main / PR targeting main | Compile → API → DB → UI smoke → UI regression |
-| [Playwright CI](https://github.com/KSely/QA-Portfolio-Playwright/blob/main/.github/workflows/playwright-ci.yml) | Push to main / PR targeting main | API → DB → smoke → UI |
+| [Playwright CI](https://github.com/KSely/QA-Portfolio-Playwright/blob/main/.github/workflows/playwright-ci.yml) | Push to main / PR targeting main | API → DB → smoke → Chromium accessibility → UI |
 | [JMeter CI](https://github.com/KSely/QA-Portfolio-Performance/blob/main/.github/workflows/jmeter-ci.yml) | Push to main / PR targeting main | Smoke → baseline |
 | [JMeter performance](https://github.com/KSely/QA-Portfolio-Performance/blob/main/.github/workflows/jmeter-performance.yml) | Manual dispatch | Selected load/stress plan |
 
@@ -271,6 +274,7 @@ Case-level High/Medium/Low assignments are recorded in TEST_CASES.md. Operationa
 - Boolean record checks miss incorrect fields or duplicate rows.
 - Missing/replaced reports and static metadata weaken traceability.
 - External assets, browser differences, and retries complicate diagnosis.
+- Automated accessibility scans cover only machine-detectable rules and selected states; DEF-003/DEF-004 are closed after passing retest, while manual accessibility evidence remains absent.
 - Short, paced, status-only performance workloads do not establish persistence performance, sustained capacity, or breaking points.
 
 ## Assumptions
@@ -279,9 +283,9 @@ Future execution is separately authorized and uses synthetic data in a known tes
 
 ## Deliverables
 
-Current: TEST_PLAN.md, REQUIREMENTS.md, TEST_DESIGN.md, TEST_CASES.md, [RTM.md](RTM.md), and [DEFECT_LOG.md](DEFECT_LOG.md). DEF-001 evidence includes a 16/16 passing Chromium UI regression run; no Firefox/WebKit or production conclusion is implied.
+Current: TEST_PLAN.md, REQUIREMENTS.md, TEST_DESIGN.md, TEST_CASES.md, [RTM.md](RTM.md), and [DEFECT_LOG.md](DEFECT_LOG.md). DEF-001 evidence includes a 16/16 passing Chromium UI regression run. Accessibility evidence preserves the initial 5-case result of 3 passed and 2 failed for DEF-003/DEF-004 and the post-fix retest result of 5 passed and 0 failed. No full accessibility, Firefox/WebKit accessibility, or production conclusion is implied.
 
-Current cycle summary: [TEST_SUMMARY_REPORT.md](TEST_SUMMARY_REPORT.md), including DEF-002's 17/17 Chromium UI run and the verified 15/15 Jest unit run. Deferred: PERFORMANCE_TEST_REPORT.md.
+Current cycle summary: [TEST_SUMMARY_REPORT.md](TEST_SUMMARY_REPORT.md), including DEF-002's 17/17 Chromium UI run, the verified 15/15 Jest unit run, and the 5-case accessibility execution. Deferred: PERFORMANCE_TEST_REPORT.md.
 
 ## Baseline maintenance and human review
 

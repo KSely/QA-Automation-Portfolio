@@ -2,11 +2,11 @@
 
 ## Baseline status
 
-Status: Reviewed documentation baseline with completed defect-cycle evidence and verified application-local Jest unit results.
+Status: Reviewed documentation baseline with completed DEF-001/DEF-002 evidence, verified application-local Jest unit results, and verified Playwright accessibility execution evidence.
 
-Every row has Automation Status = Existing. The original 81 Selenium, Playwright, and JMeter entries retain Execution Status = Not assessed in this documentation baseline; the 15 Jest entries record their verified passing execution. IDs are stable documentation identifiers and are not annotations added to automation code. No final IDs are allocated to proposed future conditions.
+Every row has Automation Status = Existing. The original 81 Selenium, Playwright, and JMeter entries retain Execution Status = Not assessed in this documentation baseline; the 15 Jest entries record their verified passing execution; the 5 Playwright accessibility entries record their verified local Chromium outcomes. IDs are stable documentation identifiers and are not annotations added to automation code. No final IDs are allocated to proposed future conditions.
 
-[REQUIREMENTS.md](REQUIREMENTS.md) defines the source-derived baseline; [TEST_DESIGN.md](TEST_DESIGN.md) explains classification; [TEST_PLAN.md](TEST_PLAN.md) describes scope and proposed process criteria. [RTM.md](RTM.md) links cycle-specific and Jest evidence, while [DEFECT_LOG.md](DEFECT_LOG.md) records DEF-001 and DEF-002 closure.
+[REQUIREMENTS.md](REQUIREMENTS.md) defines the source-derived baseline; [TEST_DESIGN.md](TEST_DESIGN.md) explains classification; [TEST_PLAN.md](TEST_PLAN.md) describes scope and proposed process criteria. [RTM.md](RTM.md) links cycle-specific, Jest, and accessibility evidence, while [DEFECT_LOG.md](DEFECT_LOG.md) records DEF-001 through DEF-004 closure.
 
 ## Test Case Classification Legend
 
@@ -27,6 +27,7 @@ Every row has Automation Status = Existing. The original 81 Selenium, Playwright
 | RA | REST Assured + TestNG |
 | JT | JDBC + TestNG |
 | PW / pg | Playwright Test / node-postgres |
+| A11Y / axe | Accessibility Testing / @axe-core/playwright and axe-core |
 | JM | Apache JMeter |
 | A-UNIT | Application-local Jest unit test |
 | Module | Exported pure JavaScript function boundary |
@@ -49,7 +50,7 @@ Priority is a portfolio risk assessment, separate from severity, technique, and 
 - Database insert/delete helper cases are Medium; real contact persistence checks remain High.
 - Home/project availability and navigation are Medium; contact-related value acceptance and required-field checks are High.
 
-The 96 existing entries contain 56 High, 27 Medium, and 13 Low priorities. The 15 application-local unit cases are High because they verify contact acceptance/rejection logic. Assignments are subject to human risk review and do not claim a formal business approval.
+The 101 existing entries contain 58 High, 30 Medium, and 13 Low priorities. The 15 application-local unit cases are High because they verify contact acceptance/rejection logic. The accessibility priorities reflect affected functionality and current defect triage, not axe impact alone. Assignments are subject to human risk review and do not claim formal business approval.
 
 ## 1. Selenium UI
 
@@ -166,7 +167,29 @@ DEF-002 cycle: P-UI-017 failed pre-fix, then passed; P-UI-004 also passed. Broad
 
 P-UI-004 asserts exact success text and email/message existence, not full record correctness/reset/button restoration. Negative UI specs query non-persistence after native browser validation; they do not exercise backend rejection. No empty-email UI specification exists.
 
-## 5. Playwright API
+## 5. Playwright Accessibility
+
+Repository: QA-Portfolio-Playwright.
+
+Source: `QA-Portfolio-Playwright/tests/accessibility/accessibility.spec.js`. The dedicated `accessibility` project runs once in Chromium and uses `@axe-core/playwright` 4.13.0 with axe-core 4.13.0. The verified local command used no retries and one worker.
+
+No standalone accessibility product requirement exists in [REQUIREMENTS.md](REQUIREMENTS.md). Existing functional requirements are referenced only where an assertion overlaps their established scope; the accessibility expectations and defect evidence are not presented as newly approved product requirements.
+
+| Test ID | Requirement ID(s) | Test method / specification / plan | Feature | Priority | Test Level | Test Type(s) | Test Approach | Test Design Technique | Positive / Negative | Interface | Framework | Automation Status | Execution Status |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| P-A11Y-001 | No accessibility product requirement ID; related page scope REQ-UI-004 | home page should have no automatically detectable accessibility violations | Home automated accessibility scan | High | Sys | A11Y/R | Black-box | Checklist-based Testing | Positive | UI | PW + axe | Existing | Passed — post-fix local Chromium; pre-fix failed and confirmed DEF-003 |
+| P-A11Y-002 | No accessibility product requirement ID; related page scope REQ-UI-005 | project page should have no automatically detectable accessibility violations | Project automated accessibility scan | Medium | Sys | A11Y/R | Black-box | Checklist-based Testing | Positive | UI | PW + axe | Existing | Passed — post-fix local Chromium; pre-fix failed and confirmed DEF-004 |
+| P-A11Y-003 | No accessibility product requirement ID; related page scope REQ-UI-007 | automation page should have no automatically detectable accessibility violations | Automation automated accessibility scan | Medium | Sys | A11Y/R | Black-box | Checklist-based Testing | Positive | UI | PW + axe | Existing | Passed — initial and post-fix local Chromium runs |
+| P-A11Y-004 | REQ-UI-006 (Architecture-link subset); no accessibility product requirement ID | main navigation should support keyboard focus and activation | Navigation focus and Enter activation | Medium | Sys | A11Y/R | Black-box | Checklist-based Testing | Positive | UI | PW | Existing | Passed — initial and post-fix local Chromium runs |
+| P-A11Y-005 | REQ-CONTACT-002 (required-attribute subset); no accessibility product requirement ID | contact form fields should expose accessible names and keyboard focus | Contact names, required semantics, and focus sequence | High | Sys | A11Y/R | Black-box | Checklist-based Testing | Positive | UI | PW | Existing | Passed — initial and post-fix local Chromium runs |
+
+Initial accessibility execution: **5 total, 3 passed, 2 failed, 0 skipped**. P-A11Y-001 failed on `color-contrast` for `#project-details-button` and confirmed DEF-003. P-A11Y-002 failed on `color-contrast` for three architecture connector labels and confirmed DEF-004. Both were genuine AUT findings, not test-infrastructure failures. P-A11Y-003–005 passed.
+
+Post-fix accessibility retest: **5 total, 5 passed, 0 failed, 0 skipped**. P-A11Y-001 and P-A11Y-002 passed after their scoped CSS fixes; P-A11Y-003–005 remained passing. No axe rule, tag, element, or page section was suppressed or excluded. DEF-003 and DEF-004 are Closed / Fixed / Retest Passed.
+
+The axe cases use supported WCAG A/AA-oriented tags. They cover automatically detectable issues only and do not establish full WCAG compliance. Manual keyboard-only navigation, logical tab order, visible focus, zoom/reflow, screen-reader behavior, reading order, and validation-feedback usability remain separate work.
+
+## 6. Playwright API
 
 Repository: QA-Portfolio-Playwright.
 
@@ -192,7 +215,7 @@ Rows 001–002 are in statusApi.spec.js; all remaining rows are generated/declar
 
 P-API-004–006 do not query the database: they check status/body only. P-API-007–009 use fixed whitespace-case values from the source; all have three ASCII spaces in the named field. P-API-010–013 use the exact invalid emails shown and generated message identifiers. No explicit empty-string contact API family exists.
 
-## 6. Playwright Database
+## 7. Playwright Database
 
 Repository: QA-Portfolio-Playwright.
 
@@ -205,7 +228,7 @@ Source: [databaseConnection.spec.js](https://github.com/KSely/QA-Portfolio-Playw
 
 P-DB-001 directly constructs pg.Client and asserts SELECT 1. P-DB-002 asserts returned ID is defined, existence after insert, one deleted row, and absence after deletion. It has fallback cleanup. These are helper/database lifecycle checks, not an application business state-machine suite.
 
-## 7. JMeter Performance
+## 8. JMeter Performance
 
 Repository: QA-Portfolio-Performance.
 
@@ -239,7 +262,7 @@ Automatic CI selects J-PERF-001/002. Manual performance dispatch selects J-PERF-
 
 The smoke plan primarily validates response/setup correctness. Historical JTL/CSV/dashboard artifacts are not treated as current execution outcomes in this catalogue.
 
-## 8. Application Unit Testing
+## 9. Application Unit Testing
 
 Repository: QA-Automation-Portfolio.
 
@@ -273,15 +296,18 @@ Verified execution: `npm test` completed 1 suite with 15 passed, 0 failed, and 0
 | Selenium API | 15 |
 | Selenium Database | 2 |
 | Playwright UI | 17 |
+| Playwright Accessibility | 5 |
 | Playwright API | 13 |
 | Playwright Database | 2 |
 | JMeter plans | 7 |
 | Application Jest Unit | 15 |
-| Total documentation entries | 96 |
+| Total documentation entries | 101 |
 
-The previous verified catalogue contained 81 entries. Adding exactly 15 implemented Jest cases produces 96 unique documented cases. Selenium has 42 cases before browser/smoke repetition. Playwright has 32 unique cases. Configured full Playwright multi-project execution before retries remains 66: 17 UI cases × 3 browsers = 51 UI browser executions, plus 13 API and 2 DB. DEF-001's broader run executed 16 Chromium UI cases; DEF-002's broader run executed 17, not all 66. The latest Jest execution is a separate 15-test unit run. JMeter samples are not case count. Cross-framework overlaps are not additional unique business requirements. Setup hooks, helpers, data-provider declarations, retries, and repeated suite selections are not separate designed cases.
+The previous verified catalogue contained 96 entries. Adding exactly 5 implemented Playwright accessibility cases produces 101 unique documented cases. Selenium has 42 cases before browser/smoke repetition. Playwright has 37 unique cases: 17 UI, 5 accessibility, 13 API, and 2 database. Configured full Playwright multi-project execution before retries is now 71: 17 UI cases × 3 browsers = 51 UI browser executions, plus 5 Chromium accessibility, 13 API, and 2 DB. DEF-001's broader run executed 16 Chromium UI cases; DEF-002's broader run executed 17, not all the configured projects. The accessibility run executed only its 5-case Chromium project. The latest Jest execution is a separate 15-test unit run. JMeter samples are not case count. Cross-framework overlaps are not additional unique business requirements. Setup hooks, helpers, data-provider declarations, retries, and repeated suite selections are not separate designed cases.
 
 The application-local Jest layer is represented by A-UNIT-001–015. It verifies only the extracted contact validation module.
+
+The Playwright accessibility layer is represented by P-A11Y-001–005. Its initial result was 3 passed and 2 failed because of confirmed AUT color-contrast findings; its post-fix retest result was 5 passed and 0 failed. It does not replace manual accessibility testing.
 
 ## Coverage Gaps / Proposed Future Test Conditions
 
@@ -306,7 +332,7 @@ These are proposed conditions, not existing cases, approved new product behavior
 
 ## Baseline limitations and future maintenance
 
-All entries describe Existing automation. The 15 Jest entries have verified passing evidence; execution status for the preceding 81 catalogue entries remains separate from the DEF-001/DEF-002 cycle evidence. No claim is made that all 96 entries passed. Full compatibility, production performance, readiness, or CD is not claimed. Structural coverage applies only to the contact validation module.
+All entries describe Existing automation. The 15 Jest entries have verified passing evidence; the 5 accessibility entries preserve their initial 3-passed/2-failed evidence and record their post-fix 5-passed retest; execution status for the preceding 81 catalogue entries remains separate from the documented defect-cycle evidence. No claim is made that all 101 entries passed in one execution. Full accessibility, compatibility, production performance, readiness, or CD is not claimed. Structural coverage applies only to the contact validation module.
 
 Formal technique assignments are conservative; simple navigation/visibility/status assertions remain Not specifically technique-driven. Stress labels describe intended workloads only.
 

@@ -1,6 +1,6 @@
-# Test Summary Report — DEF-001, DEF-002, and Jest Unit Testing
+# Test Summary Report — DEF-001, DEF-002, Jest Unit Testing, and Accessibility Testing
 
-The original DEF-001 and DEF-002 cycles are retained below. Section 12 separately records the completed application-local Jest unit execution; it does not alter the historical Chromium scopes or results.
+The original DEF-001 and DEF-002 cycles are retained below. Section 12 separately records the completed application-local Jest unit execution, and section 13 records the initial Playwright accessibility findings and successful DEF-003/DEF-004 retest. Neither changes the historical Chromium defect-cycle scopes or results.
 
 ## 1. Report Identification — DEF-001 History
 
@@ -164,3 +164,42 @@ The GitHub Actions workflow runs on push and pull request using `ubuntu-latest`,
 The catalogue now contains 96 unique documented cases: the previous verified total of 81 plus A-UNIT-001–015. The latest Jest result establishes only the 15 unit-case outcomes; it does not convert the remaining catalogue entries into passing results or change the historical DEF-001/DEF-002 execution counts.
 
 **Unit Testing Status: Completed — 15 Jest contact-validation tests passed locally and in GitHub Actions within the defined module scope.**
+
+## 13. Playwright Accessibility Execution and Retest — 2026-10-01
+
+| Field | Value |
+| --- | --- |
+| Scope | Initial automated accessibility execution and post-fix retest in QA-Portfolio-Playwright |
+| Framework | Playwright 1.62.1; `@axe-core/playwright` 4.13.0; axe-core 4.13.0 |
+| Environment | Local Windows application at `http://localhost:3000`; Chromium `accessibility` project |
+| Command | `npm run test:accessibility -- --retries=0 --workers=1` |
+| Execution type | System/UI Accessibility Testing; automated axe scans and focused keyboard/semantic checks |
+| Initial result | 5 total; 3 passed; 2 failed; 0 skipped |
+| Post-fix retest result | 5 total; 5 passed; 0 failed; 0 skipped |
+
+The two initial failures were genuine AUT accessibility findings, not test-infrastructure failures. After the targeted CSS fixes, the same command passed all five cases. No violation was suppressed, converted to a warning, or excluded to make the retest pass.
+
+| Test ID | Scope | Initial result | Post-fix retest | Defect / evidence |
+| --- | --- | --- | --- | --- |
+| P-A11Y-001 | Home-page axe scan | FAIL | PASS | DEF-003 — `color-contrast` on `#project-details-button`; initial 2.48:1 versus 4.5:1, then 5.473:1 in the base state and 7.584:1 in hover/focus/active states |
+| P-A11Y-002 | Project-page axe scan | FAIL | PASS | DEF-004 — `color-contrast` on three architecture connector labels; initial 4.263:1 versus 4.5:1, then 5.152:1 |
+| P-A11Y-003 | Automation-page axe scan | PASS | PASS | No automatically detectable violation from the configured WCAG A/AA-oriented scan |
+| P-A11Y-004 | Main-navigation focus and Enter activation | PASS | PASS | Architecture link received focus, activated with Enter, and reached its section |
+| P-A11Y-005 | Contact-form accessible names, required semantics, and focus sequence | PASS | PASS | Name, email, message, and submit controls passed the implemented assertions |
+
+### Defect closure summary
+
+- **DEF-003 — Insufficient color contrast on "View Project Details" button.** Closed / Fixed / Retest Passed; Severity Medium; Priority High. White `#ffffff` text on the original `#14b8a6` measured **2.48:1**. The fixed base color `#0f766e` measures **5.473:1**, and the `#115e59` hover/focus/active color measures **7.584:1**.
+- **DEF-004 — Insufficient color contrast for architecture connector labels.** Closed / Fixed / Retest Passed; Severity Medium; Priority Medium. Original `#64748b` text on `#eef3f8` measured **4.263:1**. The fixed `#58677d` text on the unchanged background measures **5.152:1**.
+
+P-A11Y-001 and P-A11Y-002 preserve the original failure evidence and now provide passing automated regression coverage for the fixes. DEF-003 and DEF-004 completed the Confirmed → Fixed → Retest Passed → Closed lifecycle.
+
+### Scope and limitations
+
+The automated layer covers full-page scans for `/`, `/project`, and `/project/automation`, one main-navigation keyboard activation path, and selected contact-form names/required/focus semantics. It ran only in Chromium. Existing UI, API, database, Selenium, and JMeter suites were not executed as part of this accessibility run.
+
+Automated axe scans can identify some missing names, invalid ARIA, landmark, semantic, and color-contrast issues, but they do not establish full accessibility or full WCAG compliance. Manual accessibility work remains necessary for complete keyboard-only navigation, logical tab order, visible focus, zoom/reflow, screen-reader behavior, meaningful reading order, and validation/error-feedback usability.
+
+No standalone accessibility product requirement exists in [REQUIREMENTS.md](REQUIREMENTS.md). [RTM.md](RTM.md) records the test and defect evidence without inventing one. The catalogue now contains 101 entries after adding P-A11Y-001–005; only these five cases are covered by this accessibility execution result.
+
+**Accessibility Execution Status: Completed — DEF-003 and DEF-004 were fixed and verified; all 5 tests passed in the defined Chromium accessibility scope.**

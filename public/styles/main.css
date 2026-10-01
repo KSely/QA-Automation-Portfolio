@@ -328,7 +328,7 @@ body {
 
 .architecture-connector {
   text-align: center;
-  color: #64748b;
+  color: #58677d;
   font-size: 0.8rem;
   padding: 7px 0;
 }
@@ -635,15 +635,18 @@ body {
   border-color: #1d4ed8;
 }
 
-.btn-info {
-  background-color: #14b8a6;
-  border-color: #14b8a6;
+#project-details-button {
+  background-color: #0f766e;
+  border-color: #0f766e;
   color: white;
 }
 
-.btn-info:hover {
-  background-color: #0f9f91;
-  border-color: #0f9f91;
+#project-details-button:hover,
+#project-details-button:focus,
+#project-details-button:focus-visible,
+#project-details-button:active {
+  background-color: #115e59;
+  border-color: #115e59;
   color: white;
 }
 

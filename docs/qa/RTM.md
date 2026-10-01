@@ -2,9 +2,9 @@
 
 ## Scope and evidence model
 
-This matrix covers the completed DEF-001 and DEF-002 cycles and the verified Jest contact-validation unit layer. [REQUIREMENTS.md](REQUIREMENTS.md) defines source-derived scope; [TEST_CASES.md](TEST_CASES.md) contains 96 existing catalogue entries: the previous 81 plus 15 application-local Jest cases. Test existence and requirement coverage do not imply successful execution of every catalogue case.
+This matrix covers the completed DEF-001 through DEF-004 cycles, the verified Jest contact-validation unit layer, and the verified Playwright accessibility execution/retest. [REQUIREMENTS.md](REQUIREMENTS.md) defines source-derived scope; [TEST_CASES.md](TEST_CASES.md) contains 101 existing catalogue entries: the previous 96 plus 5 Playwright accessibility cases. Test existence and requirement coverage do not imply successful execution of every catalogue case.
 
-[DEFECT_LOG.md](DEFECT_LOG.md) preserves original reproduction, exact errors, commands, and closure evidence. DEF-001 and DEF-002 are Closed / Fixed / Retest Passed. Their results below are local Chromium results with no retries and one worker, not CI or production evidence. The Jest section separately records the verified local and GitHub Actions unit result.
+[DEFECT_LOG.md](DEFECT_LOG.md) preserves original reproduction, exact errors, commands, and lifecycle evidence. DEF-001 through DEF-004 are Closed / Fixed / Retest Passed. Their browser evidence is local Chromium evidence with no retries and one worker, not production evidence. The Jest section separately records the verified local and GitHub Actions unit result.
 
 ## Jest unit-testing traceability
 
@@ -43,7 +43,7 @@ Automation paths are plain sibling-repository references. The new pageErrors.spe
 
 ## Remaining review
 
-Review mapping and classification boundaries, particularly rendering versus pageerror assertions. Other routes and later interactions need separate coverage decisions. The new unit cases resolve the documented required-error precedence gap for one combined condition; other combined-invalid permutations remain separate design decisions. [TEST_SUMMARY_REPORT.md](TEST_SUMMARY_REPORT.md) summarizes both defect cycles and the Jest unit result; PERFORMANCE_TEST_REPORT.md remains deferred.
+Review mapping and classification boundaries, particularly rendering versus pageerror assertions. Other routes and later interactions need separate coverage decisions. The new unit cases resolve the documented required-error precedence gap for one combined condition; other combined-invalid permutations remain separate design decisions. Accessibility requirements and manual accessibility acceptance criteria remain a product-definition/documentation gap. [TEST_SUMMARY_REPORT.md](TEST_SUMMARY_REPORT.md) summarizes both completed defect cycles, the Jest unit result, and the accessibility execution; PERFORMANCE_TEST_REPORT.md remains deferred.
 
 ## DEF-002 traceability and current inventory
 
@@ -57,6 +57,24 @@ DEF-002 is Closed / Fixed / Retest Passed. The pre-fix failures were expected en
 
 At DEF-002 closure, the catalogue contained 81 entries; Playwright had 32 unique cases (17 UI, 13 API, 2 DB). Configured Playwright total before retries was 17 × 3 + 13 + 2 = 66. This was not a 66-execution or full 81-case run. Firefox/WebKit, separate API/DB projects, Selenium, and JMeter were not executed.
 
-Current inventory after the Jest addition: 96 catalogue entries, comprising the prior 81 entries plus A-UNIT-001–015. The verified Jest run covers those 15 unit cases only; it does not change the historical defect-cycle execution scope or Playwright configuration arithmetic.
+Inventory after the Jest addition was 96 catalogue entries, comprising the prior 81 entries plus A-UNIT-001–015. The verified Jest run covers those 15 unit cases only; it does not change the historical DEF-001/DEF-002 execution scope.
 
 Network/request and malformed/non-JSON recovery remain unverified and were not fixed. Rejection feedback, later retry interactions, and stronger cleanup verification remain gaps. Evidence and commands: [DEFECT_LOG.md](DEFECT_LOG.md); cycle summary: [TEST_SUMMARY_REPORT.md](TEST_SUMMARY_REPORT.md).
+
+## Accessibility testing traceability
+
+No standalone accessibility product requirement exists in [REQUIREMENTS.md](REQUIREMENTS.md). The matrix therefore records implemented test and defect evidence without creating a requirement ID solely to complete traceability. Existing functional requirements appear only where the assertions overlap their established scope.
+
+| Requirement / Condition | Requirement ID | Test Case ID | Automation Reference | Defect ID | Execution Evidence | Current Coverage Status | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Home-page automated accessibility scan | No accessibility product ID; related page scope REQ-UI-004 | P-A11Y-001 | QA-Portfolio-Playwright/tests/accessibility/accessibility.spec.js — Home-page axe scan | DEF-003 | Pre-fix FAIL — `color-contrast`; 2.48:1 versus 4.5:1. Post-fix PASS — 5.473:1 base; 7.584:1 interactive states. | Fixed; retest passed; closed | Affected `#project-details-button`. The same scan remains regression coverage; functional link operation was not the original failed assertion. |
+| Project-page automated accessibility scan | No accessibility product ID; related page scope REQ-UI-005 | P-A11Y-002 | Same specification — Project-page axe scan | DEF-004 | Pre-fix FAIL — `color-contrast`; 4.263:1 versus 4.5:1. Post-fix PASS — 5.152:1. | Fixed; retest passed; closed | Affected three architecture connector labels. Project content/navigation remained outside the original failed assertion. |
+| Automation-page automated accessibility scan | No accessibility product ID; related page scope REQ-UI-007 | P-A11Y-003 | Same specification — Automation-page axe scan | None | PASS in initial execution and post-fix retest | Implemented and verified in Chromium | A passing automated scan does not establish complete accessibility or full WCAG compliance. |
+| Main navigation focus and Enter activation | REQ-UI-006 (Architecture-link subset); no accessibility product ID | P-A11Y-004 | Same specification — main navigation keyboard check | None | PASS in initial execution and post-fix retest | Implemented and verified asserted subset | Checks one Project-page navigation link; it is not a complete keyboard-only or tab-order assessment. |
+| Contact accessible names, required semantics, and focus sequence | REQ-CONTACT-002 (required-attribute subset); no accessibility product ID | P-A11Y-005 | Same specification — contact form accessibility check | None | PASS in initial execution and post-fix retest | Implemented and verified asserted subset | Checks current labels, required attributes, a short focus sequence, and enabled submit state; it does not assess validation announcements or screen-reader usability. |
+
+Verified command for both phases: `npm run test:accessibility -- --retries=0 --workers=1` in the Chromium `accessibility` project. Initial result: **5 total, 3 passed, 2 failed, 0 skipped**; both failures were genuine AUT findings that confirmed DEF-003 and DEF-004. Post-fix retest: **5 total, 5 passed, 0 failed, 0 skipped**. Both defects progressed Confirmed → Fixed → Retest Passed → Closed. No axe rule, tag, element, or page section was suppressed or excluded. The scans used `@axe-core/playwright` 4.13.0 and axe-core 4.13.0 with supported WCAG A/AA-oriented tags.
+
+Current inventory after the accessibility addition: **101 catalogue entries**. Playwright now has 37 unique cases: 17 UI, 5 accessibility, 13 API, and 2 database. Configured full Playwright execution before retries is 71: 51 cross-browser UI executions, 5 Chromium accessibility executions, 13 API, and 2 DB. Only the five accessibility cases were executed for this evidence.
+
+Manual keyboard-only navigation, logical tab order, visible focus, zoom/reflow, screen-reader behavior, meaningful reading order, and validation-feedback usability remain outside the automated evidence. No complete WCAG compliance conclusion is claimed.

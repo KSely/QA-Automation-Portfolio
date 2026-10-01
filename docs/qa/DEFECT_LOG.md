@@ -288,3 +288,227 @@ Evidence is recorded local command output from this chat, not CI or a full portf
 - Network/request failure: **Not Attempted**. Malformed/non-JSON response: **Not Attempted**. Safe offline/response-interception controls were not exposed by the available browser interface; neither scenario is claimed as reproduced or assigned a separate defect ID.
 - No database row matching the probe was found; no broad or test-owned cleanup was performed.
 - P-UI-017 and the minimal application fix were added in the completed cycle. This documentation update did not run tests or change source. Error feedback, retry submission itself, and network/non-JSON recovery are not established by the passing button-recovery assertions.
+
+## DEF-003 — Insufficient color contrast on "View Project Details" button
+
+| Field | Value |
+| --- | --- |
+| Defect ID | DEF-003 |
+| Status | Closed |
+| Severity | Medium |
+| Priority | High |
+| Reproduction date | 2026-10-01 |
+
+Severity reflects impaired readability of a primary call to action, particularly for users with low vision. High priority reflects the element's prominence and the size of the measured contrast shortfall. Both classifications remain subject to human review.
+
+### Environment
+
+- Local QA Automation Portfolio application at `http://localhost:3000/`.
+- Local Windows environment using the QA-Portfolio-Playwright `accessibility` project in Chromium.
+- Playwright 1.62.1, `@axe-core/playwright` 4.13.0, and axe-core 4.13.0.
+- Verified command: `npm run test:accessibility -- --retries=0 --workers=1`.
+- The initial accessibility execution contained 5 tests: 3 passed, 2 failed, and 0 skipped.
+- The post-fix accessibility retest contained 5 tests: 5 passed, 0 failed, and 0 skipped.
+- This record uses the verified execution evidence; no tests were rerun during documentation closure.
+
+### Preconditions
+
+- The local application is running and the Home page is reachable.
+- The dedicated Playwright accessibility project and Chromium browser are available.
+- The Home page renders the `#project-details-button` element with the visible text **View Project Details**.
+
+### Steps to Reproduce
+
+1. Start the application using the existing local test environment.
+2. From QA-Portfolio-Playwright, run `npm run test:accessibility -- --retries=0 --workers=1`.
+3. Allow P-A11Y-001 to navigate to `/` and run its axe scan.
+4. Review the `color-contrast` violation reported for `#project-details-button`.
+
+### Expected Result
+
+The **View Project Details** text should meet the applicable WCAG AA minimum contrast ratio of **4.5:1** for normal text.
+
+No standalone accessibility product requirement currently exists in [REQUIREMENTS.md](REQUIREMENTS.md). This expected result records the axe rule's accessibility criterion and confirmed defect condition; it does not invent an approved product requirement.
+
+### Actual Result
+
+The primary project call to action is rendered with white text on a teal background at a measured contrast ratio of **2.48:1**, below the expected **4.5:1** minimum.
+
+### Evidence
+
+```text
+Page: /
+Rule: color-contrast
+axe impact: serious
+Element: #project-details-button
+Visible text: View Project Details
+Foreground: #ffffff
+Background: #14b8a6
+Measured contrast: 2.48:1
+Expected minimum: 4.5:1
+```
+
+The Home-page axe test failed with one `color-contrast` violation. The assertion expected zero automatically detectable violations and received one. This was a genuine AUT finding, not a test-infrastructure failure.
+
+### Affected Functionality
+
+Home-page primary project call to action on `/`. The evidence establishes insufficient text contrast; it does not establish that the link is inoperable. Existing functional navigation behavior is outside this defect's assertion.
+
+### Requirement / Coverage Links
+
+- [TEST_CASES.md](TEST_CASES.md): **P-A11Y-001**, Home-page automated accessibility scan, failed before the fix and passed after the fix in local Chromium.
+- [RTM.md](RTM.md): accessibility traceability links P-A11Y-001 pre-fix and post-fix evidence to DEF-003 without creating a new requirement ID.
+- [REQUIREMENTS.md](REQUIREMENTS.md): **REQ-UI-004** provides related functional page/navigation scope only; it does not specify color contrast or WCAG conformance.
+- The existing Playwright Home-page axe scan provided the passing regression retest and remains ongoing regression coverage.
+
+### Root Cause / Technical Observation — Before Fix
+
+axe measured foreground `#ffffff` against background `#14b8a6` on `#project-details-button`. At the rendered normal-text size and weight, the resulting **2.48:1** ratio does not meet the **4.5:1** threshold. No CSS or application source was changed or reinterpreted while creating this record.
+
+### Workaround — Before Fix
+
+No application-level workaround was verified. User-agent or operating-system contrast settings may affect an individual user's presentation, but they do not resolve the confirmed application styling defect.
+
+### Resolution
+
+**Fixed.** The only application change for DEF-003 was in [public/styles/main.css](../../public/styles/main.css). The CTA-specific selector now uses white text on a darker teal background:
+
+```css
+#project-details-button {
+  background-color: #0f766e;
+  border-color: #0f766e;
+  color: white;
+}
+```
+
+The base contrast is **5.473:1**. Hover, focus, focus-visible, and active states use `#115e59` with white text, producing **7.584:1**. The selector was narrowed from the general `.btn-info` override to `#project-details-button`; no HTML, layout, typography, JavaScript, or unrelated brand color changed.
+
+### Retest Status
+
+**Passed.** Verification date: 2026-10-01. The existing QA-Portfolio-Playwright accessibility project ran locally in Chromium with no retries and one worker:
+
+```text
+npm run test:accessibility -- --retries=0 --workers=1
+```
+
+Post-fix result: **5 total, 5 passed, 0 failed, 0 skipped** (8.1 seconds). P-A11Y-001 passed with no `color-contrast` violation for `#project-details-button`. P-A11Y-002–005 also passed. No axe rule, tag, element, or page section was suppressed or excluded.
+
+### Notes
+
+- Status is Closed / Fixed / Retest Passed.
+- Automated axe evidence cannot establish complete page accessibility or full WCAG compliance.
+- The initial five-test run confirmed DEF-003 and DEF-004 with 3 passed and 2 failed. The post-fix run passed all five implemented automated accessibility checks.
+
+## DEF-004 — Insufficient color contrast for architecture connector labels
+
+| Field | Value |
+| --- | --- |
+| Defect ID | DEF-004 |
+| Status | Closed |
+| Severity | Medium |
+| Priority | Medium |
+| Reproduction date | 2026-10-01 |
+
+Severity reflects a WCAG AA contrast failure affecting small architecture-label text. Medium priority reflects the smaller contrast shortfall and informational role of the labels compared with the primary call to action in DEF-003. Both classifications remain subject to human review.
+
+### Environment
+
+- Local QA Automation Portfolio application at `http://localhost:3000/project`.
+- Local Windows environment using the QA-Portfolio-Playwright `accessibility` project in Chromium.
+- Playwright 1.62.1, `@axe-core/playwright` 4.13.0, and axe-core 4.13.0.
+- Verified command: `npm run test:accessibility -- --retries=0 --workers=1`.
+- The initial accessibility execution contained 5 tests: 3 passed, 2 failed, and 0 skipped.
+- The post-fix accessibility retest contained 5 tests: 5 passed, 0 failed, and 0 skipped.
+- This record uses the verified execution evidence; no tests were rerun during documentation closure.
+
+### Preconditions
+
+- The local application is running and the Project page is reachable.
+- The dedicated Playwright accessibility project and Chromium browser are available.
+- The Project page renders the architecture diagram and its connector labels.
+
+### Steps to Reproduce
+
+1. Start the application using the existing local test environment.
+2. From QA-Portfolio-Playwright, run `npm run test:accessibility -- --retries=0 --workers=1`.
+3. Allow P-A11Y-002 to navigate to `/project` and run its axe scan.
+4. Review the `color-contrast` violation reported for the architecture connector labels.
+
+### Expected Result
+
+Architecture connector-label text should meet the applicable WCAG AA minimum contrast ratio of **4.5:1** for normal text.
+
+No standalone accessibility product requirement currently exists in [REQUIREMENTS.md](REQUIREMENTS.md). This expected result records the axe rule's accessibility criterion and confirmed defect condition; it does not invent an approved product requirement.
+
+### Actual Result
+
+Small architecture connector labels are rendered at a measured contrast ratio of **4.26:1**, below the expected **4.5:1** minimum.
+
+### Evidence
+
+```text
+Page: /project
+Rule: color-contrast
+axe impact: serious
+Foreground: #64748b
+Background: #eef3f8
+Measured contrast: 4.26:1
+Expected minimum: 4.5:1
+
+Affected labels/selectors:
+- HTTP / HTTPS
+  #architecture > .container > .architecture-diagram > .architecture-connector:nth-child(2) > span
+- HTTP Requests / Fetch
+  .architecture-connector:nth-child(4) > span
+- Data Access / Parameterized Queries
+  .architecture-connector:nth-child(8) > span
+```
+
+The Project-page axe test failed with one `color-contrast` rule violation affecting three nodes. The assertion expected zero automatically detectable violations and received one. This was a genuine AUT finding, not a test-infrastructure failure.
+
+### Affected Functionality
+
+Architecture connector labels on `/project`, including **HTTP / HTTPS**, **HTTP Requests / Fetch**, and **Data Access / Parameterized Queries**. The evidence concerns label readability; it does not establish loss of project-page navigation or content rendering.
+
+### Requirement / Coverage Links
+
+- [TEST_CASES.md](TEST_CASES.md): **P-A11Y-002**, Project-page automated accessibility scan, failed before the fix and passed after the fix in local Chromium.
+- [RTM.md](RTM.md): accessibility traceability links P-A11Y-002 pre-fix and post-fix evidence to DEF-004 without creating a new requirement ID.
+- [REQUIREMENTS.md](REQUIREMENTS.md): **REQ-UI-005** provides related Project-page content scope only; it does not specify color contrast or WCAG conformance.
+- The existing Playwright Project-page axe scan provided the passing regression retest and remains ongoing regression coverage.
+
+### Root Cause / Technical Observation — Before Fix
+
+axe measured foreground `#64748b` against background `#eef3f8` for three small connector-label nodes. At the rendered normal-text size and weight, the resulting **4.26:1** ratio is below the **4.5:1** threshold. No CSS or application source was changed or reinterpreted while creating this record.
+
+### Workaround — Before Fix
+
+No application-level workaround was verified. User-agent or operating-system contrast settings may affect an individual user's presentation, but they do not resolve the confirmed application styling defect.
+
+### Resolution
+
+**Fixed.** The only application change for DEF-004 was in [public/styles/main.css](../../public/styles/main.css). The architecture connector text changed from `#64748b` to `#58677d`, while the `#eef3f8` section background remained unchanged:
+
+```css
+.architecture-connector {
+  color: #58677d;
+}
+```
+
+The resulting contrast is **5.152:1**, above the required **4.5:1** minimum. The change is scoped to architecture connectors; no layout, typography, HTML, JavaScript, or unrelated text color changed.
+
+### Retest Status
+
+**Passed.** Verification date: 2026-10-01. The existing QA-Portfolio-Playwright accessibility project ran locally in Chromium with no retries and one worker:
+
+```text
+npm run test:accessibility -- --retries=0 --workers=1
+```
+
+Post-fix result: **5 total, 5 passed, 0 failed, 0 skipped** (8.1 seconds). P-A11Y-002 passed with no `color-contrast` violation for the three reported connector labels. P-A11Y-001 and P-A11Y-003–005 also passed. No axe rule, tag, element, or page section was suppressed or excluded.
+
+### Notes
+
+- Status is Closed / Fixed / Retest Passed.
+- Automated axe evidence cannot establish complete page accessibility or full WCAG compliance.
+- The initial five-test run confirmed DEF-003 and DEF-004 with 3 passed and 2 failed. The post-fix run passed all five implemented automated accessibility checks.
