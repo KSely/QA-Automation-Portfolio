@@ -1,6 +1,6 @@
-# Test Summary Report — DEF-001 and DEF-002
+# Test Summary Report — DEF-001, DEF-002, and Jest Unit Testing
 
-The original DEF-001 cycle is retained below. Section 11 extends this report with the completed DEF-002 cycle; the current combined scope is local Chromium UI verification of both fixes.
+The original DEF-001 and DEF-002 cycles are retained below. Section 12 separately records the completed application-local Jest unit execution; it does not alter the historical Chromium scopes or results.
 
 ## 1. Report Identification — DEF-001 History
 
@@ -139,6 +139,28 @@ P-UI-017 relates to REQ-CONTACT-004 lifecycle context and checks REQ-API-002/REQ
 
 The confirmed valid-JSON rejection recovery was fixed, its focused regression passed, successful contact and persistence passed, and broader Chromium UI passed with no unresolved execution failure in scope. Firefox/WebKit, separate API/DB projects, Selenium, and JMeter were not run. Network/request and malformed/non-JSON scenarios remain unverified, not claimed fixed. Error feedback, actual retry-submission sequences, and stronger cleanup verification remain open.
 
-The current catalogue contains 81 entries; only the 17 Chromium UI cases were executed in the broader DEF-002 run. Configured 66-execution multi-project arithmetic is not an executed result.
+At DEF-002 closure, the catalogue contained 81 entries; only the 17 Chromium UI cases were executed in the broader DEF-002 run. Configured 66-execution multi-project arithmetic is not an executed result.
 
 **Current Cycle Status: Completed — DEF-001 and DEF-002 fixed and verified within their defined Chromium UI scopes.**
+
+## 12. Jest Contact-Validation Unit Testing
+
+| Field | Value |
+| --- | --- |
+| Framework | Jest 30.5.2 |
+| Test object | Pure server-side contact validation module |
+| Test suite | `tests/unit/contactValidation.test.js` |
+| Execution command | `npm test` |
+| Result | 1 suite passed; 15 tests passed; 0 failed; 0 skipped |
+| Coverage command | `npm run test:coverage` |
+| CI | GitHub Actions Unit Tests workflow passed successfully |
+
+The 15 cases cover valid and invalid email partitions, empty and whitespace-only required values, complete valid contact input, all-empty input, required-field error precedence, and invalid-email error behavior. The tests execute without PostgreSQL, a browser, Express startup, Railway, external services, or network requests.
+
+Coverage result: **100% statement, branch, function, and line coverage for the contact validation module.** This is module-scoped evidence and does not represent whole-application, project, or portfolio coverage. No arbitrary coverage threshold is enforced.
+
+The GitHub Actions workflow runs on push and pull request using `ubuntu-latest`, Node.js 22, `npm ci`, and `npm test`. It does not provision PostgreSQL or install a browser.
+
+The catalogue now contains 96 unique documented cases: the previous verified total of 81 plus A-UNIT-001–015. The latest Jest result establishes only the 15 unit-case outcomes; it does not convert the remaining catalogue entries into passing results or change the historical DEF-001/DEF-002 execution counts.
+
+**Unit Testing Status: Completed — 15 Jest contact-validation tests passed locally and in GitHub Actions within the defined module scope.**

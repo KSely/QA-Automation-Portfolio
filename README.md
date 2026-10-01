@@ -2,7 +2,7 @@
 
 A full-stack QA Automation Portfolio application created to showcase my software testing experience, technical skills, and automation projects.
 
-The application also serves as an Application Under Test (AUT) for UI, API, database, integration, regression, cross-browser, and performance testing.
+The application also serves as an Application Under Test (AUT) for unit, UI, API, database, integration, regression, cross-browser, and performance testing.
 
 ---
 
@@ -17,6 +17,7 @@ The application includes:
 - REST API endpoints
 - Contact form with input validation
 - PostgreSQL database integration
+- Jest unit tests for server-side contact validation
 - UI, API, database, integration, and performance testing
 - Defect investigation and regression testing
 - Requirements traceability and test reporting
@@ -36,6 +37,22 @@ The deployed application is available at:
 [GET /api/status](https://qa-automation-portfolio-production.up.railway.app/api/status)
 
 The application is deployed on Railway and connected to a cloud PostgreSQL database.
+
+---
+
+## Application Unit Testing
+
+This repository contains an application-local Jest unit-testing layer for the pure server-side contact validation module.
+
+- Framework: Jest 30.5.2
+- Scope: required fields, whitespace handling, email-format validation, and validation error behavior
+- Automated tests: 15
+- Runtime dependencies: no PostgreSQL, browser, Express startup, Railway service, or network request
+- Commands: `npm test` and `npm run test:coverage`
+
+The verified unit run passed 1 test suite with 15 passed, 0 failed, and 0 skipped. Coverage is scoped to the extracted module: **100% statement, branch, function, and line coverage for the contact validation module.** This is not whole-application coverage.
+
+The GitHub Actions **Unit Tests** workflow runs `npm ci` and `npm test` with Node.js 22 on every push and pull request. The workflow has passed successfully and does not provision PostgreSQL or install a browser.
 
 ---
 
@@ -128,6 +145,7 @@ Repository:
 - Maven
 - Playwright
 - JavaScript
+- Jest
 - REST Assured
 - JDBC
 - Postman
@@ -152,6 +170,17 @@ Repository:
 ## Testing Scope
 
 The portfolio demonstrates testing across multiple application layers and test levels.
+
+### Unit Testing
+
+Covers the extracted server-side contact validation module with 15 Jest tests for:
+
+- Required-field validation
+- Empty and whitespace-only input
+- Valid and invalid email partitions
+- Required-field versus invalid-email error behavior
+
+The tests execute as isolated pure-function checks without PostgreSQL, a browser, external services, or a running Express server.
 
 ### Functional Testing
 
@@ -269,6 +298,7 @@ Documents test design approaches and techniques including:
 
 Provides a consolidated test catalogue covering:
 
+- Jest unit testing
 - Selenium UI testing
 - Selenium API testing
 - Selenium database testing
@@ -432,6 +462,10 @@ Apache JMeter performance testing project covering:
 ```text
 QA-Automation-Portfolio/
 │
+├── .github/
+│   └── workflows/
+│       └── unit-tests.yml
+│
 ├── database/
 │   └── schema.sql
 │
@@ -452,6 +486,13 @@ QA-Automation-Portfolio/
 │   │
 │   └── styles/
 │       └── main.css
+│
+├── tests/
+│   └── unit/
+│       └── contactValidation.test.js
+│
+├── utils/
+│   └── contactValidation.js
 │
 ├── views/
 │   ├── partials/
@@ -483,7 +524,9 @@ EJS / Bootstrap / JavaScript
       ↓
 Node.js / Express
       ↓
-Routes / REST API / Server-Side Validation
+Routes / REST API
+      ↓
+Contact Validation Module
       ↓
 PostgreSQL Database
 ```
@@ -494,7 +537,7 @@ The backend:
 
 - Handles application routes
 - Provides REST API endpoints
-- Performs server-side validation
+- Uses a pure module for server-side contact validation
 - Communicates with PostgreSQL
 - Returns JSON responses to the frontend
 
@@ -674,6 +717,18 @@ For development with automatic server restart:
 npm run dev
 ```
 
+Run the application-local Jest unit tests:
+
+```bash
+npm test
+```
+
+Run coverage for the contact validation module:
+
+```bash
+npm run test:coverage
+```
+
 Open the application in your browser:
 
 ```text
@@ -758,6 +813,7 @@ This project was created for portfolio and demonstration purposes to showcase my
 
 - Software testing
 - QA automation
+- Unit testing with Jest
 - Test design
 - UI testing
 - API testing

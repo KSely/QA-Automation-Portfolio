@@ -2,8 +2,8 @@
 
 - Test Plan ID: TP-QAP-001
 - Status: Reviewed documentation baseline; proposed process criteria remain subject to human review.
-- Baseline: Reviewed implementation, with DEF-001/DEF-002 coverage and evidence updates recorded separately.
-- Execution status: Not assessed in this documentation baseline.
+- Baseline: Reviewed implementation, with DEF-001/DEF-002 evidence and the verified Jest contact-validation unit layer recorded separately.
+- Execution status: Jest unit layer verified; execution status for the remaining catalogue is not assessed in this documentation baseline.
 - Source authority: Source code, configuration, and executable test definitions take precedence over this snapshot.
 
 ## Purpose
@@ -18,11 +18,11 @@ Review of this baseline records the inspected implementation; it does not imply 
 
 - REQUIREMENTS.md defines the current source-derived testable baseline.
 - TEST_DESIGN.md explains the design techniques, classifications, and gaps.
-- TEST_CASES.md maps implemented automated cases and exact parameter variants.
+- TEST_CASES.md maps implemented automated cases and exact parameter variants, including the application-local Jest unit tests.
 - Automation repositories execute selected cases; their existence does not prove a passing result.
-- [RTM.md](RTM.md) links current DEF-001/DEF-002 requirements/conditions, cases, local execution evidence, and defect closure.
+- [RTM.md](RTM.md) links current DEF-001/DEF-002 requirements/conditions and the Jest unit cases to their applicable product requirements and execution evidence.
 - [DEFECT_LOG.md](DEFECT_LOG.md) records reproduced defects; DEF-001 and DEF-002 are Closed / Fixed / Retest Passed within their confirmed scopes.
-- [TEST_SUMMARY_REPORT.md](TEST_SUMMARY_REPORT.md) summarizes completed DEF-001/DEF-002 cycles.
+- [TEST_SUMMARY_REPORT.md](TEST_SUMMARY_REPORT.md) summarizes completed DEF-001/DEF-002 cycles and the verified Jest unit execution.
 - PERFORMANCE_TEST_REPORT.md is deferred.
 - This test plan governs scope and proposed process criteria across the set.
 
@@ -39,6 +39,7 @@ These are portfolio responsibilities, not separate staffed team positions. The p
 ## Objectives
 
 - Verify implemented page content, navigation, and contact behavior.
+- Verify the extracted server-side contact-validation logic in isolation.
 - Separate browser validation from server-side validation.
 - Verify successful persistence and implemented rejected-request non-persistence checks.
 - Record configured browser execution without claiming proven compatibility.
@@ -48,11 +49,11 @@ These are portfolio responsibilities, not separate staffed team positions. The p
 
 ## Scope
 
-The documentation hub is QA-Automation-Portfolio. Three independent repositories provide automation:
+The documentation hub and application-local unit layer are in QA-Automation-Portfolio. Three independent repositories provide external automation:
 
 | Repository | Existing responsibility |
 |---|---|
-| QA-Automation-Portfolio | Application under test: server-rendered UI, HTTP routes, contact validation, PostgreSQL writes |
+| QA-Automation-Portfolio | Application under test plus application-local Jest unit tests for the contact validation module |
 | QA-Portfolio-Selenium | Java UI, REST Assured API, and JDBC database automation |
 | QA-Portfolio-Playwright | JavaScript UI, request-fixture API, and pg database automation |
 | QA-Portfolio-Performance | JMeter smoke, baseline, load, and stress-labelled status workloads |
@@ -63,6 +64,7 @@ The documentation hub is QA-Automation-Portfolio. Three independent repositories
 - Automation-page availability and navigation as source-supported features with an automation gap.
 - Contact field input, browser validation, successful submission, and success feedback.
 - Status response and server-side required-field/email validation.
+- Isolated Jest coverage of required-field, whitespace, email-format, and validation-error behavior in the contact validation module.
 - PostgreSQL connectivity, message persistence, non-persistence assertions, and test-data lifecycle.
 - Configured desktop cross-browser execution.
 - Existing status-endpoint JMeter workload profiles and result interpretation.
@@ -81,7 +83,7 @@ In-scope features are not necessarily fully covered. Coverage status is recorded
 
 The application is a server-rendered Node.js/Express monolith with logical presentation, HTTP handling, validation, and persistence responsibilities.
 
-EJS views and static assets are physically separate. Routing, validation, database connection, SQL insertion, and startup share [index.js](../../index.js). There are no separate controller, service, repository, or domain-model modules.
+EJS views and static assets are physically separate. Routing, database connection, SQL insertion, and startup remain in [index.js](../../index.js). Server-side contact validation is delegated to the small pure [contact validation module](../../utils/contactValidation.js). This extraction does not introduce controller, service, repository, or domain-model layers.
 
 | Method | Endpoint | Current behavior |
 |---|---|---|
@@ -97,14 +99,14 @@ The server listens on port 3000. Accepted contacts are stored; they are not emai
 
 | Level / scope | Existing representation |
 |---|---|
-| Unit | No application unit-test suite identified |
+| Unit | Jest directly tests the pure contact validation module; 15 implemented cases run without PostgreSQL, a browser, external services, or Express startup |
 | Integration | Contact API/UI checks plus direct PostgreSQL verification; direct database connectivity and lifecycle tests |
 | System | Browser behavior and external HTTP response checks against the running application |
 | End-to-End scope | Successful browser contact flow through backend and database; overlaps system/integration rather than being an exclusive level |
 
 ## Test Types
 
-Functional, regression, smoke, cross-browser, API, database, and performance tags are used. Load and stress describe workload categories. The one-request JMeter smoke plan primarily verifies correctness/readiness of the test setup; it is not meaningful capacity evidence.
+Unit, functional, regression, smoke, cross-browser, API, database, and performance tags are used. Load and stress describe workload categories. The one-request JMeter smoke plan primarily verifies correctness/readiness of the test setup; it is not meaningful capacity evidence.
 
 These tags mix quality objectives, selection purposes, interfaces, and workload categories. They are not a mutually exclusive formal hierarchy.
 
@@ -122,7 +124,7 @@ These tags mix quality objectives, selection purposes, interfaces, and workload 
 - External UI/HTTP checks without internal structural objectives are classified Black-box.
 - Application-level tests that query PostgreSQL are classified Gray-box because their oracle uses internal persistence knowledge.
 - Pure DB connectivity classification depends on the stated test boundary; this baseline uses Gray-box relative to the portfolio application.
-- White-box requires intentional code-structure, branch, or path-oriented test design. No such coverage is established.
+- The Jest cases directly exercise exported validation functions and their decision branches, so they are classified White-box relative to that module. This classification and the measured coverage do not extend to the Express application or portfolio.
 - Source inspection, DOM access, or writing automated code does not alone make a test White-box.
 
 ## Environments
@@ -130,6 +132,7 @@ These tags mix quality objectives, selection purposes, interfaces, and workload 
 | Environment | Existing setup / recording requirement |
 |---|---|
 | Local | Application and PostgreSQL configured locally; record actual OS, tool versions, browser versions, and repository revisions for any future run |
+| Application unit CI | GitHub-hosted `ubuntu-latest`; Node.js 22; `npm ci` and `npm test`; no PostgreSQL, browser, external service, or application startup |
 | CI | Ubuntu runner, Node.js 22 application setup, PostgreSQL 16 service container |
 | Selenium CI | Java 25 and Maven |
 | Performance CI | Java 21 and JMeter 5.6.3 |
@@ -155,7 +158,7 @@ Current environment discrepancy: Selenium/Playwright CI align with the 255-chara
 
 ## Tools and frameworks
 
-- Application: Node.js, Express, EJS, Bootstrap, browser JavaScript, body-parser, dotenv, pg.
+- Application: Node.js, Express, EJS, Bootstrap, browser JavaScript, body-parser, dotenv, pg, and Jest 30.5.2 for application-local unit testing.
 - Selenium: Java, Selenium WebDriver, TestNG, Maven Surefire, REST Assured, JDBC, Allure.
 - Playwright: JavaScript, Playwright Test, built-in page/request fixtures, pg, HTML reporter.
 - Performance: JMeter JMX plans, HTTP samplers, assertions, timers, JTL, CSV, HTML dashboards.
@@ -224,6 +227,7 @@ Source-only observations remain suspected defects until reproduced/confirmed. Th
 
 | Framework | Existing reporting | Limitation |
 |---|---|---|
+| Jest | Console results from `npm test`; local module coverage from `npm run test:coverage` | Unit coverage is limited to the imported contact validation module; the CI workflow does not publish a coverage artifact |
 | Selenium | Allure metadata/results/screenshots; Surefire/TestNG outputs | Workflow uploads Allure results only on failure; environment properties describe Local/Windows even in Ubuntu CI |
 | Playwright | HTML, failure screenshots, first-retry traces; one retry | Independent suite commands reuse/replace the HTML report directory; failure-only upload |
 | JMeter | JTL, logs, CSV summaries, local HTML dashboards | CI uploads raw results/logs only on failure; no latency/throughput acceptance gate |
@@ -234,14 +238,15 @@ Artifact retention is seven days in the workflows. An output path is not evidenc
 
 | Workflow source | Trigger | Existing sequence |
 |---|---|---|
+| [Application Unit Tests](../../.github/workflows/unit-tests.yml) | Push / pull request | Node.js 22 → `npm ci` → `npm test` |
 | [Selenium CI](https://github.com/KSely/QA-Portfolio-Selenium/blob/main/.github/workflows/selenium-ci.yml) | Push to main / PR targeting main | Compile → API → DB → UI smoke → UI regression |
 | [Playwright CI](https://github.com/KSely/QA-Portfolio-Playwright/blob/main/.github/workflows/playwright-ci.yml) | Push to main / PR targeting main | API → DB → smoke → UI |
 | [JMeter CI](https://github.com/KSely/QA-Portfolio-Performance/blob/main/.github/workflows/jmeter-ci.yml) | Push to main / PR targeting main | Smoke → baseline |
 | [JMeter performance](https://github.com/KSely/QA-Portfolio-Performance/blob/main/.github/workflows/jmeter-performance.yml) | Manual dispatch | Selected load/stress plan |
 
-Each workflow checks out its test repository and the application, provisions PostgreSQL 16, installs dependencies, creates configuration/table, starts the application in the background, and polls /api/status.
+The application Unit Tests workflow checks out this repository and runs the isolated Jest suite without PostgreSQL or application startup. Each external automation/performance workflow checks out its test repository and the application, provisions PostgreSQL 16, installs dependencies, creates configuration/table, starts the application in the background, and polls /api/status.
 
-The application checkout has no explicit ref. Status polling does not prove application-to-database readiness. Earlier failures ordinarily skip later test steps. Smoke cases overlap later suites. No application workflow/cross-repository trigger runs the full set on an application-only change. No CD deployment/promotion/rollback is implemented.
+The external workflows' application checkout has no explicit ref. Status polling does not prove application-to-database readiness. Earlier failures ordinarily skip later test steps. Smoke cases overlap later suites. The application-local workflow covers only the Jest unit layer; no application workflow/cross-repository trigger runs the full set on an application-only change. No CD deployment/promotion/rollback is implemented.
 
 ## Risk-Based Prioritization
 
@@ -276,7 +281,7 @@ Future execution is separately authorized and uses synthetic data in a known tes
 
 Current: TEST_PLAN.md, REQUIREMENTS.md, TEST_DESIGN.md, TEST_CASES.md, [RTM.md](RTM.md), and [DEFECT_LOG.md](DEFECT_LOG.md). DEF-001 evidence includes a 16/16 passing Chromium UI regression run; no Firefox/WebKit or production conclusion is implied.
 
-Current cycle summary: [TEST_SUMMARY_REPORT.md](TEST_SUMMARY_REPORT.md), including DEF-002's 17/17 Chromium UI run. Deferred: PERFORMANCE_TEST_REPORT.md.
+Current cycle summary: [TEST_SUMMARY_REPORT.md](TEST_SUMMARY_REPORT.md), including DEF-002's 17/17 Chromium UI run and the verified 15/15 Jest unit run. Deferred: PERFORMANCE_TEST_REPORT.md.
 
 ## Baseline maintenance and human review
 

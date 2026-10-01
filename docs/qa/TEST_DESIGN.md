@@ -2,11 +2,11 @@
 
 ## Purpose and baseline
 
-Status: Reviewed documentation baseline before the improvement cycle. Execution status: Not assessed in this documentation baseline.
+Status: Reviewed documentation baseline with completed DEF-001/DEF-002 evidence and verified Jest unit results. Execution status for the remaining catalogue is not assessed by this document.
 
 Explain how the existing behaviors and automated cases can be classified, where formal techniques are defensible, and which conditions remain unimplemented. This document does not retrofit undocumented historical design intent or claim coverage measurements that were not collected.
 
-Sources: [REQUIREMENTS.md](REQUIREMENTS.md), application source, Java/JavaScript specifications, TestNG/Playwright configuration, and JMX plans. [TEST_CASES.md](TEST_CASES.md) maps exact existing methods/specifications/variants. [TEST_PLAN.md](TEST_PLAN.md) defines scope and proposed process criteria.
+Sources: [REQUIREMENTS.md](REQUIREMENTS.md), application source, Jest unit specifications, Java/JavaScript specifications, TestNG/Playwright configuration, and JMX plans. [TEST_CASES.md](TEST_CASES.md) maps exact existing methods/specifications/variants. [TEST_PLAN.md](TEST_PLAN.md) defines scope and proposed process criteria.
 
 Cycle evidence and closure are tracked in [RTM.md](RTM.md) and [DEFECT_LOG.md](DEFECT_LOG.md), separately from baseline execution status.
 
@@ -27,7 +27,7 @@ The design process is informed by ISTQB terminology, but this document does not 
 
 | Dimension | Values | Interpretation in this portfolio |
 |---|---|---|
-| Test Level | Unit; Integration; System; End-to-End scope | No application unit suite identified. E2E is a workflow-scope tag overlapping system/integration, not an exclusive extra level. |
+| Test Level | Unit; Integration; System; End-to-End scope | Jest directly tests the contact validation module. E2E is a workflow-scope tag overlapping system/integration, not an exclusive extra level. |
 | Test Type / Purpose | Functional; Regression; Smoke; Cross-browser; API; Database; Performance; Load; Stress | Practical multi-tag taxonomy mixing objectives, selection purposes, interfaces, and workloads; not a mutually exclusive hierarchy. |
 | Test Approach | Black-box; Gray-box; White-box; Undetermined | Relative to the selected test object and oracle. |
 | Test Design Technique | Equivalence Partitioning; Boundary Value Analysis; Decision Table; State Transition; Use Case; Error Guessing; Checklist-based; Not specifically technique-driven | Technique is based on condition selection, not programming language or runner. |
@@ -43,13 +43,14 @@ The design process is informed by ISTQB terminology, but this document does not 
 - White-box is reserved for design intentionally targeting internal structure, branches, paths, or implementation logic.
 - Reading source during analysis does not automatically make a test White-box.
 - DOM attributes/validity inspection does not automatically make a test White-box.
-- No statement, branch, or path coverage claim is established by this repository baseline.
-- A source-informed boundary condition may use a black-box design technique while its overall application-level approach is Gray-box.
+- Measured structural evidence is limited to **100% statement, branch, function, and line coverage for the contact validation module.** It is not application or portfolio coverage.
+- A case may use a black-box technique for input selection while its overall approach is Gray-box or White-box relative to the selected test object and oracle.
 
 ### Project examples
 
 | Existing case | Independent classifications | Reason |
 |---|---|---|
+| A-UNIT-014: required-field error takes precedence | Unit; Functional/Regression; White-box; Decision Table; Negative; Module; Automated | Directly invokes the pure validation function and verifies the first rejection branch when required and email-format conditions are both invalid. |
 | P-UI-004: successful contact submission with DB verification | System/E2E scope; Integration verification; Functional/Regression/Cross-browser/Database; Gray-box; Use Case; Positive; UI + Database; Automated | Exercises the user journey and then reads PostgreSQL. |
 | P-API-004: omitted name | System; Functional/API; Black-box; Equivalence Partitioning; Negative; API; Automated | HTTP response assertions only; no DB assertion in this PW family. |
 | S-API-004: whitespace name | Integration; Functional/API/Database; Gray-box; Equivalence Partitioning; Negative; API + Database; Automated | Asserts 400/error body and checks non-persistence. |
@@ -86,7 +87,7 @@ Simple existing visibility/navigation checks remain Not specifically technique-d
 | Nonblank invalid email | test@ or @example.com | 400 invalid-email message |
 | Browser-invalid form | empty required input or malformed email | Native validity prevents normal submission |
 
-**Existing automated representation:** Selenium required-value provider (S-API-003–008), invalid-email provider (S-API-009–012), omitted fields (S-API-013–015), PW missing/whitespace/email families (P-API-004–013), and negative UI cases. Positive API data represents a valid partition; successful UI flows are primarily classified Use Case.
+**Existing automated representation:** Selenium required-value provider (S-API-003–008), invalid-email provider (S-API-009–012), omitted fields (S-API-013–015), PW missing/whitespace/email families (P-API-004–013), negative UI cases, and A-UNIT-001–013/015. The Jest cases intentionally cover valid, invalid-format, empty, and whitespace-only partitions at the pure-module boundary. Positive API data represents a valid partition; successful UI flows are primarily classified Use Case.
 
 **Identified gaps:** PW explicit empty-string API cases and empty-email UI case; tabs/newlines; accepted email diversity; mixed whitespace and Unicode; distinction between validation trimming and original-value storage.
 
@@ -148,11 +149,11 @@ Definitions:
 
 The first three rules partition the required-field failure space for documentation; the implementation uses one combined required-field conditional, not three separate handlers.
 
-**Existing automated representation:** Individual missing/empty/whitespace cases exercise DT-01–03, invalid emails exercise DT-04, and positive API cases exercise DT-05. No formal decision table was present in test source; existing cases are classified EP rather than relabelled Decision Table retrospectively.
+**Existing automated representation:** Individual missing/empty/whitespace cases exercise DT-01–03, invalid emails exercise DT-04, and positive API cases exercise DT-05. A-UNIT-014 intentionally combines an empty required field with a malformed email and verifies required-field precedence; A-UNIT-015 verifies the invalid-email path when every required field is present. Earlier external cases retain their existing EP classifications rather than being relabelled retrospectively.
 
-**Identified gaps:** Multiple invalid required fields and required-field failure combined with a malformed email. Existing cases do not explicitly assert combined-condition precedence.
+**Identified gaps:** A-UNIT-014 covers empty name plus malformed email and establishes required-field precedence for that combination. Blank message plus malformed email, multiple simultaneous missing fields beyond all-empty input, and other combined-invalid permutations are not separately represented.
 
-**Proposed future conditions:** Missing name plus malformed email; blank message plus malformed email; multiple missing fields; all fields omitted from a parseable form body. Expect required-field error and no insert where the current scalar-form contract applies. Review intended precedence with a human before treating it as independent product policy.
+**Proposed future conditions:** Blank message plus malformed email, selected multiple-missing combinations, and all fields omitted from a parseable form body. Expect required-field error and no insert where the current scalar-form contract applies. Review intended precedence with a human before treating additional combinations as independent product policy.
 
 DT identifiers identify analysis rules, not new final test-case IDs.
 
@@ -201,7 +202,7 @@ DT identifiers identify analysis rules, not new final test-case IDs.
 
 **Project examples:** Footer without contact form; rejected fetch; non-JSON response; duplicate field names/structured form values reaching trim(); negative API unexpectedly inserting data; cleanup throwing after an assertion failure.
 
-**Existing automated representation:** Invalid-email/whitespace cases resemble familiar fault hypotheses but their documented intent supports EP. Original error-guessing provenance cannot be established; no cases are reclassified just because they are negative.
+**Existing automated representation:** A-UNIT-002–004, A-UNIT-008, A-UNIT-010, A-UNIT-012, and A-UNIT-013 deliberately cover likely validation faults: missing `@`, missing local part, incomplete domain, whitespace-only fields, and all required fields empty. Earlier external invalid-email/whitespace cases retain EP where original error-guessing provenance cannot be established.
 
 **Identified gaps:** Direct checks for the listed failure hypotheses.
 
@@ -239,7 +240,7 @@ DT identifiers identify analysis rules, not new final test-case IDs.
 
 ## Coverage gaps and future conditions
 
-Priorities for later design review: network/JSON failure recovery and rejection feedback/retry sequences, success reset/button verification, browser errors beyond the two covered startup routes, schema-length boundaries, combined-invalid conditions, complete persisted fields/count, DB outages, automation-page navigation, mobile/keyboard behavior, and contact-write workload testing.
+Priorities for later design review: network/JSON failure recovery and rejection feedback/retry sequences, success reset/button verification, browser errors beyond the two covered startup routes, schema-length boundaries, additional combined-invalid conditions beyond the tested required-error precedence case, complete persisted fields/count, DB outages, automation-page navigation, mobile/keyboard behavior, and contact-write workload testing.
 
 No final future case IDs are assigned here. Failure handling, revised API contracts, stronger DB assertions, isolation, CI/schema reproducibility, reporting, and performance improvements are not implemented by these documents.
 

@@ -2,11 +2,11 @@
 
 ## Baseline status
 
-Status: Reviewed documentation baseline before the improvement cycle. This catalogue describes source-defined tests, not results from a new execution.
+Status: Reviewed documentation baseline with completed defect-cycle evidence and verified application-local Jest unit results.
 
-Every row has Automation Status = Existing and Execution Status = Not assessed in this documentation baseline. IDs are stable documentation identifiers; they are not new annotations added to automation code. No final IDs are allocated to proposed future conditions.
+Every row has Automation Status = Existing. The original 81 Selenium, Playwright, and JMeter entries retain Execution Status = Not assessed in this documentation baseline; the 15 Jest entries record their verified passing execution. IDs are stable documentation identifiers and are not annotations added to automation code. No final IDs are allocated to proposed future conditions.
 
-[REQUIREMENTS.md](REQUIREMENTS.md) defines the source-derived baseline; [TEST_DESIGN.md](TEST_DESIGN.md) explains classification; [TEST_PLAN.md](TEST_PLAN.md) describes scope and proposed process criteria. [RTM.md](RTM.md) links cycle-specific evidence and [DEFECT_LOG.md](DEFECT_LOG.md) records DEF-001 closure.
+[REQUIREMENTS.md](REQUIREMENTS.md) defines the source-derived baseline; [TEST_DESIGN.md](TEST_DESIGN.md) explains classification; [TEST_PLAN.md](TEST_PLAN.md) describes scope and proposed process criteria. [RTM.md](RTM.md) links cycle-specific and Jest evidence, while [DEFECT_LOG.md](DEFECT_LOG.md) records DEF-001 and DEF-002 closure.
 
 ## Test Case Classification Legend
 
@@ -28,9 +28,11 @@ Every row has Automation Status = Existing and Execution Status = Not assessed i
 | JT | JDBC + TestNG |
 | PW / pg | Playwright Test / node-postgres |
 | JM | Apache JMeter |
+| A-UNIT | Application-local Jest unit test |
+| Module | Exported pure JavaScript function boundary |
 | Positive / Negative | Scenario/data classification, independent of execution outcome |
 
-All rows are automated. Manual workflow dispatch still executes automated tests. R and CB describe intended suite/project use, not necessarily literal tags on tests. No case is assigned White-box, BVA, Decision Table, State Transition, or Error Guessing without a defensible design basis.
+All rows are automated. Manual workflow dispatch still executes automated tests. R and CB describe intended suite/project use, not necessarily literal tags on tests. White-box is assigned only to the Jest cases that directly exercise the validation module; BVA, Decision Table, State Transition, and Error Guessing are assigned only where the implemented case design supports them.
 
 DOM required/validity checks are classified Black-box interface checks here; the application-level DB checks are Gray-box. Direct connectivity classifications depend on the test boundary. See TEST_DESIGN.md for ambiguity.
 
@@ -47,7 +49,7 @@ Priority is a portfolio risk assessment, separate from severity, technique, and 
 - Database insert/delete helper cases are Medium; real contact persistence checks remain High.
 - Home/project availability and navigation are Medium; contact-related value acceptance and required-field checks are High.
 
-The 81 existing entries contain 41 High, 27 Medium, and 13 Low priorities. Assignments are subject to human risk review and do not claim a formal business approval.
+The 96 existing entries contain 56 High, 27 Medium, and 13 Low priorities. The 15 application-local unit cases are High because they verify contact acceptance/rejection logic. Assignments are subject to human risk review and do not claim a formal business approval.
 
 ## 1. Selenium UI
 
@@ -237,6 +239,32 @@ Automatic CI selects J-PERF-001/002. Manual performance dispatch selects J-PERF-
 
 The smoke plan primarily validates response/setup correctness. Historical JTL/CSV/dashboard artifacts are not treated as current execution outcomes in this catalogue.
 
+## 8. Application Unit Testing
+
+Repository: QA-Automation-Portfolio.
+
+Source: [contactValidation.test.js](../../tests/unit/contactValidation.test.js). Production test object: [contactValidation.js](../../utils/contactValidation.js). The suite invokes pure functions directly and requires no PostgreSQL connection, browser, Express startup, Railway service, or network request.
+
+| Test ID | Requirement ID(s) | Test method / specification / plan | Feature | Priority | Test Level | Test Type(s) | Test Approach | Test Design Technique | Positive / Negative | Interface | Framework | Automation Status | Execution Status |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| A-UNIT-001 | REQ-API-004 (validation acceptance precondition) | isValidEmail — accepts a normally formatted email address | Valid email | High | Unit | F/R | White-box | EP | Positive | Module | Jest 30.5.2 | Existing | Passed — local and GitHub Actions |
+| A-UNIT-002 | REQ-API-003 | isValidEmail — rejects an email address without an at sign | Missing @ | High | Unit | F/R | White-box | Error Guessing | Negative | Module | Jest 30.5.2 | Existing | Passed — local and GitHub Actions |
+| A-UNIT-003 | REQ-API-003 | isValidEmail — rejects an email address with an incomplete domain | Incomplete domain | High | Unit | F/R | White-box | Error Guessing | Negative | Module | Jest 30.5.2 | Existing | Passed — local and GitHub Actions |
+| A-UNIT-004 | REQ-API-003 | isValidEmail — rejects an email address without a local part | Missing local part | High | Unit | F/R | White-box | Error Guessing | Negative | Module | Jest 30.5.2 | Existing | Passed — local and GitHub Actions |
+| A-UNIT-005 | REQ-API-003 | isValidEmail — accepts surrounding whitespace around an otherwise valid email | Trimmed email validation | High | Unit | F/R | White-box | EP | Positive | Module | Jest 30.5.2 | Existing | Passed — local and GitHub Actions |
+| A-UNIT-006 | REQ-API-004 (validation acceptance precondition) | validateContactInput — accepts complete valid contact input | Valid contact input | High | Unit | F/R | White-box | EP | Positive | Module | Jest 30.5.2 | Existing | Passed — local and GitHub Actions |
+| A-UNIT-007 | REQ-API-002 | validateContactInput — rejects an empty name | Empty name | High | Unit | F/R | White-box | EP | Negative | Module | Jest 30.5.2 | Existing | Passed — local and GitHub Actions |
+| A-UNIT-008 | REQ-API-002 | validateContactInput — rejects a whitespace-only name | Whitespace name | High | Unit | F/R | White-box | Error Guessing | Negative | Module | Jest 30.5.2 | Existing | Passed — local and GitHub Actions |
+| A-UNIT-009 | REQ-API-002 | validateContactInput — rejects an empty email | Empty email | High | Unit | F/R | White-box | EP | Negative | Module | Jest 30.5.2 | Existing | Passed — local and GitHub Actions |
+| A-UNIT-010 | REQ-API-002 | validateContactInput — rejects a whitespace-only email | Whitespace email | High | Unit | F/R | White-box | Error Guessing | Negative | Module | Jest 30.5.2 | Existing | Passed — local and GitHub Actions |
+| A-UNIT-011 | REQ-API-002 | validateContactInput — rejects an empty message | Empty message | High | Unit | F/R | White-box | EP | Negative | Module | Jest 30.5.2 | Existing | Passed — local and GitHub Actions |
+| A-UNIT-012 | REQ-API-002 | validateContactInput — rejects a whitespace-only message | Whitespace message | High | Unit | F/R | White-box | Error Guessing | Negative | Module | Jest 30.5.2 | Existing | Passed — local and GitHub Actions |
+| A-UNIT-013 | REQ-API-002 | validateContactInput — rejects input when all fields are empty | All required fields empty | High | Unit | F/R | White-box | Error Guessing | Negative | Module | Jest 30.5.2 | Existing | Passed — local and GitHub Actions |
+| A-UNIT-014 | REQ-API-002; REQ-API-005 | validateContactInput — returns the required-field error when a required field is empty | Required-error precedence | High | Unit | F/R | White-box | Decision Table | Negative | Module | Jest 30.5.2 | Existing | Passed — local and GitHub Actions |
+| A-UNIT-015 | REQ-API-003 | validateContactInput — returns the invalid-email error when the email format is invalid | Invalid-email decision path | High | Unit | F/R | White-box | Decision Table | Negative | Module | Jest 30.5.2 | Existing | Passed — local and GitHub Actions |
+
+Verified execution: `npm test` completed 1 suite with 15 passed, 0 failed, and 0 skipped. `npm run test:coverage` reported **100% statement, branch, function, and line coverage for the contact validation module.** The module result is not whole-application or portfolio coverage. The GitHub Actions Unit Tests workflow also passed successfully on Node.js 22.
+
 ## Inventory reconciliation
 
 | Catalogue section | Designed cases / expanded variants |
@@ -248,11 +276,12 @@ The smoke plan primarily validates response/setup correctness. Historical JTL/CS
 | Playwright API | 13 |
 | Playwright Database | 2 |
 | JMeter plans | 7 |
-| Total documentation entries | 81 |
+| Application Jest Unit | 15 |
+| Total documentation entries | 96 |
 
-Selenium has 42 cases before browser/smoke repetition. Playwright has 32 unique cases. Configured full multi-project execution before retries is 66: 17 UI cases × 3 browsers = 51 UI browser executions, plus 13 API and 2 DB. DEF-001's broader run executed 16 Chromium UI cases; DEF-002's broader run executed 17, not all 66. JMeter samples are not case count. Cross-framework overlaps are not additional unique business requirements. Setup hooks, helpers, data-provider declarations, retries, and repeated suite selections are not separate designed cases.
+The previous verified catalogue contained 81 entries. Adding exactly 15 implemented Jest cases produces 96 unique documented cases. Selenium has 42 cases before browser/smoke repetition. Playwright has 32 unique cases. Configured full Playwright multi-project execution before retries remains 66: 17 UI cases × 3 browsers = 51 UI browser executions, plus 13 API and 2 DB. DEF-001's broader run executed 16 Chromium UI cases; DEF-002's broader run executed 17, not all 66. The latest Jest execution is a separate 15-test unit run. JMeter samples are not case count. Cross-framework overlaps are not additional unique business requirements. Setup hooks, helpers, data-provider declarations, retries, and repeated suite selections are not separate designed cases.
 
-No application unit-test suite is represented.
+The application-local Jest layer is represented by A-UNIT-001–015. It verifies only the extracted contact validation module.
 
 ## Coverage Gaps / Proposed Future Test Conditions
 
@@ -263,7 +292,7 @@ These are proposed conditions, not existing cases, approved new product behavior
 - Form reset values and repeated-submission/stale-success behavior.
 - Browser-error checks on other pages and later interactions; startup pageerror checks on /project and /project/automation now exist as P-UI-015 and P-UI-016.
 - BVA around schema lengths with a known environment and clarified API error expectations.
-- Combined-invalid-input decision rules and error precedence.
+- Additional combined-invalid-input rules beyond the required-error precedence covered by A-UNIT-014.
 - Complete stored name/email/message and timestamp verification.
 - Exact row count and duplicate detection.
 - Database outage/startup/readiness behavior and an agreed error contract.
@@ -277,7 +306,7 @@ These are proposed conditions, not existing cases, approved new product behavior
 
 ## Baseline limitations and future maintenance
 
-All entries describe Existing automation; catalogue status is separate from the DEF-001 cycle evidence linked above. No claim is made that all 81 entries passed. Full compatibility, production performance, readiness, CD, and structural white-box coverage are not claimed.
+All entries describe Existing automation. The 15 Jest entries have verified passing evidence; execution status for the preceding 81 catalogue entries remains separate from the DEF-001/DEF-002 cycle evidence. No claim is made that all 96 entries passed. Full compatibility, production performance, readiness, or CD is not claimed. Structural coverage applies only to the contact validation module.
 
 Formal technique assignments are conservative; simple navigation/visibility/status assertions remain Not specifically technique-driven. Stress labels describe intended workloads only.
 

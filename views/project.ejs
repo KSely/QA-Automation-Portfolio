@@ -10,7 +10,7 @@
     <h1 class="display-5 fw-bold mb-4">Full-Stack QA Automation Project</h1>
 
     <p class="lead">
-      Web Application · UI Automation · API Testing · Database Validation
+      Web Application · Unit Testing · UI Automation · API Testing · Database Validation
     </p>
 
     <hr class="my-5" />
@@ -320,12 +320,22 @@
 
       <p class="about-text mt-3">
         Tools, frameworks, and testing practices used to validate application
-        quality across UI, API, database, performance, and cross-browser layers.
+        quality across unit, UI, API, database, performance, and cross-browser
+        layers.
       </p>
     </div>
 
     <!-- Main testing tools grouped by testing area (QA Toolset) -->
     <div class="row g-4">
+
+      <!-- Jest validates application-owned server-side logic without external dependencies (Unit Testing) -->
+      <div class="col-md-6 col-lg-4">
+        <div class="testing-stack-card">
+          <span class="testing-category">UNIT TESTING</span>
+          <h3>Jest</h3>
+          <p>15 Tests · Contact Validation · GitHub Actions</p>
+        </div>
+      </div>
 
       <!-- Selenium framework for browser-based automated testing (UI Automation) -->
       <div class="col-md-6 col-lg-4">
@@ -422,14 +432,30 @@
       <h2 class="section-title">Test Strategy & Coverage</h2>
 
       <p class="about-text mt-3">
-        Multi-layer testing strategy designed to validate functionality,
-        integration, data integrity, reliability, and application behavior
-        across the full system.
+        Multi-layer testing strategy designed to validate isolated application
+        logic, functionality, integration, data integrity, reliability, and
+        application behavior across the full system.
       </p>
     </div>
 
     <!-- Testing is organized by the main application layers (Test Coverage) -->
     <div class="row g-4">
+
+      <!-- Directly validates the extracted server-side contact validation functions (Unit Testing) -->
+      <div class="col-md-6">
+        <div class="test-strategy-card">
+          <span class="testing-category">UNIT LAYER</span>
+          <h3>Jest Contact Validation</h3>
+
+          <ul>
+            <li>Required-field validation</li>
+            <li>Whitespace-only input handling</li>
+            <li>Email-format validation</li>
+            <li>Validation error behavior</li>
+            <li>No database, browser, or server startup required</li>
+          </ul>
+        </div>
+      </div>
 
       <!-- Checks user workflows, form behavior, and browser compatibility (UI Testing) -->
       <div class="col-md-6">
@@ -648,8 +674,8 @@
       </h2>
 
       <p class="about-text mb-4">
-        Explore the automation frameworks, API tests, performance tests,
-        and test results created for this project.
+        Explore the Jest unit tests, automation frameworks, API tests,
+        performance tests, and test results created for this project.
       </p>
 
       <!-- Shows the main testing tools and available test results (Automation Tools) -->
