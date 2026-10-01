@@ -12,8 +12,9 @@
     </h1>
 
     <p class="about-text mt-3">
-      Unit testing, UI automation, API testing, performance testing,
-      and test results for the Full-Stack QA Automation Project.
+      Unit testing, UI automation, accessibility testing, API testing,
+      performance testing, and test results for the Full-Stack QA Automation
+      Project.
     </p>
 
     <div class="row justify-content-center mt-5">
@@ -82,13 +83,59 @@
           <h3>JavaScript</h3>
 
           <p>
-            Playwright is used for modern end-to-end UI automation
-            and cross-browser validation.
+            Playwright is used for modern end-to-end UI automation,
+            cross-browser functional validation, and accessibility testing.
           </p>
 
         </div>
       </div>
 
+    </div>
+
+    <!-- Summarizes the implemented Playwright and axe-core accessibility layer (Accessibility Testing) -->
+    <div class="row justify-content-center mt-4">
+      <div class="col-lg-10">
+        <div id="accessibility-testing" class="testing-stack-card">
+          <span class="testing-category">ACCESSIBILITY TESTING</span>
+          <h3>Playwright + axe-core</h3>
+
+          <div class="row g-4 mt-1">
+            <div class="col-md-6">
+              <p class="fw-semibold mb-2">Coverage</p>
+              <ul class="mb-0">
+                <li>Full-page WCAG-oriented automated scans</li>
+                <li>Color-contrast checks</li>
+                <li>Accessible names and required semantics</li>
+                <li>Link focus and Enter activation</li>
+                <li>Contact-form keyboard focus order</li>
+              </ul>
+            </div>
+
+            <div class="col-md-6">
+              <p class="fw-semibold mb-2">Execution Result</p>
+              <ul class="mb-0">
+                <li>5 automated accessibility tests</li>
+                <li>Initial run: 3 passed / 2 failed</li>
+                <li>Defects identified: DEF-003 and DEF-004</li>
+                <li>Post-fix retest: 5 passed / 0 failed / 0 skipped</li>
+                <li>Browser scope: Chromium</li>
+              </ul>
+            </div>
+          </div>
+
+          <p class="mt-4 mb-2">
+            <strong>Accessibility defect cycle:</strong> DEF-003 covered Home CTA
+            color contrast, and DEF-004 covered architecture-label color
+            contrast. Both were detected by axe-core, fixed, and retested
+            successfully; the accessibility regression result is 5/5 passed.
+          </p>
+
+          <p class="mb-0">
+            Automated accessibility checks do not establish full WCAG
+            compliance and do not replace manual accessibility assessment.
+          </p>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -275,7 +322,8 @@
           <span class="testing-category">PLAYWRIGHT</span>
           <h3>Playwright Reports</h3>
           <p>
-            End-to-end test results with execution details and test evidence.
+            End-to-end and accessibility results with execution details and
+            test evidence.
           </p>
         </div>
       </div>
