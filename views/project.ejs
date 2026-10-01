@@ -143,6 +143,69 @@
 </section>
 
 
+<!-- ==================== CLOUD DEPLOYMENT ==================== -->
+<!-- Shows how the production application and database are connected on Railway (Deployment Architecture) -->
+<section id="deployment" class="section-padding">
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="section-label">CLOUD DEPLOYMENT</p>
+
+      <h2 class="section-title">Deployment Architecture</h2>
+
+      <p class="about-text mt-3">
+        The production application is deployed on Railway and uses a private
+        connection to Railway PostgreSQL.
+      </p>
+    </div>
+
+    <div class="architecture-diagram">
+      <div class="architecture-node">
+        <span class="architecture-label">CLIENT</span>
+        <h3>Public User / Browser</h3>
+      </div>
+
+      <div class="architecture-connector">
+        <span>HTTPS</span>
+        <div class="architecture-arrow">↓</div>
+      </div>
+
+      <div class="architecture-node">
+        <span class="architecture-label">PUBLIC ACCESS</span>
+        <h3>Railway Public Domain</h3>
+      </div>
+
+      <div class="architecture-connector">
+        <div class="architecture-arrow">↓</div>
+      </div>
+
+      <div class="architecture-node">
+        <span class="architecture-label">APPLICATION SERVICE</span>
+        <h3>Node.js / Express Service</h3>
+      </div>
+
+      <div class="architecture-connector">
+        <span>DATABASE_URL</span>
+        <div class="architecture-arrow">↓</div>
+      </div>
+
+      <div class="architecture-node">
+        <span class="architecture-label">PRIVATE CONNECTIVITY</span>
+        <h3>Railway Private Network</h3>
+      </div>
+
+      <div class="architecture-connector">
+        <div class="architecture-arrow">↓</div>
+      </div>
+
+      <div class="architecture-node">
+        <span class="architecture-label">DATABASE</span>
+        <h3>Railway PostgreSQL</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <!-- ==================== TECHNOLOGY STACK ==================== -->
 <!-- Shows the main technologies used to build and run the application (Technology Stack) -->
 <section id="tech-stack" class="section-padding">
@@ -216,7 +279,7 @@
       </div>
 
       <!-- Tools used to run and develop the application locally (Development Tools) -->
-      <div class="col-md-6 col-lg-4 offset-lg-2">
+      <div class="col-md-6 col-lg-4">
         <div class="technology-stack-card">
           <span class="technology-category">DEVELOPMENT</span>
           <h3>Runtime & Tooling</h3>
@@ -230,6 +293,15 @@
           <span class="technology-category">VERSION CONTROL</span>
           <h3>Source Control</h3>
           <p>Git</p>
+        </div>
+      </div>
+
+      <!-- Cloud hosting and continuous integration used by the portfolio (Deployment & CI/CD) -->
+      <div class="col-md-6 col-lg-4">
+        <div class="technology-stack-card">
+          <span class="technology-category">DEPLOYMENT &amp; CI/CD</span>
+          <h3>Cloud &amp; Automation</h3>
+          <p>Railway · GitHub Actions</p>
         </div>
       </div>
     </div>
@@ -273,12 +345,12 @@
         </div>
       </div>
 
-      <!-- Validates HTTP requests and responses through Postman (API Testing) -->
+      <!-- Validates HTTP requests and responses through automated and manual API tools (API Testing) -->
       <div class="col-md-6 col-lg-4">
         <div class="testing-stack-card">
           <span class="testing-category">API TESTING</span>
-          <h3>Postman</h3>
-          <p>HTTP Requests · Response Validation</p>
+          <h3>REST Assured · Playwright API · Postman</h3>
+          <p>HTTP Requests · Status Codes · Response Validation</p>
         </div>
       </div>
 
@@ -296,7 +368,7 @@
         <div class="testing-stack-card">
           <span class="testing-category">PERFORMANCE TESTING</span>
           <h3>Apache JMeter</h3>
-          <p>Load · Stress · Endurance</p>
+          <p>Smoke · Baseline · Load · Stress</p>
         </div>
       </div>
 
@@ -323,7 +395,7 @@
         <div class="testing-stack-card">
           <span class="testing-category">TEST REPORTING</span>
           <h3>Automation Results</h3>
-          <p>TestNG Reports · Playwright Reports</p>
+          <p>Allure · TestNG · Playwright HTML Reports</p>
         </div>
       </div>
 
@@ -415,9 +487,9 @@
 
           <ul>
             <li>Response time measurement</li>
+            <li>Baseline performance testing</li>
             <li>Load testing</li>
             <li>Stress testing</li>
-            <li>Endurance testing</li>
             <li>Application stability under load</li>
           </ul>
         </div>
@@ -535,7 +607,7 @@
 
           <div class="database-field">
             <span>created_at</span>
-            <span>TIMESTAMP</span>
+            <span>TIMESTAMPTZ</span>
           </div>
         </div>
       </div>

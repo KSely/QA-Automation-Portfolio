@@ -25,6 +25,20 @@ The project is supported by separate Selenium, Playwright, and JMeter repositori
 
 ---
 
+## Live Application
+
+The deployed application is available at:
+
+[Open Live QA Automation Portfolio](https://qa-automation-portfolio-production.up.railway.app)
+
+### Application Status API
+
+[GET /api/status](https://qa-automation-portfolio-production.up.railway.app/api/status)
+
+The application is deployed on Railway and connected to a cloud PostgreSQL database.
+
+---
+
 ## Testing Repositories
 
 ### Selenium Automation
@@ -40,7 +54,11 @@ Java-based automation framework using:
 - PostgreSQL
 - Allure
 
-Repository: [QA-Portfolio-Selenium](https://github.com/KSely/QA-Portfolio-Selenium)
+Repository:
+
+[QA-Portfolio-Selenium](https://github.com/KSely/QA-Portfolio-Selenium)
+
+---
 
 ### Playwright Automation
 
@@ -54,7 +72,11 @@ JavaScript-based automation framework using:
 - Regression testing
 - Cross-browser testing
 
-Repository: [QA-Portfolio-Playwright](https://github.com/KSely/QA-Portfolio-Playwright)
+Repository:
+
+[QA-Portfolio-Playwright](https://github.com/KSely/QA-Portfolio-Playwright)
+
+---
 
 ### JMeter Performance Testing
 
@@ -64,13 +86,14 @@ Apache JMeter performance testing project covering:
 - Baseline testing
 - Load testing
 - Stress testing
-- Endurance testing
 - Response time analysis
 - Percentile analysis
 - Throughput analysis
 - Error rate analysis
 
-Repository: [QA-Portfolio-Performance](https://github.com/KSely/QA-Portfolio-Performance)
+Repository:
+
+[QA-Portfolio-Performance](https://github.com/KSely/QA-Portfolio-Performance)
 
 ---
 
@@ -118,6 +141,11 @@ Repository: [QA-Portfolio-Performance](https://github.com/KSely/QA-Portfolio-Per
 - Git
 - GitHub
 - GitHub Actions
+
+### Deployment
+
+- Railway
+- Railway PostgreSQL
 
 ---
 
@@ -186,7 +214,6 @@ Covers:
 - Baseline testing
 - Load testing
 - Stress testing
-- Endurance testing
 - Response time
 - Percentiles
 - Throughput
@@ -198,7 +225,7 @@ Covers:
 
 The repository includes a structured QA documentation set created from the implemented application behavior and completed verification cycles.
 
-### [Test Plan](docs/qa/TEST_PLAN.md)
+### Test Plan
 
 Defines:
 
@@ -214,7 +241,7 @@ Defines:
 - Test deliverables
 - Reporting approach
 
-### [Requirements](docs/qa/REQUIREMENTS.md)
+### Requirements
 
 Documents source-derived application and verification requirements covering:
 
@@ -226,7 +253,7 @@ Documents source-derived application and verification requirements covering:
 - Automation
 - Verification expectations
 
-### [Test Design](docs/qa/TEST_DESIGN.md)
+### Test Design
 
 Documents test design approaches and techniques including:
 
@@ -238,7 +265,7 @@ Documents test design approaches and techniques including:
 - Error Guessing
 - Checklist-Based Testing
 
-### [Test Cases](docs/qa/TEST_CASES.md)
+### Test Cases
 
 Provides a consolidated test catalogue covering:
 
@@ -250,7 +277,7 @@ Provides a consolidated test catalogue covering:
 - Playwright database testing
 - JMeter performance testing
 
-### [Requirements Traceability Matrix](docs/qa/RTM.md)
+### Requirements Traceability Matrix
 
 Maps:
 
@@ -260,7 +287,7 @@ Maps:
 - Defects
 - Verification results
 
-### [Defect Log](docs/qa/DEFECT_LOG.md)
+### Defect Log
 
 Documents:
 
@@ -273,7 +300,7 @@ Documents:
 - Retest results
 - Remaining limitations
 
-### [Test Summary Report](docs/qa/TEST_SUMMARY_REPORT.md)
+### Test Summary Report
 
 Summarizes completed verification cycles including:
 
@@ -295,15 +322,15 @@ A shared JavaScript handler attempted to attach a contact-form event listener on
 
 The issue was:
 
-1. Identified during source review
-2. Reproduced in the browser
-3. Logged as a confirmed defect
-4. Covered with Playwright regression tests
-5. Reproduced automatically as a pre-fix failure
-6. Fixed using null-safe event binding
-7. Retested successfully
-8. Verified through broader Chromium regression testing
-9. Documented in the defect log, RTM, test design, requirements, test cases, test plan, and test summary report
+- Identified during source review
+- Reproduced in the browser
+- Logged as a confirmed defect
+- Covered with Playwright regression tests
+- Reproduced automatically as a pre-fix failure
+- Fixed using null-safe event binding
+- Retested successfully
+- Verified through broader Chromium regression testing
+- Documented in the defect log, RTM, test design, requirements, test cases, test plan, and test summary report
 
 ### DEF-002 — Contact Form Recovery After Server-Side Rejection
 
@@ -320,19 +347,37 @@ The backend correctly rejected invalid data, but the UI remained disabled in the
 
 The issue was:
 
-1. Reproduced using browser-valid input that failed server-side validation
-2. Logged as a confirmed defect
-3. Covered with a focused Playwright regression test
-4. Confirmed through a pre-fix automated failure
-5. Fixed by restoring the submit button after a valid JSON response
-6. Retested successfully
-7. Verified against the existing successful contact submission flow
-8. Verified through broader Chromium UI regression testing
-9. Documented through the QA reporting and traceability workflow
+- Reproduced using browser-valid input that failed server-side validation
+- Logged as a confirmed defect
+- Covered with a focused Playwright regression test
+- Confirmed through a pre-fix automated failure
+- Fixed by restoring the submit button after a valid JSON response
+- Retested successfully
+- Verified against the existing successful contact submission flow
+- Verified through broader Chromium UI regression testing
+- Documented through the QA reporting and traceability workflow
 
 The defect workflow demonstrates:
 
-**Identify → Reproduce → Document → Automate → Fail → Fix → Retest → Regression → Report**
+```text
+Identify
+   ↓
+Reproduce
+   ↓
+Document
+   ↓
+Automate
+   ↓
+Fail
+   ↓
+Fix
+   ↓
+Retest
+   ↓
+Regression
+   ↓
+Report
+```
 
 ---
 
@@ -349,8 +394,10 @@ Java-based automation framework covering:
 - Database validation with PostgreSQL and JDBC
 - Smoke testing
 - Regression testing
-- Cross-browser test configuration for Chrome, Firefox, and Edge
+- Cross-browser execution across Chrome, Firefox, and Edge
 - Allure test reporting
+
+The Selenium framework includes a dedicated cross-browser suite that executes the UI regression coverage across all three supported browsers.
 
 ### Playwright
 
@@ -373,7 +420,6 @@ Apache JMeter performance testing project covering:
 - Baseline testing
 - Load testing
 - Stress testing
-- Endurance testing
 - Response time analysis
 - Percentile analysis
 - Throughput analysis
@@ -460,7 +506,7 @@ The same application is used as the Application Under Test for Selenium, Playwri
 
 The application includes REST endpoints used for backend and API testing.
 
-### GET `/api/status`
+### `GET /api/status`
 
 Checks whether the backend is running and returns the application status.
 
@@ -473,7 +519,7 @@ Example response:
 }
 ```
 
-### POST `/contact`
+### `POST /contact`
 
 Processes contact form submissions.
 
@@ -509,6 +555,8 @@ Example validation rejection:
 
 PostgreSQL is used to store messages submitted through the contact form.
 
+Contact form submissions from the deployed application are stored in the Railway PostgreSQL database.
+
 The `messages` table contains:
 
 - `id` — unique message identifier
@@ -516,6 +564,8 @@ The `messages` table contains:
 - `email` — sender email address
 - `message` — submitted message
 - `created_at` — date and time of submission
+
+The deployed Railway database stores `created_at` as a timezone-aware PostgreSQL timestamp (`TIMESTAMPTZ`).
 
 Database testing verifies that:
 
@@ -526,11 +576,41 @@ Database testing verifies that:
 
 ---
 
+## Cloud Deployment
+
+The application is deployed on Railway.
+
+The cloud deployment includes:
+
+- Node.js / Express application service
+- Railway PostgreSQL database
+- Public HTTPS domain
+- Environment-variable-based database configuration
+- Private application-to-database connectivity
+
+The deployed application uses:
+
+```env
+DATABASE_URL=postgresql://user:password@host:port/database
+```
+
+The actual database credentials are stored securely in Railway environment variables and are not committed to GitHub.
+
+The application also reads the Railway-provided `PORT` environment variable:
+
+```text
+process.env.PORT
+```
+
+while continuing to use port `3000` for local development.
+
+---
+
 ## Getting Started
 
 ### Prerequisites
 
-Before running the application, make sure the following are installed:
+Before running the application locally, make sure the following are installed:
 
 - Node.js
 - npm
@@ -556,7 +636,9 @@ Install dependencies:
 npm install
 ```
 
-Create a `.env` file based on `.env.example` and configure your PostgreSQL connection:
+Create a `.env` file based on `.env.example`.
+
+For local PostgreSQL:
 
 ```env
 DB_USER=postgres
@@ -566,7 +648,15 @@ DB_PASSWORD=your_password
 DB_PORT=5432
 ```
 
-Create the database table using:
+For cloud PostgreSQL deployment, the application also supports:
+
+```env
+DATABASE_URL=postgresql://user:password@host:port/database
+```
+
+The Railway deployment uses `DATABASE_URL` to connect the application to its cloud PostgreSQL database.
+
+Create the local database table using:
 
 ```text
 database/schema.sql
@@ -592,27 +682,73 @@ http://localhost:3000
 
 ---
 
+## Local and Cloud Environments
+
+### Local Environment
+
+```text
+Browser
+   ↓
+Node.js / Express
+   ↓
+Local PostgreSQL
+```
+
+Local database configuration uses:
+
+```text
+DB_USER
+DB_HOST
+DB_DATABASE
+DB_PASSWORD
+DB_PORT
+```
+
+### Railway Cloud Environment
+
+```text
+Public Browser
+   ↓
+Railway HTTPS Domain
+   ↓
+Node.js / Express
+   ↓
+Railway Private Network
+   ↓
+Railway PostgreSQL
+```
+
+Cloud database configuration uses:
+
+```text
+DATABASE_URL
+```
+
+This allows the same application codebase to support both local development and cloud deployment.
+
+---
+
 ## Related Testing Repositories
 
-This application serves as the Application Under Test (AUT) for the following QA projects:
+This application serves as the Application Under Test (AUT) for the following QA projects.
 
 ### Selenium Automation
 
 Java-based automation framework covering UI, API, database, regression, smoke, and cross-browser testing.
 
-Repository: [QA-Portfolio-Selenium](https://github.com/KSely/QA-Portfolio-Selenium)
+[QA-Portfolio-Selenium](https://github.com/KSely/QA-Portfolio-Selenium)
 
 ### Playwright Automation
 
 JavaScript-based automation framework covering UI, API, database, regression, smoke, defect regression, and cross-browser testing.
 
-Repository: [QA-Portfolio-Playwright](https://github.com/KSely/QA-Portfolio-Playwright)
+[QA-Portfolio-Playwright](https://github.com/KSely/QA-Portfolio-Playwright)
 
 ### JMeter Performance Testing
 
-Apache JMeter project covering baseline, load, stress, and endurance performance testing with response time, percentile, throughput, and error rate analysis.
+Apache JMeter project covering baseline, load, and stress performance testing with response time, percentile, throughput, and error rate analysis.
 
-Repository: [QA-Portfolio-Performance](https://github.com/KSely/QA-Portfolio-Performance)
+[QA-Portfolio-Performance](https://github.com/KSely/QA-Portfolio-Performance)
 
 ---
 
@@ -633,7 +769,13 @@ This project was created for portfolio and demonstration purposes to showcase my
 - Requirements traceability
 - QA documentation
 - Test reporting
+- CI/CD
+- Cloud deployment
 
 The source code and QA documentation are publicly available for review by potential employers and recruiters.
+
+The live application is also publicly available through Railway:
+
+[Open Live QA Automation Portfolio](https://qa-automation-portfolio-production.up.railway.app)
 
 No open-source license is currently provided for this repository.
