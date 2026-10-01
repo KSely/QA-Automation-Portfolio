@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import pg from "pg";
 import dotenv from "dotenv";
+import { validateContactInput } from "./utils/contactValidation.js";
 
 dotenv.config();
 
@@ -67,26 +68,12 @@ app.post("/contact", async (req, res) => {
   const email = req.body.email;
   const message = req.body.message;
 
-  // Make sure all required fields are filled in (Input Validation)
-  if (
-    !name ||
-    !email ||
-    !message ||
-    !name.trim() ||
-    !email.trim() ||
-    !message.trim()
-  ) {
-    return res.status(400).json({
-      success: false,
-      message: "All fields are required."
-    });
-  }
+  const validation = validateContactInput(name, email, message);
 
-  // Check the email address format (Email Validation)
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+  if (!validation.isValid) {
     return res.status(400).json({
       success: false,
-      message: "Invalid email address."
+      message: validation.message
     });
   }
 
