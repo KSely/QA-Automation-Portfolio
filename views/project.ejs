@@ -372,7 +372,10 @@
         <div class="testing-stack-card">
           <span class="testing-category">API TESTING</span>
           <h3>REST Assured · Playwright API · Postman</h3>
-          <p>HTTP Requests · Status Codes · Response Validation</p>
+          <p>
+            REST Assured JSON Schema Validator · Playwright + Ajv · JSON
+            Schema Validation
+          </p>
         </div>
       </div>
 
@@ -495,7 +498,8 @@
             <li>API endpoint validation</li>
             <li>HTTP methods and requests</li>
             <li>Response status codes</li>
-            <li>Response body validation</li>
+            <li>Exact response values and messages</li>
+            <li>JSON Schema Validation: required properties and data types</li>
             <li>Error and invalid-request handling</li>
           </ul>
         </div>
@@ -563,7 +567,9 @@
 
       <p class="about-text mt-3">
         HTTP endpoints are validated for request handling, response content,
-        status codes, input validation, and error scenarios.
+        status codes, input validation, and error scenarios. REST Assured's
+        JSON Schema Validator and Playwright with Ajv add schema-based contract
+        validation alongside exact response and database assertions.
       </p>
     </div>
 
@@ -583,8 +589,9 @@
 
           <ul>
             <li>Expected status: 200 OK</li>
-            <li>JSON response validation</li>
-            <li>Backend availability check</li>
+            <li>Exact status and message validation</li>
+            <li>JSON Schema validation of required properties and data types</li>
+            <li>Application status endpoint check</li>
           </ul>
         </div>
       </div>
@@ -605,7 +612,8 @@
             <li>Valid submission: 200 OK</li>
             <li>Missing fields: 400 Bad Request</li>
             <li>Invalid email: 400 Bad Request</li>
-            <li>Response body validation</li>
+            <li>Exact success and message validation</li>
+            <li>JSON Schema validation of required properties and data types</li>
             <li>Database persistence validation</li>
           </ul>
         </div>
