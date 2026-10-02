@@ -203,3 +203,20 @@ Automated axe scans can identify some missing names, invalid ARIA, landmark, sem
 No standalone accessibility product requirement exists in [REQUIREMENTS.md](REQUIREMENTS.md). [RTM.md](RTM.md) records the test and defect evidence without inventing one. The catalogue now contains 101 entries after adding P-A11Y-001–005; only these five cases are covered by this accessibility execution result.
 
 **Accessibility Execution Status: Completed — DEF-003 and DEF-004 were fixed and verified; all 5 tests passed in the defined Chromium accessibility scope.**
+
+## 14. API JSON Schema Validation Verification — 2026-10-01
+
+This verification added schema-based API Contract Validation to the existing Selenium and Playwright API cases. It did not add product requirements or test cases, and it did not replace the existing HTTP status, content-type, exact value/message, persistence, non-persistence, or cleanup assertions.
+
+| Framework | Validation implementation | Existing API scope | Verification result | CI result |
+| --- | --- | --- | --- | --- |
+| Selenium | REST Assured 5.5.6 with `io.rest-assured:json-schema-validator:5.5.6`; `matchesJsonSchemaInClasspath(...)`; schemas in `src/test/resources/schemas` | S-API-001–015 | 15 passed; 0 failures; 0 errors; 0 skipped | Selenium GitHub Actions workflow succeeded |
+| Playwright | Ajv 8.20.0; schemas in `tests/schemas`; `utils/schemaValidator.js` compiles each schema once and returns validation status/errors | P-API-001–013 | 13 passed; 0 failed; 0 skipped | Playwright GitHub Actions workflow succeeded |
+
+The status-response schemas require `status` and `message`, both strings. The contact-response schemas require `success` as a boolean and `message` as a string. Successful status/contact responses, required-field rejections, and invalid-email rejections retain their existing functional assertions alongside the schema assertions. Selected contact cases also retain their database persistence or non-persistence checks.
+
+No new test IDs were introduced. The catalogue remains **101 unique cases**. Selenium retains **15 API cases**. Playwright retains **37 unique cases**: 17 UI, 5 accessibility, 13 API, and 2 database, with **71 configured executions before retries**. These successful API runs are focused framework results, not a full 101-case portfolio execution.
+
+This evidence establishes the represented response structure, required properties, and property data types for the existing status and contact cases. Its scope is limited to the executed cases and their existing assertions.
+
+**API Schema Validation Status: Completed — 15/15 Selenium API cases and 13/13 Playwright API cases passed with schema assertions, and both corresponding GitHub Actions workflows succeeded.**

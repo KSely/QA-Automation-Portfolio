@@ -2,9 +2,9 @@
 
 ## Scope and evidence model
 
-This matrix covers the completed DEF-001 through DEF-004 cycles, the verified Jest contact-validation unit layer, and the verified Playwright accessibility execution/retest. [REQUIREMENTS.md](REQUIREMENTS.md) defines source-derived scope; [TEST_CASES.md](TEST_CASES.md) contains 101 existing catalogue entries: the previous 96 plus 5 Playwright accessibility cases. Test existence and requirement coverage do not imply successful execution of every catalogue case.
+This matrix covers the completed DEF-001 through DEF-004 cycles, the verified Jest contact-validation unit layer, the verified Playwright accessibility execution/retest, and the verified Selenium/Playwright API JSON Schema Validation evidence. [REQUIREMENTS.md](REQUIREMENTS.md) defines source-derived scope; [TEST_CASES.md](TEST_CASES.md) contains 101 existing catalogue entries: the previous 96 plus 5 Playwright accessibility cases. Test existence and requirement coverage do not imply successful execution of every catalogue case.
 
-[DEFECT_LOG.md](DEFECT_LOG.md) preserves original reproduction, exact errors, commands, and lifecycle evidence. DEF-001 through DEF-004 are Closed / Fixed / Retest Passed. Their browser evidence is local Chromium evidence with no retries and one worker, not production evidence. The Jest section separately records the verified local and GitHub Actions unit result.
+[DEFECT_LOG.md](DEFECT_LOG.md) preserves original reproduction, exact errors, commands, and lifecycle evidence. DEF-001 through DEF-004 are Closed / Fixed / Retest Passed. Their browser evidence is local Chromium evidence with no retries and one worker, not production evidence. The Jest section separately records the verified local and GitHub Actions unit result; the API section records the verified 15/15 Selenium and 13/13 Playwright API results and successful corresponding workflows.
 
 ## Jest unit-testing traceability
 
@@ -60,6 +60,20 @@ At DEF-002 closure, the catalogue contained 81 entries; Playwright had 32 unique
 Inventory after the Jest addition was 96 catalogue entries, comprising the prior 81 entries plus A-UNIT-001–015. The verified Jest run covers those 15 unit cases only; it does not change the historical DEF-001/DEF-002 execution scope.
 
 Network/request and malformed/non-JSON recovery remain unverified and were not fixed. Rejection feedback, later retry interactions, and stronger cleanup verification remain gaps. Evidence and commands: [DEFECT_LOG.md](DEFECT_LOG.md); cycle summary: [TEST_SUMMARY_REPORT.md](TEST_SUMMARY_REPORT.md).
+
+## API JSON Schema validation traceability
+
+No new product requirement or test-case ID was created for schema validation. The schemas strengthen the assertion mechanism for existing API requirements and cases. Functional HTTP, exact-value/message, and applicable persistence assertions remain responsible for behavior beyond response structure and types.
+REQ-API-005 remains covered by its existing functional precedence tests; JSON Schema validation does not add separate evidence for that requirement.
+
+| Requirement / response contract | Existing Test Case IDs | Selenium mechanism and evidence | Playwright mechanism and evidence | Coverage note |
+| --- | --- | --- | --- | --- |
+| REQ-API-001 — status response | S-API-001; P-API-001–002 | `matchesJsonSchemaInClasspath(...)` validates required string `status` and `message`; included in the 15/15 API pass and successful Selenium CI workflow | Ajv validates the same required properties/types in P-API-001; P-API-002 separately checks JSON content type; included in the 13/13 API pass and successful Playwright CI workflow | Exact status/message values and HTTP/content-type assertions remain separate functional evidence. |
+| REQ-API-002 — required-field rejection | S-API-003–008; S-API-013–015; P-API-004–009 | Contact schema requires boolean `success` and string `message`; existing HTTP 400, exact rejection, and JDBC non-persistence assertions remain | Ajv validates the same response shape/types; existing HTTP 400, exact rejection, and represented `pg` non-persistence assertions remain | Schema validation does not expand the represented input partitions. |
+| REQ-API-003 — invalid-email rejection | S-API-009–012; P-API-010–013 | Contact schema plus existing HTTP 400, exact invalid-email message, and JDBC non-persistence assertions | Contact schema plus existing HTTP 400, exact invalid-email message, and `pg` non-persistence assertions | Existing email variants and mappings are unchanged. |
+| REQ-API-004 — accepted contact | S-API-002; P-API-003 | Contact schema plus existing HTTP 200, exact success values, JDBC persistence, and cleanup assertions | Contact schema plus existing HTTP 200, exact success values, `pg` persistence, and cleanup assertions | Schema success does not independently prove insertion or cleanup. |
+
+Selenium uses REST Assured 5.5.6 with `io.rest-assured:json-schema-validator:5.5.6`; Playwright uses Ajv 8.20.0 through a helper that compiles each schema once and returns validation status/errors. These schema-based API Contract Validation checks remain within the existing cases. The catalogue remains **101 unique cases**. Playwright remains **37 unique cases** (17 UI, 5 accessibility, 13 API, 2 database) and **71 configured executions before retries**.
 
 ## Accessibility testing traceability
 

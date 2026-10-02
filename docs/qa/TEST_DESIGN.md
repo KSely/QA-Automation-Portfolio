@@ -2,7 +2,7 @@
 
 ## Purpose and baseline
 
-Status: Reviewed documentation baseline with completed DEF-001/DEF-002 evidence, verified Jest unit results, and verified Playwright accessibility evidence including closed DEF-003/DEF-004. Execution status for the remaining catalogue is not assessed by this document.
+Status: Reviewed documentation baseline with completed DEF-001/DEF-002 evidence, verified Jest unit results, verified Playwright accessibility evidence including closed DEF-003/DEF-004, and verified Selenium/Playwright API JSON Schema Validation evidence. Execution status for the remaining catalogue is not assessed by this document.
 
 Explain how the existing behaviors and automated cases can be classified, where formal techniques are defensible, and which conditions remain unimplemented. This document does not retrofit undocumented historical design intent or claim coverage measurements that were not collected.
 
@@ -52,10 +52,23 @@ The design process is informed by ISTQB terminology, but this document does not 
 |---|---|---|
 | A-UNIT-014: required-field error takes precedence | Unit; Functional/Regression; White-box; Decision Table; Negative; Module; Automated | Directly invokes the pure validation function and verifies the first rejection branch when required and email-format conditions are both invalid. |
 | P-UI-004: successful contact submission with DB verification | System/E2E scope; Integration verification; Functional/Regression/Cross-browser/Database; Gray-box; Use Case; Positive; UI + Database; Automated | Exercises the user journey and then reads PostgreSQL. |
-| P-API-004: omitted name | System; Functional/API; Black-box; Equivalence Partitioning; Negative; API; Automated | HTTP response assertions only; no DB assertion in this PW family. |
-| S-API-004: whitespace name | Integration; Functional/API/Database; Gray-box; Equivalence Partitioning; Negative; API + Database; Automated | Asserts 400/error body and checks non-persistence. |
+| P-API-004: omitted name | System; Functional/API; Black-box; Equivalence Partitioning; Negative; API; Automated | Asserts HTTP 400, exact rejection values, and the contact-response schema; no DB assertion in this PW family. |
+| S-API-004: whitespace name | Integration; Functional/API/Database; Gray-box; Equivalence Partitioning; Negative; API + Database; Automated | Asserts HTTP 400, exact rejection values, the contact-response schema, and non-persistence. |
 | P-A11Y-001: Home-page axe scan | System; Accessibility/Regression; Black-box; Checklist-based; Positive expectation; UI; Automated | Runs WCAG-oriented automated rules against the rendered page. Its initial failure confirmed DEF-003; its post-fix pass verifies the fix. The historical failure does not change the positive test-condition classification. |
 | J-PERF-007: 1,000-user plan | System; Performance/Stress; Black-box; Not specifically technique-driven; Positive requests under high workload; Performance endpoint; Automated | Workload configuration is not BVA; samples do not become separate cases. |
+
+### API response validation model
+
+The existing API cases use complementary assertion levels rather than treating a schema check as a replacement for functional behavior:
+
+| Assertion level | Purpose | Existing implementation |
+|---|---|---|
+| HTTP | Verify status and, where represented, JSON content type | REST Assured and Playwright request assertions |
+| Functional values | Verify exact status values, success booleans, and success/rejection messages | Existing status and contact assertions remain in place |
+| JSON Schema Validation | Verify object structure, required properties, and data types | Selenium uses `matchesJsonSchemaInClasspath(...)`; Playwright uses Ajv validators compiled once through `utils/schemaValidator.js` |
+| Persistence | Verify insertion or represented non-persistence behavior | Existing JDBC or `pg` checks remain in selected contact cases |
+
+The status-response schemas require string `status` and `message` properties. The contact-response schemas require boolean `success` and string `message` properties. This is schema-based contract validation within the existing API cases. It creates no new test-design technique, requirement, or test-case ID and retains the existing formal technique classifications.
 
 ## Technique Selection Rationale
 

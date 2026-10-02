@@ -2,8 +2,8 @@
 
 - Test Plan ID: TP-QAP-001
 - Status: Reviewed documentation baseline; proposed process criteria remain subject to human review.
-- Baseline: Reviewed implementation, with DEF-001/DEF-002 evidence, the verified Jest contact-validation unit layer, and verified Playwright accessibility evidence recorded separately.
-- Execution status: Jest unit layer verified; the initial Playwright accessibility run recorded 3 passed and 2 failed, and the post-fix retest recorded 5 passed and 0 failed with DEF-003/DEF-004 closed; execution status for the remaining catalogue is not assessed in this documentation baseline.
+- Baseline: Reviewed implementation, with DEF-001/DEF-002 evidence, the verified Jest contact-validation unit layer, verified Playwright accessibility evidence, and verified Selenium/Playwright API JSON Schema Validation evidence recorded separately.
+- Execution status: Jest unit layer verified; the Playwright accessibility retest recorded 5 passed and 0 failed with DEF-003/DEF-004 closed; the schema-enhanced Selenium API suite recorded 15 passed and the Playwright API suite recorded 13 passed, with both corresponding GitHub Actions workflows successful. Execution status for the remaining catalogue is not assessed in this documentation baseline.
 - Source authority: Source code, configuration, and executable test definitions take precedence over this snapshot.
 
 ## Purpose
@@ -20,9 +20,9 @@ Review of this baseline records the inspected implementation; it does not imply 
 - TEST_DESIGN.md explains the design techniques, classifications, and gaps.
 - TEST_CASES.md maps implemented automated cases and exact parameter variants, including the application-local Jest unit tests.
 - Automation repositories execute selected cases; their existence does not prove a passing result.
-- [RTM.md](RTM.md) links current DEF-001/DEF-002 requirements/conditions and the Jest unit cases to their applicable product requirements and execution evidence.
+- [RTM.md](RTM.md) links defect, unit, accessibility, and API contract-validation evidence to applicable product requirements without inventing requirement or test IDs.
 - [DEFECT_LOG.md](DEFECT_LOG.md) records reproduced defects; DEF-001 and DEF-002 are Closed / Fixed / Retest Passed within their confirmed scopes.
-- [TEST_SUMMARY_REPORT.md](TEST_SUMMARY_REPORT.md) summarizes completed DEF-001/DEF-002 cycles and the verified Jest unit execution.
+- [TEST_SUMMARY_REPORT.md](TEST_SUMMARY_REPORT.md) summarizes completed defect cycles and verified Jest, accessibility, and API schema-validation executions.
 - PERFORMANCE_TEST_REPORT.md is deferred.
 - This test plan governs scope and proposed process criteria across the set.
 
@@ -63,7 +63,7 @@ The documentation hub and application-local unit layer are in QA-Automation-Port
 - Home/project content, section links, and project navigation.
 - Automation-page availability and navigation as source-supported features with an automation gap.
 - Contact field input, browser validation, successful submission, and success feedback.
-- Status response and server-side required-field/email validation.
+- Status and contact API responses, including HTTP behavior, exact functional values/messages, and schema-based validation of response structure, required properties, and data types.
 - Isolated Jest coverage of required-field, whitespace, email-format, and validation-error behavior in the contact validation module.
 - PostgreSQL connectivity, message persistence, non-persistence assertions, and test-data lifecycle.
 - Configured desktop cross-browser execution.
@@ -122,6 +122,8 @@ These tags mix quality objectives, selection purposes, interfaces, and workload 
 5. For a future authorized execution, identify versions, scope, environment, and expected evidence.
 6. Classify results and cleanup failures without hiding skipped, blocked, or retry-recovered cases.
 
+API response validation is layered: HTTP status and content type establish transport behavior; exact values and messages establish functional behavior; JSON Schema Validation establishes required properties, response structure, and property data types; and selected database assertions establish persistence or non-persistence. Selenium implements schema-based contract validation with the REST Assured JSON Schema Validator, while Playwright uses Ajv. These schema checks complement the existing functional assertions within the existing API cases.
+
 ### Black-box / Gray-box distinctions
 
 - External UI/HTTP checks without internal structural objectives are classified Black-box.
@@ -162,8 +164,8 @@ Current environment discrepancy: Selenium/Playwright CI align with the 255-chara
 ## Tools and frameworks
 
 - Application: Node.js, Express, EJS, Bootstrap, browser JavaScript, body-parser, dotenv, pg, and Jest 30.5.2 for application-local unit testing.
-- Selenium: Java, Selenium WebDriver, TestNG, Maven Surefire, REST Assured, JDBC, Allure.
-- Playwright: JavaScript, Playwright Test, `@axe-core/playwright` 4.13.0, axe-core 4.13.0, built-in page/request fixtures, pg, HTML reporter.
+- Selenium: Java, Selenium WebDriver, TestNG, Maven Surefire, REST Assured 5.5.6, REST Assured JSON Schema Validator 5.5.6, JDBC, Allure.
+- Playwright: JavaScript, Playwright Test, Ajv 8.20.0, `@axe-core/playwright` 4.13.0, axe-core 4.13.0, built-in page/request fixtures, pg, HTML reporter.
 - Performance: JMeter JMX plans, HTTP samplers, assertions, timers, JTL, CSV, HTML dashboards.
 - Execution orchestration: GitHub Actions.
 - Manifest/lockfiles and actual runtime observations remain authoritative for versions.
@@ -251,6 +253,8 @@ The application Unit Tests workflow checks out this repository and runs the isol
 
 The external workflows' application checkout has no explicit ref. Status polling does not prove application-to-database readiness. Earlier failures ordinarily skip later test steps. Smoke cases overlap later suites. The application-local workflow covers only the Jest unit layer; no application workflow/cross-repository trigger runs the full set on an application-only change. No CD deployment/promotion/rollback is implemented.
 
+The Selenium and Playwright API workflow stages now execute the existing functional API cases with schema-based contract validation. The verified runs recorded 15/15 Selenium API cases and 13/13 Playwright API cases passing, and both corresponding GitHub Actions workflows succeeded. These results validate the represented status/contact response contracts within the executed cases.
+
 ## Risk-Based Prioritization
 
 These are practical portfolio priorities based on user impact, persistence risk, failure visibility, and CI/reproducibility risk. They are not a formal business risk assessment or release authorization.
@@ -285,7 +289,7 @@ Future execution is separately authorized and uses synthetic data in a known tes
 
 Current: TEST_PLAN.md, REQUIREMENTS.md, TEST_DESIGN.md, TEST_CASES.md, [RTM.md](RTM.md), and [DEFECT_LOG.md](DEFECT_LOG.md). DEF-001 evidence includes a 16/16 passing Chromium UI regression run. Accessibility evidence preserves the initial 5-case result of 3 passed and 2 failed for DEF-003/DEF-004 and the post-fix retest result of 5 passed and 0 failed. No full accessibility, Firefox/WebKit accessibility, or production conclusion is implied.
 
-Current cycle summary: [TEST_SUMMARY_REPORT.md](TEST_SUMMARY_REPORT.md), including DEF-002's 17/17 Chromium UI run, the verified 15/15 Jest unit run, and the 5-case accessibility execution. Deferred: PERFORMANCE_TEST_REPORT.md.
+Current cycle summary: [TEST_SUMMARY_REPORT.md](TEST_SUMMARY_REPORT.md), including DEF-002's 17/17 Chromium UI run, the verified 15/15 Jest unit run, the 5-case accessibility execution, and the verified 15/15 Selenium and 13/13 Playwright API schema-validation runs. Deferred: PERFORMANCE_TEST_REPORT.md.
 
 ## Baseline maintenance and human review
 
