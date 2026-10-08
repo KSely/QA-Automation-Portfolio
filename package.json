@@ -6,6 +6,11 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
+    "dev:server": "nodemon index.js",
+    "dev:client": "npm --prefix client run dev",
+    "set-role": "node scripts/setUserRole.js",
+    "build": "npm run build:client",
+    "build:client": "npm --prefix client ci --include=dev && npm --prefix client run build",
     "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --runInBand",
     "test:watch": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --watch --runInBand",
     "test:coverage": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js --coverage --runInBand"
@@ -26,10 +31,13 @@
   "license": "UNLICENSED",
   "type": "module",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "body-parser": "^2.3.0",
+    "connect-pg-simple": "^10.0.0",
     "dotenv": "^17.4.2",
     "ejs": "^6.0.1",
     "express": "^5.2.1",
+    "express-session": "^1.19.0",
     "pg": "^8.23.0"
   },
   "devDependencies": {

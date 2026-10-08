@@ -1,0 +1,129 @@
+:root {
+    color: #1f2937;
+    background: #f4f7fb;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+    background:
+        radial-gradient(circle at top right, rgba(59, 130, 246, 0.12), transparent 28rem),
+        #f4f7fb;
+}
+
+a {
+    color: #0b63ce;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+    outline: 3px solid #f59e0b;
+    outline-offset: 3px;
+}
+
+.auth-shell {
+    min-height: 100vh;
+}
+
+.auth-header {
+    padding: 1rem 0;
+    color: #ffffff;
+    background: #111827;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.18);
+}
+
+.auth-brand,
+.auth-nav-link {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.auth-brand {
+    font-weight: 700;
+}
+
+.auth-nav-link:hover,
+.auth-nav-link.active,
+.auth-brand:hover {
+    color: #93c5fd;
+}
+
+.auth-main {
+    display: grid;
+    place-items: start center;
+    min-height: calc(100vh - 80px);
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+
+.auth-main > .alert {
+    width: min(100%, 36rem);
+}
+
+.auth-card {
+    width: min(100%, 36rem);
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    background: #ffffff;
+    border: 1px solid #dbe4f0;
+    border-radius: 1rem;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.1);
+}
+
+.auth-eyebrow {
+    margin-bottom: 0.5rem;
+    color: #0b63ce;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.auth-primary {
+    color: #ffffff;
+    background: #0b63ce;
+    border-color: #0b63ce;
+}
+
+.auth-primary:hover,
+.auth-primary:focus {
+    color: #ffffff;
+    background: #084c9e;
+    border-color: #084c9e;
+}
+
+.account-details {
+    display: grid;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.account-details div {
+    padding: 1rem;
+    background: #f8fafc;
+    border-left: 4px solid #0b63ce;
+    border-radius: 0.25rem;
+}
+
+.account-details dt {
+    margin-bottom: 0.25rem;
+    color: #4b5563;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.account-details dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+    font-weight: 600;
+}
+
+@media (max-width: 575px) {
+    .auth-main {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+}
