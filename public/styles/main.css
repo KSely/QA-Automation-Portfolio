@@ -32,7 +32,7 @@ body {
 /* Main navigation bar and links */
 
 .portfolio-navbar {
-  background-color:  #0f1f35;
+  background-color: #0f1f35;
   padding: 18px 0;
 }
 
@@ -50,16 +50,39 @@ body {
   color: #38bdf8;
 }
 
+/* Keep the authentication link accessible during keyboard focus */
 .portfolio-navbar .nav-link[href="/auth/login"]:focus,
 .portfolio-navbar .nav-link[href="/auth/login"]:focus-visible {
   color: #38bdf8;
 }
 
-.project-navigation {
-  flex-wrap: wrap;
-  justify-content: flex-end;
+/* Project page has more navigation links than the other pages.
+   Keep them on one row when the full desktop navigation is displayed. */
+@media (min-width: 1400px) {
+  .project-navigation {
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  .project-navigation .nav-link {
+    margin-left: 0;
+    padding-left: 7px;
+    padding-right: 7px;
+    font-size: 1rem;
+  }
 }
 
+@media (max-width: 1399px) {
+  .portfolio-navbar .navbar-nav {
+    padding-top: 15px;
+  }
+
+  .portfolio-navbar .nav-link {
+    margin-left: 0;
+  }
+}
 
 /* ==================== HERO ==================== */
 /* Main hero section and portfolio image */

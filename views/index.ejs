@@ -108,7 +108,7 @@
       <div class="col-md-6 col-lg-4">
         <div id="skill-programming" class="skill-card">
           <h3>Programming & Web</h3>
-          <p>C# / .NET, Java, JavaScript, HTML, and CSS.</p>
+          <p> C# / .NET, Java, JavaScript, React, Node.js, Express, HTML, and CSS.</p>
         </div>
       </div>
 
@@ -143,7 +143,7 @@
       <div class="col-md-6 col-lg-4">
         <div id="skill-cicd" class="skill-card">
           <h3>CI/CD & Version Control</h3>
-          <p>Azure DevOps, Git, GitHub, Bitbucket, and SourceTree.</p>
+          <p>GitHub Actions, Azure DevOps, Git, GitHub, Bitbucket, and SourceTree.</p>
         </div>
       </div>
     </div>
@@ -213,32 +213,44 @@
 
 <!-- ==================== FEATURED PROJECT SECTION ==================== -->
 <!-- Overview of the full-stack application and its testing layers (Featured Project) -->
+
 <section id="project" class="project-section section-padding">
   <div class="container">
     <div class="row align-items-center g-5">
 
       <!-- Project purpose and application structure (Project Overview) -->
       <div class="col-lg-7">
+
         <p class="section-label text-info">FEATURED PROJECT</p>
 
-        <h2 class="display-6 fw-bold mb-4">Full-Stack QA Automation Project</h2>
+        <h2 class="display-6 fw-bold mb-4">
+          Full-Stack QA Automation Project
+        </h2>
 
         <p class="lead">
-          Web Application · Unit Testing · UI Automation · API Testing · Database Validation
+          Web Application · Authentication · UI Automation · API Testing · Database Validation
         </p>
 
         <p class="project-description">
-          A full-stack web application built as an Application Under Test (AUT)
-          to demonstrate end-to-end quality engineering across the UI, API,
-          backend, and database layers.
+          A full-stack Application Under Test (AUT) combining a server-rendered
+          portfolio, React authentication client, Node.js / Express backend,
+          REST APIs, PostgreSQL, and server-side session management.
         </p>
 
-        <!-- Show how data moves through the application (Application Flow) -->
+        <p class="project-description">
+          The project includes registration, login, logout, protected Account
+          access, User / Admin role-based authorization, contact-form processing,
+          and database persistence.
+        </p>
+
+        <!-- Show how requests move through the application (Application Flow) -->
         <div class="mt-4">
+
           <p class="mb-3 text-info fw-semibold">Application Flow</p>
 
           <div class="application-flow">
-            <div class="flow-step">Web UI</div>
+
+            <div class="flow-step">EJS Portfolio + React Auth</div>
 
             <div class="flow-arrow">→</div>
 
@@ -246,11 +258,18 @@
 
             <div class="flow-arrow">→</div>
 
+            <div class="flow-step">Sessions &amp; RBAC</div>
+
+            <div class="flow-arrow">→</div>
+
             <div class="flow-step">PostgreSQL</div>
+
           </div>
+
         </div>
 
         <div class="d-flex flex-wrap gap-3 mt-5">
+
           <a
             id="project-details-button"
             href="/project"
@@ -258,18 +277,25 @@
           >
             View Project Details
           </a>
+
         </div>
+
       </div>
 
       <!-- Testing areas covered by the project (Testing Layers) -->
       <div class="col-lg-5">
+
         <div class="project-summary-card">
+
           <h3 class="mb-4">Testing Layers</h3>
 
           <ul class="project-list">
+
             <li>Unit Testing</li>
 
-            <li>UI Testing</li>
+            <li>UI &amp; End-to-End Testing</li>
+
+            <li>Authentication &amp; Authorization Testing</li>
 
             <li>API Testing</li>
 
@@ -277,14 +303,18 @@
 
             <li>Database Validation</li>
 
-            <li>Performance Testing</li>
-
             <li>Accessibility Testing</li>
 
+            <li>Performance Testing</li>
+
             <li>Cross-Browser Testing</li>
+
           </ul>
+
         </div>
+
       </div>
+
     </div>
   </div>
 </section>

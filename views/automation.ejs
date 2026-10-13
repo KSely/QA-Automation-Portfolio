@@ -1,37 +1,70 @@
 <%- include('partials/header.ejs'); -%>
 
 <!-- ==================== AUTOMATION OVERVIEW ==================== -->
-<!-- Introduces the automation projects, testing areas, and test artifacts (Automation Overview) -->
+<!-- Introduces the automation projects, testing areas, and test artifacts -->
+
 <section class="section-padding">
-  <div class="container text-center">
+  <div class="container">
 
-    <p class="section-label">TEST AUTOMATION</p>
+    <div class="text-center">
+      <p class="section-label">TEST AUTOMATION</p>
 
-    <h1 class="section-title">
-      Automation & Test Artifacts
-    </h1>
+      <h1 class="section-title">
+        Automation &amp; Test Artifacts
+      </h1>
 
-    <p class="about-text mt-3">
-      Unit testing, UI automation, accessibility testing, API testing,
-      performance testing, and test results for the Full-Stack QA Automation
-      Project.
-    </p>
+      <p class="about-text mt-3">
+        Automated testing covers unit, UI, API, database, accessibility,
+        performance, cross-browser, and continuous integration layers for the
+        Full-Stack QA Automation Project.
+      </p>
+    </div>
 
-    <div class="row justify-content-center mt-5">
-      <div class="col-lg-8">
+    <div class="row g-4 justify-content-center mt-5">
+
+      <!-- Contact validation unit tests -->
+      <div class="col-lg-6">
         <div class="testing-stack-card">
+
           <span class="testing-category">JEST UNIT TESTING</span>
-          <h3>Server-Side Contact Validation</h3>
+
+          <h3>Contact Validation</h3>
+
           <p>
-            Fifteen isolated tests validate required fields, whitespace handling,
-            email formats, and validation error behavior in GitHub Actions.
+            15 isolated tests validate required fields, whitespace handling,
+            email-format validation, and validation error behavior.
           </p>
+
           <p class="mb-0">
-            100% statement, branch, function, and line coverage for the contact
-            validation module.
+            100% statement, branch, function, and line coverage for
+            <strong>contactValidation.js</strong>.
           </p>
+
         </div>
       </div>
+
+      <!-- Authentication validation unit tests -->
+      <div class="col-lg-6">
+        <div class="testing-stack-card">
+
+          <span class="testing-category">JEST UNIT TESTING</span>
+
+          <h3>Authentication Validation</h3>
+
+          <p>
+            13 isolated tests validate authentication input rules, including
+            email normalization, registration validation, login validation,
+            and password requirements.
+          </p>
+
+          <p class="mb-0">
+            Contact and authentication validation together provide
+            <strong>28 Jest unit tests</strong>.
+          </p>
+
+        </div>
+      </div>
+
     </div>
 
   </div>
@@ -39,7 +72,8 @@
 
 
 <!-- ==================== UI AUTOMATION ==================== -->
-<!-- Shows the frameworks used for automated browser testing (UI Test Automation) -->
+<!-- Shows the frameworks and coverage used for browser and accessibility automation -->
+
 <section id="ui-automation" class="skills-section section-padding">
   <div class="container">
 
@@ -47,18 +81,19 @@
       <p class="section-label">UI AUTOMATION</p>
 
       <h2 class="section-title">
-        Selenium & Playwright Automation
+        Selenium &amp; Playwright Automation
       </h2>
 
       <p class="about-text mt-3">
-        Automated UI testing is implemented using Selenium WebDriver
-        and Playwright to validate key user workflows and browser behavior.
+        Browser automation validates navigation, form behavior, authentication
+        workflows, protected routes, regression scenarios, accessibility, and
+        cross-browser application behavior.
       </p>
     </div>
 
     <div class="row g-4">
 
-      <!-- Java-based framework for functional, regression, and browser testing (Selenium WebDriver) -->
+      <!-- Java-based Selenium automation framework -->
       <div class="col-lg-6">
         <div class="testing-stack-card">
 
@@ -67,14 +102,22 @@
           <h3>Java · TestNG · Maven</h3>
 
           <p>
-            Selenium automation is used for browser-based functional
-            and regression testing of the application.
+            Selenium WebDriver provides browser-based functional and regression
+            automation using Page Object Model structure and reusable page actions.
           </p>
+
+          <ul class="mb-0">
+            <li>Navigation and page-content validation</li>
+            <li>Contact form workflows and negative scenarios</li>
+            <li>Reusable Page Object Model structure</li>
+            <li>Chrome · Firefox · Edge browser support</li>
+            <li>TestNG execution and Allure reporting</li>
+          </ul>
 
         </div>
       </div>
 
-      <!-- JavaScript-based framework for end-to-end and browser testing (Playwright) -->
+      <!-- JavaScript-based Playwright automation framework -->
       <div class="col-lg-6">
         <div class="testing-stack-card">
 
@@ -83,57 +126,77 @@
           <h3>JavaScript</h3>
 
           <p>
-            Playwright is used for modern end-to-end UI automation,
-            cross-browser functional validation, and accessibility testing.
+            Playwright provides end-to-end browser automation for application
+            workflows, authentication behavior, regression testing, and
+            cross-browser validation.
           </p>
+
+          <ul class="mb-0">
+            <li>Portfolio and contact-form workflows</li>
+            <li>Registration, login, logout, and Account workflows</li>
+            <li>Guest, user, and admin access validation</li>
+            <li>Session persistence and protected-route behavior</li>
+            <li>Chromium · Firefox · WebKit browser projects</li>
+          </ul>
 
         </div>
       </div>
 
     </div>
 
-    <!-- Summarizes the implemented Playwright and axe-core accessibility layer (Accessibility Testing) -->
+    <!-- Accessibility automation implemented with Playwright and axe-core -->
     <div class="row justify-content-center mt-4">
       <div class="col-lg-10">
+
         <div id="accessibility-testing" class="testing-stack-card">
+
           <span class="testing-category">ACCESSIBILITY TESTING</span>
+
           <h3>Playwright + axe-core</h3>
 
           <div class="row g-4 mt-1">
+
             <div class="col-md-6">
               <p class="fw-semibold mb-2">Coverage</p>
+
               <ul class="mb-0">
                 <li>Full-page WCAG-oriented automated scans</li>
-                <li>Color-contrast checks</li>
+                <li>Color-contrast validation</li>
                 <li>Accessible names and required semantics</li>
-                <li>Link focus and Enter activation</li>
+                <li>Keyboard focus and Enter activation</li>
+                <li>Authentication navigation focus-state validation</li>
                 <li>Contact-form keyboard focus order</li>
               </ul>
             </div>
 
             <div class="col-md-6">
-              <p class="fw-semibold mb-2">Execution Result</p>
+              <p class="fw-semibold mb-2">Defect Coverage</p>
+
               <ul class="mb-0">
-                <li>5 automated accessibility tests</li>
-                <li>Initial run: 3 passed / 2 failed</li>
-                <li>Defects identified: DEF-003 and DEF-004</li>
-                <li>Post-fix retest: 5 passed / 0 failed / 0 skipped</li>
-                <li>Browser scope: Chromium</li>
+                <li>DEF-003 — Home CTA color contrast</li>
+                <li>DEF-004 — Architecture label color contrast</li>
+                <li>DEF-005 — Authentication navigation contrast</li>
+                <li>DEF-006 — Authentication link keyboard-focus contrast</li>
+                <li>Accessibility regression coverage remains automated</li>
               </ul>
             </div>
+
           </div>
 
           <p class="mt-4 mb-2">
-            <strong>Accessibility defect cycle:</strong> DEF-003 covered Home CTA
-            color contrast, and DEF-004 covered architecture-label color
-            contrast. Both were detected by axe-core, fixed, and retested
-            successfully; the accessibility regression result is 5/5 passed.
+            <strong>Accessibility defect cycle:</strong>
+            automated scans identified multiple real contrast defects in the
+            application. The affected styles were corrected and retained in
+            regression coverage, including keyboard-focus behavior for the
+            authentication navigation link.
           </p>
 
           <p class="mb-0">
-            Automated accessibility checks do not establish full WCAG
-            compliance and do not replace manual accessibility assessment.
+            Automated accessibility checks support regression testing but do not
+            establish complete WCAG compliance or replace manual accessibility
+            assessment.
           </p>
+
         </div>
       </div>
     </div>
@@ -141,9 +204,9 @@
   </div>
 </section>
 
-
 <!-- ==================== API TESTING ==================== -->
-<!-- Shows how application endpoints are tested through HTTP requests and responses (API Testing) -->
+<!-- Shows automated API coverage across application and authentication endpoints -->
+
 <section id="api-automation" class="section-padding">
   <div class="container">
 
@@ -155,18 +218,19 @@
       </h2>
 
       <p class="about-text mt-3">
-        REST Assured + JSON Schema Validator · Playwright API + Ajv · Postman
+        REST Assured · Playwright API · Ajv · JSON Schema Validator · Postman
       </p>
 
       <p class="about-text mt-3">
-        API testing combines HTTP status, exact response, and database
-        assertions with schema-based API contract validation.
+        API automation validates HTTP behavior, exact responses, validation
+        errors, authentication state, authorization rules, API contracts,
+        and related database state.
       </p>
     </div>
 
     <div class="row g-4">
 
-      <!-- Checks backend availability and the expected API response (GET Request) -->
+      <!-- Application status endpoint -->
       <div class="col-lg-6">
         <div class="api-endpoint-card">
 
@@ -175,19 +239,21 @@
           <h3>/api/status</h3>
 
           <p>
-            Validates the application status endpoint and expected API response.
+            Validates backend availability and the expected application status
+            response.
           </p>
 
           <ul>
-            <li>HTTP status code validation</li>
+            <li>200 OK response validation</li>
             <li>Exact status and message verification</li>
-            <li>JSON Schema validation of required properties and data types</li>
+            <li>Required properties and data types</li>
+            <li>JSON Schema validation</li>
           </ul>
 
         </div>
       </div>
 
-      <!-- Checks submitted data, validation errors, and database storage (POST Request) -->
+      <!-- Contact endpoint -->
       <div class="col-lg-6">
         <div class="api-endpoint-card">
 
@@ -196,17 +262,113 @@
           <h3>/contact</h3>
 
           <p>
-            Validates contact form requests, server-side validation,
-            and database persistence.
+            Validates contact-form requests, server-side input handling,
+            response behavior, and PostgreSQL persistence.
           </p>
 
           <ul>
-            <li>Valid request testing</li>
-            <li>Missing field validation</li>
-            <li>Invalid email validation</li>
-            <li>Exact success and message verification</li>
-            <li>JSON Schema validation of required properties and data types</li>
+            <li>Valid request: 200 OK</li>
+            <li>Missing or invalid input: 400 Bad Request</li>
+            <li>Exact success and error-message verification</li>
+            <li>JSON Schema validation</li>
             <li>Database record verification</li>
+          </ul>
+
+        </div>
+      </div>
+
+      <!-- Registration and login -->
+      <div class="col-lg-6">
+        <div class="api-endpoint-card">
+
+          <span class="api-method post-method">POST</span>
+
+          <h3>Registration &amp; Login</h3>
+
+          <p>
+            Validates account creation, login behavior, credential handling,
+            and authenticated session creation.
+          </p>
+
+          <ul>
+            <li><strong>/api/auth/register</strong> — successful registration</li>
+            <li>Email normalization and duplicate-email handling</li>
+            <li>Default user role verification</li>
+            <li>Client-supplied admin role is not accepted</li>
+            <li><strong>/api/auth/login</strong> — successful existing-user login</li>
+            <li>Wrong password and unknown email return the same generic 401 response</li>
+          </ul>
+
+        </div>
+      </div>
+
+      <!-- Session lifecycle -->
+      <div class="col-lg-6">
+        <div class="api-endpoint-card">
+
+          <span class="api-method get-method">GET / POST</span>
+
+          <h3>Session Lifecycle</h3>
+
+          <p>
+            Validates authenticated identity state and session invalidation
+            through the server-managed authentication session.
+          </p>
+
+          <ul>
+            <li><strong>GET /api/auth/me</strong> — authenticated user validation</li>
+            <li>Unauthenticated request returns 401</li>
+            <li><strong>POST /api/auth/logout</strong> — logout validation</li>
+            <li>Authenticated session becomes invalid after logout</li>
+            <li>Session behavior is exercised through the real session cookie</li>
+          </ul>
+
+        </div>
+      </div>
+
+      <!-- Admin authorization -->
+      <div class="col-lg-6">
+        <div class="api-endpoint-card">
+
+          <span class="api-method get-method">GET</span>
+
+          <h3>/api/auth/admin</h3>
+
+          <p>
+            Validates authentication and User / Admin role-based authorization
+            for the protected Admin API.
+          </p>
+
+          <ul>
+            <li>Guest request: 401 Unauthorized</li>
+            <li>Authenticated user: 403 Forbidden</li>
+            <li>Authenticated admin: 200 OK</li>
+            <li>Backend RBAC enforcement</li>
+          </ul>
+
+        </div>
+      </div>
+
+      <!-- API automation approach -->
+      <div class="col-lg-6">
+        <div class="api-endpoint-card">
+
+          <span class="api-method get-method">AUTOMATION</span>
+
+          <h3>Validation Approach</h3>
+
+          <p>
+            API behavior is checked through automated HTTP requests with
+            response, schema, authentication, and backend-state assertions.
+          </p>
+
+          <ul>
+            <li>REST Assured automation in Java</li>
+            <li>Playwright API automation in JavaScript</li>
+            <li>Ajv and JSON Schema validation</li>
+            <li>Positive and negative scenarios</li>
+            <li>Database verification where applicable</li>
+            <li>Parameterized SQL used for related database checks</li>
           </ul>
 
         </div>
@@ -287,7 +449,8 @@
 
 
 <!-- ==================== TEST RESULTS ==================== -->
-<!-- Shows test reports and supporting evidence from each testing area (Test Results & Evidence) -->
+<!-- Summarizes the automated test catalogue, execution results, and supporting evidence -->
+
 <section id="test-results" class="section-padding">
   <div class="container">
 
@@ -295,62 +458,187 @@
       <p class="section-label">TEST RESULTS</p>
 
       <h2 class="section-title">
-        Test Reports & Evidence
+        Test Coverage &amp; Execution Evidence
       </h2>
 
       <p class="about-text mt-3">
-        Test execution results and supporting artifacts provide evidence
-        of automated test coverage and application quality.
+        The QA portfolio contains automated coverage across unit, UI, API,
+        database, accessibility, and performance testing. Test counts below
+        represent unique automated cases across the independent test projects.
       </p>
+    </div>
+
+    <!-- Overall automation catalogue -->
+    <div class="row justify-content-center mb-4">
+      <div class="col-lg-10">
+        <div class="testing-stack-card text-center">
+
+          <span class="testing-category">AUTOMATION CATALOGUE</span>
+
+          <h3>129 Unique Automated Cases</h3>
+
+          <p class="mb-0">
+            Selenium: 42 · Playwright: 52 · Jest: 28 · JMeter: 7
+          </p>
+
+        </div>
+      </div>
     </div>
 
     <div class="row g-4">
 
-      <!-- Shows results from Selenium automated test execution (Selenium Test Reports) -->
-      <div class="col-md-6 col-lg-3">
+      <!-- Selenium catalogue -->
+      <div class="col-md-6">
         <div class="testing-stack-card">
+
           <span class="testing-category">SELENIUM</span>
-          <h3>TestNG Reports</h3>
+
+          <h3>42 Unique Cases</h3>
+
           <p>
-            Automated UI test execution results and regression test reports.
+            Java automation covering browser workflows, APIs, and PostgreSQL
+            validation.
           </p>
+
+          <ul class="mb-0">
+            <li>25 UI cases</li>
+            <li>15 API cases</li>
+            <li>2 database cases</li>
+            <li>TestNG · Maven · Allure</li>
+          </ul>
+
         </div>
       </div>
 
-      <!-- Shows results and execution details from Playwright tests (Playwright Test Reports) -->
-      <div class="col-md-6 col-lg-3">
+      <!-- Playwright catalogue and execution result -->
+      <div class="col-md-6">
         <div class="testing-stack-card">
+
           <span class="testing-category">PLAYWRIGHT</span>
-          <h3>Playwright Reports</h3>
+
+          <h3>52 Unique Cases</h3>
+
           <p>
-            End-to-end and accessibility results with execution details and
-            test evidence.
+            JavaScript automation covering UI, API, database, authentication,
+            accessibility, and cross-browser behavior.
           </p>
+
+          <ul class="mb-0">
+            <li>24 UI cases</li>
+            <li>20 API cases</li>
+            <li>6 accessibility cases</li>
+            <li>2 database cases</li>
+            <li>100 configured full-suite executions</li>
+            <li>Latest full local run: 100 passed / 0 failed / 0 skipped</li>
+          </ul>
+
         </div>
       </div>
 
-      <!-- Shows validation results from API requests (API Test Results) -->
-      <div class="col-md-6 col-lg-3">
+      <!-- Jest catalogue -->
+      <div class="col-md-6">
         <div class="testing-stack-card">
-          <span class="testing-category">POSTMAN</span>
-          <h3>API Results</h3>
+
+          <span class="testing-category">JEST</span>
+
+          <h3>28 Unit Tests</h3>
+
           <p>
-            API request validation results for application endpoints.
+            Isolated server-side validation tests for contact and authentication
+            logic.
           </p>
+
+          <ul class="mb-0">
+            <li>15 contact-validation tests</li>
+            <li>13 authentication-validation tests</li>
+            <li>Runs without browser or database dependencies</li>
+            <li>100% coverage verified for contactValidation.js</li>
+          </ul>
+
         </div>
       </div>
 
-      <!-- Shows performance measurements collected during JMeter tests (Performance Test Results) -->
-      <div class="col-md-6 col-lg-3">
+      <!-- JMeter catalogue -->
+      <div class="col-md-6">
         <div class="testing-stack-card">
+
           <span class="testing-category">JMETER</span>
-          <h3>Performance Results</h3>
+
+          <h3>7 Performance Cases</h3>
+
           <p>
-            Performance metrics and test results from workload execution.
+            Performance coverage evaluates application behavior under
+            controlled workload conditions.
           </p>
+
+          <ul class="mb-0">
+            <li>Smoke and baseline validation</li>
+            <li>Load testing</li>
+            <li>Stress testing</li>
+            <li>Performance reports and execution artifacts</li>
+          </ul>
+
         </div>
       </div>
 
+      <!-- CI execution -->
+      <div class="col-md-6">
+        <div class="testing-stack-card">
+
+          <span class="testing-category">CI/CD</span>
+
+          <h3>GitHub Actions</h3>
+
+          <p>
+            Automated workflows provide repeatable test execution with the
+            application and PostgreSQL test environment.
+          </p>
+
+          <ul class="mb-0">
+            <li>Selenium CI workflow</li>
+            <li>Playwright CI workflow</li>
+            <li>Jest unit-test workflow</li>
+            <li>JMeter performance workflows</li>
+            <li>Test reports and workflow artifacts</li>
+          </ul>
+
+        </div>
+      </div>
+
+      <!-- Reports and supporting evidence -->
+      <div class="col-md-6">
+        <div class="testing-stack-card">
+
+          <span class="testing-category">TEST EVIDENCE</span>
+
+          <h3>Reports &amp; QA Artifacts</h3>
+
+          <p>
+            Automation results are supported by test reports and structured QA
+            documentation.
+          </p>
+
+          <ul class="mb-0">
+            <li>Allure and TestNG reports</li>
+            <li>Playwright HTML reports</li>
+            <li>JMeter result files and reports</li>
+            <li>Requirements Traceability Matrix</li>
+            <li>Defect Log and Test Summary Report</li>
+          </ul>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row justify-content-center mt-4">
+      <div class="col-lg-10">
+        <p class="about-text text-center mb-0">
+          The portfolio contains 129 unique automated cases across the Selenium,
+          Playwright, Jest, and JMeter projects. Playwright's latest full local run
+          completed 100 configured executions with 100 passed.
+        </p>
+      </div>
     </div>
 
   </div>

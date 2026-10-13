@@ -3,14 +3,16 @@
 
 <!-- ==================== PROJECT OVERVIEW ==================== -->
 <!-- Introduces the application, its purpose, and main project goals (Project Overview) -->
+
 <section id="overview" class="project-hero section-padding">
   <div class="container">
+
     <p class="section-label">QA AUTOMATION PROJECT</p>
 
     <h1 class="display-5 fw-bold mb-4">Full-Stack QA Automation Project</h1>
 
     <p class="lead">
-      Web Application · Unit Testing · UI Automation · API Testing · Database Validation
+      Web Application · Authentication · UI Automation · API Testing · Database Validation
     </p>
 
     <hr class="my-5" />
@@ -19,6 +21,7 @@
 
       <!-- Describe the application and what it was built for (Application Under Test) -->
       <div class="col-lg-7">
+
         <p class="section-label">PROJECT OVERVIEW</p>
 
         <h2 class="section-title mb-4">Application Under Test</h2>
@@ -30,29 +33,35 @@
         </p>
 
         <p class="about-text">
-          The application includes a responsive user interface, server-side
-          processing, HTTP endpoints, form validation, and PostgreSQL database
-          integration.
+          The application combines a server-rendered portfolio interface with
+          a React authentication client, Node.js / Express backend services,
+          REST APIs, PostgreSQL persistence, and server-side sessions.
         </p>
 
         <p class="about-text">
-          The project is designed to demonstrate testing across multiple
-          application layers, including UI, API, backend, and database
-          validation.
+          Authentication includes registration, login, logout, protected
+          account access, and user / admin role-based authorization. The project
+          is tested across UI, API, backend, database, accessibility,
+          performance, and cross-browser layers.
         </p>
+
       </div>
 
       <!-- Describe the main goals of the project (Project Goals) -->
       <div class="col-lg-5">
         <div class="skill-card project-goals-card">
+
           <h3>Project Goals</h3>
 
           <p>
             Build and test a realistic full-stack application using professional
-            QA practices and automation tools.
+            QA practices, multi-layer automation, traceability, defect management,
+            and continuous integration.
           </p>
+
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -60,108 +69,143 @@
 
 <!-- ==================== APPLICATION ARCHITECTURE ==================== -->
 <!-- Shows how the main parts of the application work together (Application Architecture) -->
+
 <section id="architecture" class="skills-section section-padding">
   <div class="container">
+
     <div class="text-center mb-5">
       <p class="section-label">SYSTEM DESIGN</p>
 
       <h2 class="section-title">Application Architecture</h2>
 
       <p class="about-text mt-3">
-        The application follows a layered full-stack architecture connecting the
-        client interface, server-side application logic, data access, and
-        PostgreSQL database.
+        The application combines a server-rendered portfolio interface with a
+        React authentication client, both connected to a shared Node.js / Express
+        backend, session-based authentication, and PostgreSQL.
       </p>
     </div>
 
     <!-- Show how requests and data move through the application (Architecture Diagram) -->
     <div class="architecture-diagram">
 
-      <!-- User accesses the application through a web browser (Client Layer) -->
+      <!-- User accesses the application through a web browser -->
       <div class="architecture-node">
         <span class="architecture-label">CLIENT</span>
         <h3>User / Browser</h3>
+        <p>Portfolio Pages · Authentication Pages</p>
       </div>
 
       <div class="architecture-connector">
-        <span>HTTP / HTTPS</span>
+        <span>HTTP / HTTPS · Session Cookie</span>
         <div class="architecture-arrow">↓</div>
       </div>
 
-      <!-- User interface displayed in the browser (Frontend Layer) -->
-      <div class="architecture-node">
-        <span class="architecture-label">FRONTEND</span>
-        <h3>Web Application UI</h3>
-        <p>HTML · CSS · Bootstrap · EJS · JavaScript</p>
+      <!-- Two frontend areas are used within the same application -->
+      <div class="architecture-application-layer">
+        <span class="architecture-label">FRONTEND LAYER</span>
+
+        <div class="architecture-layer-content">
+
+          <div>
+            <h3>Portfolio Frontend</h3>
+            <p>EJS · Bootstrap · HTML · CSS · JavaScript</p>
+          </div>
+
+          <div>
+            <h3>Authentication Frontend</h3>
+            <p>React · Login · Register · Account · Admin</p>
+          </div>
+
+        </div>
       </div>
 
       <div class="architecture-connector">
-        <span>HTTP Requests / Fetch</span>
+        <span>Page Requests · Fetch API</span>
         <div class="architecture-arrow">↓</div>
       </div>
 
-      <!-- Backend server receives and processes application requests (Application Server) -->
+      <!-- Shared backend application server -->
       <div class="architecture-node">
         <span class="architecture-label">APPLICATION SERVER</span>
         <h3>Node.js / Express.js</h3>
+        <p>Portfolio · APIs · Authentication · Sessions</p>
       </div>
 
       <div class="architecture-connector">
         <div class="architecture-arrow">↓</div>
       </div>
 
-      <!-- Handles routes, validation, requests, and responses (Application Layer) -->
+      <!-- Backend application and security responsibilities -->
       <div class="architecture-application-layer">
-        <span class="architecture-label">APPLICATION LAYER</span>
+        <span class="architecture-label">APPLICATION &amp; SECURITY LAYER</span>
 
         <div class="architecture-layer-content">
+
           <div>
-            <h3>Routing</h3>
-            <p>Page Routes · API Endpoints · Form Requests</p>
+            <h3>Routing &amp; APIs</h3>
+            <p>Page Routes · Contact API · Authentication API</p>
           </div>
 
           <div>
             <h3>Request Processing</h3>
             <p>Validation · Processing · Response Handling</p>
           </div>
+
+          <div>
+            <h3>Authentication &amp; Sessions</h3>
+            <p>express-session · connect-pg-simple · Session Cookie</p>
+          </div>
+
+          <div>
+            <h3>Authorization &amp; Security</h3>
+            <p>User / Admin RBAC · bcrypt Password Hashing</p>
+          </div>
+
         </div>
       </div>
 
       <div class="architecture-connector">
-        <span>Data Access / Parameterized Queries</span>
+        <span>Data Access · Parameterized SQL Queries</span>
         <div class="architecture-arrow">↓</div>
       </div>
 
-      <!-- Stores application data in PostgreSQL (Database Layer) -->
+      <!-- PostgreSQL stores application, authentication, and session data -->
       <div class="architecture-node">
         <span class="architecture-label">DATABASE</span>
         <h3>PostgreSQL</h3>
-        <p>Application Data · Persistent Storage</p>
+        <p>Messages · Users · Session Store</p>
       </div>
+
     </div>
   </div>
 </section>
 
-
 <!-- ==================== CLOUD DEPLOYMENT ==================== -->
 <!-- Shows how the production application and database are connected on Railway (Deployment Architecture) -->
+
 <section id="deployment" class="section-padding">
   <div class="container">
+
     <div class="text-center mb-5">
       <p class="section-label">CLOUD DEPLOYMENT</p>
 
       <h2 class="section-title">Deployment Architecture</h2>
 
       <p class="about-text mt-3">
-        The production application is deployed on Railway and uses a private
-        connection to Railway PostgreSQL.
+        The production application is deployed as a Railway service and connects
+        to Railway PostgreSQL through the private network. Public application
+        traffic uses HTTPS, while application data and session storage are
+        persisted in PostgreSQL.
       </p>
     </div>
 
     <div class="architecture-diagram">
+
+      <!-- Public user accesses the deployed application -->
       <div class="architecture-node">
         <span class="architecture-label">CLIENT</span>
         <h3>Public User / Browser</h3>
+        <p>Portfolio · Authentication</p>
       </div>
 
       <div class="architecture-connector">
@@ -169,71 +213,103 @@
         <div class="architecture-arrow">↓</div>
       </div>
 
+      <!-- Railway exposes the deployed application through its public domain -->
       <div class="architecture-node">
         <span class="architecture-label">PUBLIC ACCESS</span>
         <h3>Railway Public Domain</h3>
+        <p>Public Application Endpoint</p>
       </div>
 
       <div class="architecture-connector">
+        <span>HTTPS Request</span>
         <div class="architecture-arrow">↓</div>
       </div>
 
-      <div class="architecture-node">
+      <!-- Application components running inside the Railway service -->
+      <div class="architecture-application-layer">
         <span class="architecture-label">APPLICATION SERVICE</span>
-        <h3>Node.js / Express Service</h3>
+
+        <div class="architecture-layer-content">
+
+          <div>
+            <h3>Node.js / Express</h3>
+            <p>EJS Portfolio · React Auth Build</p>
+          </div>
+
+          <div>
+            <h3>Backend Services</h3>
+            <p>REST APIs · Sessions · Authentication · RBAC</p>
+          </div>
+
+        </div>
       </div>
 
       <div class="architecture-connector">
-        <span>DATABASE_URL</span>
+        <span>Private Database Connection · DATABASE_URL</span>
         <div class="architecture-arrow">↓</div>
       </div>
 
+      <!-- Railway service communicates with PostgreSQL through private networking -->
       <div class="architecture-node">
         <span class="architecture-label">PRIVATE CONNECTIVITY</span>
         <h3>Railway Private Network</h3>
+        <p>Application-to-Database Traffic</p>
       </div>
 
       <div class="architecture-connector">
         <div class="architecture-arrow">↓</div>
       </div>
 
+      <!-- Production PostgreSQL stores application, authentication, and session data -->
       <div class="architecture-node">
         <span class="architecture-label">DATABASE</span>
         <h3>Railway PostgreSQL</h3>
+        <p>Messages · Users · Session Store</p>
       </div>
+
     </div>
   </div>
 </section>
 
-
 <!-- ==================== TECHNOLOGY STACK ==================== -->
 <!-- Shows the main technologies used to build and run the application (Technology Stack) -->
+
 <section id="tech-stack" class="section-padding">
   <div class="container">
+
     <div class="text-center mb-5">
       <p class="section-label">APPLICATION TECHNOLOGIES</p>
 
       <h2 class="section-title">Technology Stack</h2>
 
       <p class="about-text mt-3">
-        Technologies used to build and run the full-stack Application Under
-        Test.
+        Technologies used to build, secure, persist, deploy, and run the
+        full-stack Application Under Test.
       </p>
     </div>
 
-    <!-- Main technologies grouped by their role in the application (Technology Categories) -->
+    <!-- Main technologies grouped by their role in the application -->
     <div class="row g-4">
 
-      <!-- Technologies used to build the web interface (Frontend) -->
+      <!-- Server-rendered portfolio interface -->
       <div class="col-md-6 col-lg-4">
         <div class="technology-stack-card">
-          <span class="technology-category">FRONTEND</span>
+          <span class="technology-category">PORTFOLIO FRONTEND</span>
           <h3>Web Interface</h3>
           <p>HTML · CSS · Bootstrap · JavaScript · Fetch API</p>
         </div>
       </div>
 
-      <!-- EJS templates used to build application pages (Templating) -->
+      <!-- React authentication interface -->
+      <div class="col-md-6 col-lg-4">
+        <div class="technology-stack-card">
+          <span class="technology-category">AUTH FRONTEND</span>
+          <h3>Authentication UI</h3>
+          <p>React · Login · Register · Account · Admin</p>
+        </div>
+      </div>
+
+      <!-- EJS templates used to render portfolio pages -->
       <div class="col-md-6 col-lg-4">
         <div class="technology-stack-card">
           <span class="technology-category">TEMPLATING</span>
@@ -242,7 +318,7 @@
         </div>
       </div>
 
-      <!-- Node.js and Express handle the server-side application logic (Backend) -->
+      <!-- Node.js and Express application server -->
       <div class="col-md-6 col-lg-4">
         <div class="technology-stack-card">
           <span class="technology-category">BACKEND</span>
@@ -251,7 +327,25 @@
         </div>
       </div>
 
-      <!-- Processes form data sent to the server (Middleware Configuration) -->
+      <!-- Server-side authentication and session management -->
+      <div class="col-md-6 col-lg-4">
+        <div class="technology-stack-card">
+          <span class="technology-category">AUTHENTICATION</span>
+          <h3>Sessions &amp; Authentication</h3>
+          <p>express-session · connect-pg-simple</p>
+        </div>
+      </div>
+
+      <!-- Authorization and password security -->
+      <div class="col-md-6 col-lg-4">
+        <div class="technology-stack-card">
+          <span class="technology-category">AUTHORIZATION &amp; SECURITY</span>
+          <h3>Access &amp; Password Protection</h3>
+          <p>User / Admin RBAC · bcrypt</p>
+        </div>
+      </div>
+
+      <!-- Middleware used to parse application requests -->
       <div class="col-md-6 col-lg-4">
         <div class="technology-stack-card">
           <span class="technology-category">MIDDLEWARE</span>
@@ -260,7 +354,7 @@
         </div>
       </div>
 
-      <!-- Stores and manages application data in PostgreSQL (Database) -->
+      <!-- PostgreSQL application and authentication data -->
       <div class="col-md-6 col-lg-4">
         <div class="technology-stack-card">
           <span class="technology-category">DATABASE</span>
@@ -269,34 +363,34 @@
         </div>
       </div>
 
-      <!-- Keeps database settings outside the application code (Environment Configuration) -->
+      <!-- Environment and runtime configuration -->
       <div class="col-md-6 col-lg-4">
         <div class="technology-stack-card">
           <span class="technology-category">CONFIGURATION</span>
           <h3>Environment Configuration</h3>
-          <p>dotenv · Environment Variables</p>
+          <p>dotenv · DATABASE_URL · SESSION_SECRET · NODE_ENV</p>
         </div>
       </div>
 
-      <!-- Tools used to run and develop the application locally (Development Tools) -->
+      <!-- Local runtime and development tooling -->
       <div class="col-md-6 col-lg-4">
         <div class="technology-stack-card">
           <span class="technology-category">DEVELOPMENT</span>
-          <h3>Runtime & Tooling</h3>
+          <h3>Runtime &amp; Tooling</h3>
           <p>npm · nodemon</p>
         </div>
       </div>
 
-      <!-- Tracks changes made to the project source code (Version Control) -->
+      <!-- Git and GitHub source management -->
       <div class="col-md-6 col-lg-4">
         <div class="technology-stack-card">
           <span class="technology-category">VERSION CONTROL</span>
           <h3>Source Control</h3>
-          <p>Git</p>
+          <p>Git · GitHub</p>
         </div>
       </div>
 
-      <!-- Cloud hosting and continuous integration used by the portfolio (Deployment & CI/CD) -->
+      <!-- Production hosting and continuous integration -->
       <div class="col-md-6 col-lg-4">
         <div class="technology-stack-card">
           <span class="technology-category">DEPLOYMENT &amp; CI</span>
@@ -304,91 +398,88 @@
           <p>Railway · GitHub Actions</p>
         </div>
       </div>
+
     </div>
   </div>
 </section>
 
-
 <!-- ==================== QA & TESTING STACK ==================== -->
-<!-- Shows the tools and frameworks used to test different parts of the application (Testing Stack) -->
+<!-- Shows the tools, frameworks, and practices used across the QA automation portfolio -->
+
 <section id="qa-stack" class="skills-section section-padding">
   <div class="container">
+
     <div class="text-center mb-5">
       <p class="section-label">QUALITY ENGINEERING</p>
 
-      <h2 class="section-title">QA & Testing Stack</h2>
+      <h2 class="section-title">QA &amp; Testing Stack</h2>
 
       <p class="about-text mt-3">
-        Tools, frameworks, and testing practices used to validate application
-        quality across unit, UI, API, database, accessibility, performance, and
-        cross-browser layers.
+        Tools, frameworks, and testing practices used across unit, UI, API,
+        database, accessibility, performance, cross-browser, and CI/CD testing.
       </p>
     </div>
 
-    <!-- Main testing tools grouped by testing area (QA Toolset) -->
     <div class="row g-4">
 
-      <!-- Jest validates application-owned server-side logic without external dependencies (Unit Testing) -->
+      <!-- Unit testing -->
       <div class="col-md-6 col-lg-4">
         <div class="testing-stack-card">
           <span class="testing-category">UNIT TESTING</span>
           <h3>Jest</h3>
-          <p>15 Tests · Contact Validation · GitHub Actions</p>
+          <p>Contact Validation · Authentication Validation</p>
         </div>
       </div>
 
-      <!-- Selenium framework for browser-based automated testing (UI Automation) -->
+      <!-- Selenium automation -->
       <div class="col-md-6 col-lg-4">
         <div class="testing-stack-card">
           <span class="testing-category">UI AUTOMATION</span>
           <h3>Selenium WebDriver</h3>
-          <p>Java · TestNG · Maven</p>
+          <p>Java · TestNG · Maven · Page Object Model</p>
         </div>
       </div>
 
-      <!-- Playwright framework for browser-based automated testing (UI Automation) -->
+      <!-- Playwright automation -->
       <div class="col-md-6 col-lg-4">
         <div class="testing-stack-card">
-          <span class="testing-category">UI AUTOMATION</span>
+          <span class="testing-category">END-TO-END AUTOMATION</span>
           <h3>Playwright</h3>
-          <p>JavaScript</p>
+          <p>JavaScript · UI · API · Database · Authentication</p>
         </div>
       </div>
 
-      <!-- Playwright and axe-core validate selected rendered accessibility conditions (Accessibility Testing) -->
+      <!-- Accessibility -->
       <div class="col-md-6 col-lg-4">
         <div class="testing-stack-card">
           <span class="testing-category">ACCESSIBILITY TESTING</span>
-          <h3>Playwright + axe-core</h3>
+          <h3>axe-core</h3>
           <p>
-            WCAG-Oriented Scans · Color Contrast · Accessible Names · Required
-            Semantics · Focus and Enter Activation
+            WCAG-Oriented Scans · Color Contrast · Accessible Names ·
+            Semantics · Keyboard Focus
           </p>
         </div>
       </div>
 
-      <!-- Validates HTTP requests and responses through automated and manual API tools (API Testing) -->
+      <!-- API testing -->
       <div class="col-md-6 col-lg-4">
         <div class="testing-stack-card">
           <span class="testing-category">API TESTING</span>
-          <h3>REST Assured · Playwright API · Postman</h3>
-          <p>
-            REST Assured JSON Schema Validator · Playwright + Ajv · JSON
-            Schema Validation
-          </p>
+          <h3>REST Assured · Postman · Ajv</h3>
+          <p>HTTP Validation · Authentication APIs · JSON Schema Validation</p>
         </div>
       </div>
 
-      <!-- Verifies stored data and database behavior using SQL (Database Testing) -->
+      <!-- Database testing -->
       <div class="col-md-6 col-lg-4">
         <div class="testing-stack-card">
           <span class="testing-category">DATABASE TESTING</span>
           <h3>PostgreSQL</h3>
-          <p>SQL · Data Integrity · Backend Validation</p>
+          <p>SQL · JDBC · pg · Data Integrity · Backend Validation</p>
         </div>
       </div>
 
-      <!-- Measures application behavior under different levels of load (Performance Testing) -->
+      <!-- Performance testing -->
       <div class="col-md-6 col-lg-4">
         <div class="testing-stack-card">
           <span class="testing-category">PERFORMANCE TESTING</span>
@@ -397,135 +488,180 @@
         </div>
       </div>
 
-      <!-- Checks application behavior across supported browsers (Cross-Browser Testing) -->
+      <!-- Cross-browser testing -->
       <div class="col-md-6 col-lg-4">
         <div class="testing-stack-card">
           <span class="testing-category">CROSS-BROWSER TESTING</span>
           <h3>Browser Coverage</h3>
-          <p>Chrome · Firefox · Edge</p>
+          <p>
+            Selenium: Chrome · Firefox · Edge<br />
+            Playwright: Chromium · Firefox · WebKit
+          </p>
         </div>
       </div>
 
-      <!-- Covers different test levels and test scenarios (Test Design) -->
+      <!-- Test design -->
       <div class="col-md-6 col-lg-4">
         <div class="testing-stack-card">
           <span class="testing-category">TEST DESIGN</span>
-          <h3>Test Coverage</h3>
-          <p>Smoke · Regression · Positive · Negative</p>
+          <h3>Coverage Techniques</h3>
+          <p>Smoke · Regression · Positive · Negative · EP · BVA</p>
         </div>
       </div>
 
-      <!-- Provides results from automated test execution (Test Reporting) -->
+      <!-- Reporting -->
       <div class="col-md-6 col-lg-4">
         <div class="testing-stack-card">
           <span class="testing-category">TEST REPORTING</span>
           <h3>Automation Results</h3>
-          <p>Allure · TestNG · Playwright HTML Reports</p>
+          <p>Allure · TestNG · HTML Reports · CI Artifacts</p>
         </div>
       </div>
 
-      <!-- Uses different input values to cover multiple test scenarios (Data-Driven Testing) -->
+      <!-- Test data -->
       <div class="col-md-6 col-lg-4">
         <div class="testing-stack-card">
           <span class="testing-category">TEST DATA</span>
-          <h3>Data-Driven Testing</h3>
-          <p>Positive · Negative · Boundary Data</p>
+          <h3>Data Management</h3>
+          <p>Generated Test Data · Boundary Data · Database Cleanup</p>
         </div>
       </div>
+
+      <!-- CI/CD -->
+      <div class="col-md-6 col-lg-4">
+        <div class="testing-stack-card">
+          <span class="testing-category">CI/CD TEST EXECUTION</span>
+          <h3>GitHub Actions</h3>
+          <p>Automated Regression · PostgreSQL Service · Test Artifacts</p>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-
 <!-- ==================== TEST STRATEGY & COVERAGE ==================== -->
 <!-- Shows how different parts of the application are tested (Test Strategy) -->
+
 <section id="test-strategy" class="section-padding">
   <div class="container">
+
     <div class="text-center mb-5">
       <p class="section-label">TEST STRATEGY</p>
 
-      <h2 class="section-title">Test Strategy & Coverage</h2>
+      <h2 class="section-title">Test Strategy &amp; Coverage</h2>
 
       <p class="about-text mt-3">
-        Multi-layer testing strategy designed to validate isolated application
-        logic, functionality, integration, data integrity, reliability, and
-        application behavior across the full system.
+        Multi-layer testing strategy covering isolated business logic, browser
+        workflows, APIs, authentication and authorization, database behavior,
+        accessibility, performance, and regression risk.
       </p>
     </div>
 
-    <!-- Testing is organized by the main application layers (Test Coverage) -->
+    <!-- Testing is organized by the main application and quality layers -->
     <div class="row g-4">
 
-      <!-- Directly validates the extracted server-side contact validation functions (Unit Testing) -->
+      <!-- Isolated validation logic -->
       <div class="col-md-6">
         <div class="test-strategy-card">
           <span class="testing-category">UNIT LAYER</span>
-          <h3>Jest Contact Validation</h3>
+          <h3>Jest Validation Testing</h3>
 
           <ul>
-            <li>Required-field validation</li>
-            <li>Whitespace-only input handling</li>
-            <li>Email-format validation</li>
-            <li>Validation error behavior</li>
-            <li>No database, browser, or server startup required</li>
+            <li>Contact form validation</li>
+            <li>Authentication input validation</li>
+            <li>Required and whitespace-only field handling</li>
+            <li>Email and password validation rules</li>
+            <li>Isolated execution without browser or database dependencies</li>
           </ul>
         </div>
       </div>
 
-      <!-- Checks user workflows, form behavior, and browser compatibility (UI Testing) -->
+      <!-- Browser workflows -->
       <div class="col-md-6">
         <div class="test-strategy-card">
           <span class="testing-category">UI LAYER</span>
-          <h3>Functional & UI Testing</h3>
+          <h3>Functional &amp; UI Testing</h3>
 
           <ul>
             <li>Page navigation and user workflows</li>
-            <li>Contact form submission</li>
-            <li>Client-side validation</li>
-            <li>Positive and negative scenarios</li>
-            <li>Cross-browser behavior</li>
+            <li>Contact form submission and validation</li>
+            <li>Registration, login, logout, and Account workflows</li>
+            <li>Guest, user, and admin access behavior</li>
+            <li>Cross-browser regression coverage</li>
           </ul>
         </div>
       </div>
 
-      <!-- Checks API requests, responses, status codes, and errors (API Testing) -->
+      <!-- API behavior -->
       <div class="col-md-6">
         <div class="test-strategy-card">
           <span class="testing-category">API LAYER</span>
-          <h3>API & HTTP Validation</h3>
+          <h3>API &amp; HTTP Validation</h3>
 
           <ul>
-            <li>API endpoint validation</li>
-            <li>HTTP methods and requests</li>
-            <li>Response status codes</li>
-            <li>Exact response values and messages</li>
-            <li>JSON Schema Validation: required properties and data types</li>
-            <li>Error and invalid-request handling</li>
+            <li>Status and contact endpoint validation</li>
+            <li>Authentication API request and response validation</li>
+            <li>HTTP status codes and exact response messages</li>
+            <li>401 unauthenticated and 403 forbidden behavior</li>
+            <li>JSON Schema and negative-request validation</li>
           </ul>
         </div>
       </div>
 
-      <!-- Checks server-side validation and stored application data (Backend & Database Testing) -->
+      <!-- Authentication and authorization -->
+      <div class="col-md-6">
+        <div class="test-strategy-card">
+          <span class="testing-category">AUTH &amp; SESSION LAYER</span>
+          <h3>Authentication &amp; Authorization</h3>
+
+          <ul>
+            <li>Registration and authenticated session creation</li>
+            <li>Session persistence across page refresh</li>
+            <li>Logout and session invalidation</li>
+            <li>Protected Account access</li>
+            <li>User / Admin role-based access control</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Backend and database behavior -->
       <div class="col-md-6">
         <div class="test-strategy-card">
           <span class="testing-category">DATA LAYER</span>
-          <h3>Backend & Database Validation</h3>
+          <h3>Backend &amp; Database Validation</h3>
 
           <ul>
-            <li>Server-side input validation</li>
-            <li>Database record creation</li>
-            <li>Stored data accuracy</li>
-            <li>Data integrity verification</li>
+            <li>Contact message persistence</li>
+            <li>User record creation and role verification</li>
+            <li>Password hash verification</li>
+            <li>Session-related database cleanup</li>
             <li>UI/API-to-database consistency</li>
           </ul>
         </div>
       </div>
 
-      <!-- Measures response times and application behavior under load (Performance Testing) -->
+      <!-- Accessibility -->
+      <div class="col-md-6">
+        <div class="test-strategy-card">
+          <span class="testing-category">ACCESSIBILITY LAYER</span>
+          <h3>Automated Accessibility Validation</h3>
+
+          <ul>
+            <li>axe-core page scans</li>
+            <li>Color-contrast validation</li>
+            <li>Accessible names and required semantics</li>
+            <li>Keyboard focus and Enter activation</li>
+            <li>Focused-state regression coverage</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Performance -->
       <div class="col-md-6">
         <div class="test-strategy-card">
           <span class="testing-category">PERFORMANCE LAYER</span>
-          <h3>Performance & Reliability</h3>
+          <h3>Performance &amp; Reliability</h3>
 
           <ul>
             <li>Response time measurement</li>
@@ -537,45 +673,47 @@
         </div>
       </div>
 
-      <!-- Checks selected rendered accessibility conditions in Chromium (Accessibility Testing) -->
+      <!-- Regression and CI -->
       <div class="col-md-6">
         <div class="test-strategy-card">
-          <span class="testing-category">ACCESSIBILITY LAYER</span>
-          <h3>Automated Accessibility Validation</h3>
+          <span class="testing-category">REGRESSION &amp; CI</span>
+          <h3>Automated Regression Execution</h3>
 
           <ul>
-            <li>axe-core page scans</li>
-            <li>Color-contrast validation</li>
-            <li>Accessible names and required semantics</li>
-            <li>Link focus and Enter activation</li>
-            <li>Chromium accessibility regression</li>
+            <li>UI, API, database, and accessibility regression</li>
+            <li>Chromium, Firefox, and WebKit Playwright execution</li>
+            <li>GitHub Actions continuous integration</li>
+            <li>PostgreSQL service integration in CI</li>
+            <li>Automated test reports and execution artifacts</li>
           </ul>
         </div>
       </div>
+
     </div>
   </div>
 </section>
 
 <!-- ==================== API COVERAGE ==================== -->
 <!-- Shows the application endpoints and the main checks performed against them (API Testing) -->
+
 <section id="api-testing" class="skills-section section-padding">
   <div class="container">
+
     <div class="text-center mb-5">
       <p class="section-label">API VALIDATION</p>
 
-      <h2 class="section-title">API Coverage & Endpoints</h2>
+      <h2 class="section-title">API Coverage &amp; Endpoints</h2>
 
       <p class="about-text mt-3">
-        HTTP endpoints are validated for request handling, response content,
-        status codes, input validation, and error scenarios. REST Assured's
-        JSON Schema Validator and Playwright with Ajv add schema-based contract
-        validation alongside exact response and database assertions.
+        Application APIs are validated for request handling, response content,
+        status codes, validation errors, authentication state, authorization,
+        database persistence, and API contract behavior.
       </p>
     </div>
 
     <div class="row g-4">
 
-      <!-- Checks that the backend is available and returns the expected response (GET Endpoint) -->
+      <!-- Application health endpoint -->
       <div class="col-md-6">
         <div class="api-endpoint-card">
           <span class="api-method get-method">GET</span>
@@ -583,20 +721,20 @@
           <h3>/api/status</h3>
 
           <p>
-            Verifies that the application backend is running and responding
-            correctly.
+            Verifies that the application backend is available and returns the
+            expected service status.
           </p>
 
           <ul>
             <li>Expected status: 200 OK</li>
-            <li>Exact status and message validation</li>
-            <li>JSON Schema validation of required properties and data types</li>
-            <li>Application status endpoint check</li>
+            <li>Exact response validation</li>
+            <li>Required properties and data types</li>
+            <li>JSON Schema validation</li>
           </ul>
         </div>
       </div>
 
-      <!-- Checks contact form requests, validation, and database storage (POST Endpoint) -->
+      <!-- Contact endpoint -->
       <div class="col-md-6">
         <div class="api-endpoint-card">
           <span class="api-method post-method">POST</span>
@@ -604,43 +742,133 @@
           <h3>/contact</h3>
 
           <p>
-            Processes contact form submissions and stores validated data in
-            PostgreSQL.
+            Processes validated contact form submissions and persists message
+            data in PostgreSQL.
           </p>
 
           <ul>
             <li>Valid submission: 200 OK</li>
-            <li>Missing fields: 400 Bad Request</li>
-            <li>Invalid email: 400 Bad Request</li>
-            <li>Exact success and message validation</li>
-            <li>JSON Schema validation of required properties and data types</li>
-            <li>Database persistence validation</li>
+            <li>Missing or invalid input: 400 Bad Request</li>
+            <li>Exact success and error messages</li>
+            <li>JSON Schema validation</li>
+            <li>Database persistence verification</li>
           </ul>
         </div>
       </div>
+
+      <!-- Registration and login endpoints -->
+      <div class="col-md-6">
+        <div class="api-endpoint-card">
+          <span class="api-method post-method">POST</span>
+
+          <h3>Registration &amp; Login</h3>
+
+          <p>
+            Validates account creation, credential handling, login behavior,
+            and authenticated session creation.
+          </p>
+
+          <ul>
+            <li><strong>/api/auth/register</strong> — successful registration: 201 Created</li>
+            <li>Normalized duplicate email: 409 Conflict</li>
+            <li>Client-supplied admin role is not accepted</li>
+            <li><strong>/api/auth/login</strong> — successful login: 200 OK</li>
+            <li>Invalid credentials return the same generic 401 response</li>
+            <li>Password and password hash are not exposed in API responses</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Session lifecycle endpoints -->
+      <div class="col-md-6">
+        <div class="api-endpoint-card">
+          <span class="api-method get-method">GET / POST</span>
+
+          <h3>Session Lifecycle</h3>
+
+          <p>
+            Verifies authenticated identity state and confirms that logout
+            invalidates the active server session.
+          </p>
+
+          <ul>
+            <li><strong>GET /api/auth/me</strong> — authenticated user: 200 OK</li>
+            <li>Unauthenticated request: 401 Unauthorized</li>
+            <li><strong>POST /api/auth/logout</strong> — successful logout: 200 OK</li>
+            <li>Session is invalid after logout</li>
+            <li>Authenticated state is verified through the real session cookie</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Role-protected endpoint -->
+      <div class="col-md-6">
+        <div class="api-endpoint-card">
+          <span class="api-method get-method">GET</span>
+
+          <h3>/api/auth/admin</h3>
+
+          <p>
+            Validates authentication and role-based authorization for the
+            protected Admin API.
+          </p>
+
+          <ul>
+            <li>Guest request: 401 Unauthorized</li>
+            <li>Authenticated user role: 403 Forbidden</li>
+            <li>Authenticated admin role: 200 OK</li>
+            <li>User / Admin RBAC validation</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- API automation approach -->
+      <div class="col-md-6">
+        <div class="api-endpoint-card">
+          <span class="api-method get-method">AUTOMATION</span>
+
+          <h3>API Test Coverage</h3>
+
+          <p>
+            API behavior is validated across Java and JavaScript automation
+            frameworks using direct HTTP requests and backend assertions.
+          </p>
+
+          <ul>
+            <li>REST Assured API automation</li>
+            <li>Playwright API testing</li>
+            <li>Ajv and JSON Schema validation</li>
+            <li>Positive and negative scenarios</li>
+            <li>Database and session-state verification where applicable</li>
+          </ul>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-
 <!-- ==================== DATABASE VALIDATION ==================== -->
-<!-- Shows the database structure and how submitted data is verified (Database Testing) -->
+<!-- Shows the main PostgreSQL data structures and how application data is verified -->
+
 <section id="database-testing" class="section-padding">
   <div class="container">
+
     <div class="text-center mb-5">
       <p class="section-label">DATABASE VALIDATION</p>
 
       <h2 class="section-title">Database Testing</h2>
 
       <p class="about-text mt-3">
-        Contact form data is validated across the application flow from request
-        processing through persistent storage in PostgreSQL.
+        PostgreSQL validation covers contact-message persistence, authentication
+        user records, role data, password hashing, session-backed authentication,
+        and UI/API-to-database consistency.
       </p>
     </div>
 
     <div class="row g-4">
 
-      <!-- Shows the fields and data types used to store contact messages (Database Schema) -->
+      <!-- Contact message schema -->
       <div class="col-lg-6">
         <div class="database-validation-card">
           <span class="database-category">DATABASE SCHEMA</span>
@@ -674,24 +902,76 @@
         </div>
       </div>
 
-      <!-- Checks that submitted data is correctly processed and stored (Data Validation) -->
+      <!-- Authentication user schema -->
+      <div class="col-lg-6">
+        <div class="database-validation-card">
+          <span class="database-category">AUTHENTICATION DATA</span>
+
+          <h3>users</h3>
+
+          <div class="database-field">
+            <span>id</span>
+            <span>Primary Key</span>
+          </div>
+
+          <div class="database-field">
+            <span>email</span>
+            <span>Account Email</span>
+          </div>
+
+          <div class="database-field">
+            <span>password_hash</span>
+            <span>bcrypt Hash</span>
+          </div>
+
+          <div class="database-field">
+            <span>role</span>
+            <span>user / admin</span>
+          </div>
+
+          <div class="database-field">
+            <span>created_at</span>
+            <span>Created Timestamp</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PostgreSQL-backed server sessions -->
+      <div class="col-lg-6">
+        <div class="database-validation-card">
+          <span class="database-category">SESSION STORAGE</span>
+
+          <h3>Server-Side Sessions</h3>
+
+          <ul class="database-validation-list">
+            <li>PostgreSQL-backed session storage</li>
+            <li>Managed through connect-pg-simple</li>
+            <li>Session cookie identifies the active server session</li>
+            <li>Only the authenticated user ID is stored in session data</li>
+            <li>Logout invalidates the authenticated session</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Database automation and data verification -->
       <div class="col-lg-6">
         <div class="database-validation-card">
           <span class="database-category">DATA VALIDATION</span>
 
-          <h3>UI → API → Database</h3>
+          <h3>UI / API → Database</h3>
 
           <ul class="database-validation-list">
-            <li>Contact form data submission</li>
-            <li>Server-side input validation</li>
-            <li>Database record creation</li>
-            <li>Name, email, and message verification</li>
-            <li>Stored data accuracy</li>
-            <li>Timestamp verification</li>
-            <li>UI/API-to-database consistency</li>
+            <li>Contact message persistence and stored-value verification</li>
+            <li>User record creation after registration</li>
+            <li>Normalized email and default-role verification</li>
+            <li>Password hash verification without plaintext storage</li>
+            <li>User / Admin role verification</li>
+            <li>Parameterized SQL queries in automated database checks</li>
+            <li>Test-owned user and session cleanup after execution</li>
           </ul>
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -716,7 +996,7 @@
 
       <!-- Shows the main testing tools and available test results (Automation Tools) -->
       <p class="automation-tools mb-4">
-        Selenium · Playwright + axe-core · Postman · JMeter · Test Reports
+         Unit · UI · API · Database · Accessibility · Performance · Cross-Browser · CI/CD
       </p>
 
       <!-- Opens the detailed automation and testing page (Automation Details) -->
