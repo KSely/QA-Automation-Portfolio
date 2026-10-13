@@ -1,6 +1,6 @@
 # Defect Log
 
-Defects are recorded here only after reproduction or confirmation. Source-only observations remain suspected until reproduced. Status, severity, and priority are subject to human review.
+Defects are logged after reproduction or confirmation. Severity and priority reflect the observed impact and current portfolio triage.
 
 ## DEF-001 — Shared footer JavaScript throws a TypeError on pages without the contact form
 
@@ -17,10 +17,10 @@ Severity reflects the observed script-block failure while page rendering and sam
 ### Environment
 
 - Local QA Automation Portfolio application at `http://localhost:3000`.
-- Windows; Codex in-app browser, using real browser page loads and captured console output.
-- Browser version and running server process details were not verified.
-- The application was already reachable; no additional application process was started for the reproduction.
-- Evidence below comes from the earlier focused read-only reproduction, not a new execution during creation of this record.
+- Windows local test environment with manual browser reproduction.
+- Exact browser version was not recorded.
+- The application was already running and reachable during reproduction.
+- This section uses the recorded reproduction evidence; no new reproduction was performed while updating the defect log.
 
 ### Preconditions — Original Reproduction
 
@@ -71,7 +71,7 @@ TypeError: Cannot read properties of null (reading 'addEventListener')
 
 Browser DOM inspection found one `#contact-form` on `/` and zero on each affected page. Screenshots inspected during reproduction showed both project pages rendered. On `/project`, navigation changed the URL fragment to `#database-testing`; the scroll-to-top button gained the `show` class and lost it after the return-to-top action completed.
 
-These are observations from the reproduction recorded in the accompanying chat. No screenshot files or execution-report artifacts are attached to this log. Stack locations refer to the rendered HTML from that run and may change with template edits.
+These observations come from the recorded local reproduction. No screenshot or execution-report artifacts are attached to this log. Stack locations refer to the rendered HTML from that run and may change after template edits.
 
 ### Affected Pages — Original Reproduction
 
@@ -147,7 +147,7 @@ node node_modules/@playwright/test/cli.js test tests/ui --project=chromium --ret
 
 Contact success-message and DB persistence assertions passed. Existing awaited cleanup completed without error; it does not independently assert the deleted row count or post-delete absence. No pageerrors were captured by the two new tests. The contact test does not capture pageerrors, so it does not establish an error-free home console.
 
-Firefox/WebKit and separate API/DB projects were not run in this cycle. No production or cross-browser compatibility conclusion is claimed. Evidence is the recorded local command output from this chat, not CI evidence; no immutable report or commit identifier was captured. No tests were rerun while updating these documents.
+Firefox/WebKit and separate API/DB projects were not run in this cycle. No production or cross-browser compatibility conclusion is claimed. Evidence comes from the recorded local Playwright command output. This cycle did not use CI evidence, and no separate immutable execution report was retained. No tests were rerun while updating the documentation.
 
 ### Notes
 
@@ -168,7 +168,11 @@ Firefox/WebKit and separate API/DB projects were not run in this cycle. No produ
 
 ### Environment
 
-Local Windows workspace; existing application at `http://localhost:3000/`; Codex in-app browser. Exact browser version was not recorded. The DEF-001 optional-chaining fix was present. This record uses the preceding focused reproduction evidence; no tests were rerun to create it.
+Local Windows workspace with the application running at `http://localhost:3000/`.
+
+The exact browser version was not recorded. The DEF-001 optional-chaining fix was already present.
+
+This section uses the recorded reproduction evidence; no tests were rerun while updating the defect log.
 
 ### Preconditions — Before Fix
 
@@ -214,7 +218,7 @@ Content-Type: application/json; charset=utf-8
 {"success":false,"message":"All fields are required."}
 ```
 
-A read-only database lookup found no row matching the probe email and message (`probeRowExists: false`). No cleanup was required. These observations are recorded in the reproduction chat; no screenshot or report artifact is attached.
+A read-only database lookup found no row matching the probe email and message (`probeRowExists: false`). No cleanup was required. No screenshot or separate execution-report artifact was retained.
 
 ### Affected Functionality
 
@@ -280,7 +284,7 @@ node node_modules/@playwright/test/cli.js test tests/ui/contact.spec.js --grep '
 node node_modules/@playwright/test/cli.js test tests/ui --project=chromium --retries=0 --workers=1 --reporter=line
 ```
 
-Evidence is recorded local command output from this chat, not CI or a full portfolio result. See [RTM.md](RTM.md) and [TEST_SUMMARY_REPORT.md](TEST_SUMMARY_REPORT.md).
+Evidence comes from the recorded local Playwright command output, not CI or a full portfolio execution. See [RTM.md](RTM.md) and [TEST_SUMMARY_REPORT.md](TEST_SUMMARY_REPORT.md).
 
 ### Notes
 
@@ -299,7 +303,7 @@ Evidence is recorded local command output from this chat, not CI or a full portf
 | Priority | High |
 | Reproduction date | 2026-10-01 |
 
-Severity reflects impaired readability of a primary call to action, particularly for users with low vision. High priority reflects the element's prominence and the size of the measured contrast shortfall. Both classifications remain subject to human review.
+Severity reflects impaired readability of a primary call to action, particularly for users with low vision. High priority reflects the element's prominence and the size of the measured contrast shortfall. These classifications reflect the observed accessibility impact and the current portfolio triage criteria.
 
 ### Environment
 
@@ -328,7 +332,7 @@ Severity reflects impaired readability of a primary call to action, particularly
 
 The **View Project Details** text should meet the applicable WCAG AA minimum contrast ratio of **4.5:1** for normal text.
 
-No standalone accessibility product requirement currently exists in [REQUIREMENTS.md](REQUIREMENTS.md). This expected result records the axe rule's accessibility criterion and confirmed defect condition; it does not invent an approved product requirement.
+No standalone accessibility requirement is currently defined in [REQUIREMENTS.md](REQUIREMENTS.md). This defect uses the verified axe contrast criterion as its acceptance condition.
 
 ### Actual Result
 
@@ -409,7 +413,7 @@ Post-fix result: **5 total, 5 passed, 0 failed, 0 skipped** (8.1 seconds). P-A11
 | Priority | Medium |
 | Reproduction date | 2026-10-01 |
 
-Severity reflects a WCAG AA contrast failure affecting small architecture-label text. Medium priority reflects the smaller contrast shortfall and informational role of the labels compared with the primary call to action in DEF-003. Both classifications remain subject to human review.
+Severity reflects a WCAG AA contrast failure affecting small architecture-label text. Medium priority reflects the smaller contrast shortfall and informational role of the labels compared with the primary call to action in DEF-003. These classifications reflect the observed accessibility impact and the current portfolio triage criteria.
 
 ### Environment
 
@@ -438,11 +442,11 @@ Severity reflects a WCAG AA contrast failure affecting small architecture-label 
 
 Architecture connector-label text should meet the applicable WCAG AA minimum contrast ratio of **4.5:1** for normal text.
 
-No standalone accessibility product requirement currently exists in [REQUIREMENTS.md](REQUIREMENTS.md). This expected result records the axe rule's accessibility criterion and confirmed defect condition; it does not invent an approved product requirement.
+No standalone accessibility requirement is currently defined in [REQUIREMENTS.md](REQUIREMENTS.md). This defect uses the verified axe contrast criterion as its acceptance condition.
 
 ### Actual Result
 
-Small architecture connector labels are rendered at a measured contrast ratio of **4.26:1**, below the expected **4.5:1** minimum.
+Small architecture connector labels are rendered at a measured contrast ratio of **4.263:1**, below the expected **4.5:1** minimum.
 
 ### Evidence
 
@@ -452,7 +456,7 @@ Rule: color-contrast
 axe impact: serious
 Foreground: #64748b
 Background: #eef3f8
-Measured contrast: 4.26:1
+Measured contrast: 4.263:1
 Expected minimum: 4.5:1
 
 Affected labels/selectors:
@@ -479,7 +483,7 @@ Architecture connector labels on `/project`, including **HTTP / HTTPS**, **HTTP 
 
 ### Root Cause / Technical Observation — Before Fix
 
-axe measured foreground `#64748b` against background `#eef3f8` for three small connector-label nodes. At the rendered normal-text size and weight, the resulting **4.26:1** ratio is below the **4.5:1** threshold. No CSS or application source was changed or reinterpreted while creating this record.
+axe measured foreground `#64748b` against background `#eef3f8` for three small connector-label nodes. At the rendered normal-text size and weight, the resulting **4.263:1** ratio is below the **4.5:1** threshold.
 
 ### Workaround — Before Fix
 
@@ -512,3 +516,223 @@ Post-fix result: **5 total, 5 passed, 0 failed, 0 skipped** (8.1 seconds). P-A11
 - Status is Closed / Fixed / Retest Passed.
 - Automated axe evidence cannot establish complete page accessibility or full WCAG compliance.
 - The initial five-test run confirmed DEF-003 and DEF-004 with 3 passed and 2 failed. The post-fix run passed all five implemented automated accessibility checks.
+
+## DEF-005 — Insufficient color contrast on authentication navigation link
+
+| Field | Value |
+| --- | --- |
+| Defect ID | DEF-005 |
+| Status | Closed |
+| Severity | Medium |
+| Priority | High |
+| Reproduction date | 2026-10-13 |
+
+Severity reflects a normal-text contrast failure on the shared authentication navigation link. High priority reflects the link's role as the entry point to Login or Account and its presence in shared navigation. These classifications reflect the observed impact and portfolio triage criteria.
+
+### Environment
+
+- Current local QA Automation Portfolio application at `http://localhost:3000` after a fresh authentication-client build and application restart.
+- Local Windows environment using Playwright Chromium and the dedicated accessibility project.
+- Project page: `http://localhost:3000/project`.
+- Visible link text: **Login** when unauthenticated or **Account** when authenticated.
+- Selector used for reproduction: `a[href$="login"]`.
+
+### Preconditions
+
+- The current application source and authentication navigation changes are built and served.
+- The Project page is reachable with the expanded desktop navigation visible.
+- The shared authentication navigation link is rendered.
+
+### Steps to Reproduce
+
+1. Build and start the current application using its normal local commands.
+2. Open `/project` in Chromium at the verified desktop viewport.
+3. Locate the shared **Login / Account** navigation link with `a[href$="login"]`.
+4. Run the existing Project-page axe accessibility scan and inspect the rendered link position and computed colors.
+
+### Expected Result
+
+The authentication navigation link should remain inside the dark navbar and meet the applicable WCAG AA minimum contrast ratio of **4.5:1** for normal text.
+
+No standalone accessibility requirement is defined in [REQUIREMENTS.md](REQUIREMENTS.md). This defect uses the reproduced contrast result as its acceptance condition.
+
+### Actual Result
+
+On `/project`, the crowded expanded navigation caused the authentication link to overflow beyond the dark navbar onto the white body background. The light link text was therefore evaluated against white and failed contrast.
+
+The same shared link exists on `/` and `/project/automation`, but those pages did not reproduce the overflow because their navigation contains fewer links.
+
+### Evidence
+
+```text
+Page: /project
+Visible text: Login / Account
+Selector: a[href$="login"]
+Foreground: #cbd5e1
+Effective background: #ffffff
+Measured contrast: 1.48:1
+Expected minimum: 4.5:1
+```
+
+The existing P-A11Y-002 Project-page accessibility scan detected the issue. The application had been freshly built and restarted before reproduction, ruling out a stale local process or stale authentication client build.
+
+### Affected Functionality
+
+The authentication navigation link on `/project` in the expanded desktop navigation. The evidence establishes a contrast/layout issue; it does not establish a failure of routing or authentication behavior.
+
+### Requirement / Coverage Links
+
+- [TEST_CASES.md](TEST_CASES.md): **P-A11Y-002**, existing Project-page axe scan used for detection and retest. DEF-005 did not create a new test ID.
+- [RTM.md](RTM.md): accessibility traceability records the DEF-005 pre-fix and post-fix evidence.
+- [REQUIREMENTS.md](REQUIREMENTS.md): **REQ-UI-005** and **REQ-UI-010** provide related Project/authentication-page scope only; they do not define a standalone color-contrast requirement.
+
+### Root Cause / Technical Observation — Before Fix
+
+The Project navigation contained ten expanded links and exceeded the available dark navbar width. The authentication link overflowed onto the white body background. Its `#cbd5e1` color was intended for the dark `#0f1f35` navbar, where it has strong contrast, but produced only **1.48:1** against white.
+
+### Workaround — Before Fix
+
+No application-level workaround was verified. The link remained operable, but the confirmed text-contrast issue remained at the reproduced layout.
+
+### Resolution
+
+**Fixed.** [views/partials/header.ejs](../../views/partials/header.ejs) assigns a scoped Project-navigation class, and [public/styles/main.css](../../public/styles/main.css) allows that Project navigation to wrap within the navbar and keeps its right alignment.
+
+No global navigation colors, authentication logic, routes, or unrelated layout rules changed.
+
+Post-fix computed contrast:
+
+```text
+Normal foreground: #cbd5e1
+Background: #0f1f35
+Normal contrast: 11.15:1
+Hover foreground: #38bdf8
+Hover contrast: 7.73:1
+```
+
+### Retest Status
+
+**Passed.** The focused DEF-005 retest passed **1/1** in Chromium. The existing P-A11Y-002 scan reported no color-contrast violation for the authentication link, and the then-current complete accessibility project passed **5/5**.
+
+### Notes
+
+- Status is Closed / Fixed / Retest Passed.
+- DEF-005 reused P-A11Y-002 and did not increase the unique test-case count.
+- The fix and automated result apply to the verified layout and Chromium accessibility scope; they do not establish complete WCAG compliance.
+
+## DEF-006 — Insufficient text contrast on authentication navigation link during keyboard focus
+
+| Field | Value |
+| --- | --- |
+| Defect ID | DEF-006 |
+| Status | Closed |
+| Severity | Medium |
+| Priority | High |
+| Reproduction date | 2026-10-13 |
+
+Severity reflects a normal-text contrast failure specifically during keyboard focus. High priority reflects the shared link's authentication role and the impact on keyboard users across all three portfolio pages.
+
+### Environment
+
+- Current DEF-005-fixed local application at `http://localhost:3000`.
+- Local Windows environment using Playwright Chromium and the dedicated accessibility project.
+- Pages: `/`, `/project`, and `/project/automation`.
+- Visible link text: **Login** when unauthenticated or **Account** when authenticated.
+- Selector used for reproduction: `a[href$="login"]`.
+
+### Preconditions
+
+- The current application is built and running.
+- The shared authentication navigation link is visible.
+- Keyboard Tab navigation is used to focus the link without mouse hover.
+
+### Steps to Reproduce
+
+1. Open a fresh unauthenticated page at `/`.
+2. Use keyboard Tab navigation until the **Login** link receives focus.
+3. Confirm the link is focused without applying mouse hover.
+4. Inspect the computed foreground/background colors and run axe while focus is retained.
+5. Repeat on `/project` and `/project/automation`.
+6. Press Enter to confirm the focused link still activates.
+
+### Expected Result
+
+The keyboard-focused authentication navigation text should meet the applicable WCAG AA minimum contrast ratio of **4.5:1** for normal text while retaining a visible focus indication and normal Enter activation.
+
+No standalone accessibility requirement is defined in [REQUIREMENTS.md](REQUIREMENTS.md). This defect uses the reproduced focused-state contrast result as its acceptance condition.
+
+### Actual Result
+
+The normal state passed, but keyboard focus and focus-visible changed the text to a nearly black effective color on the dark navbar, producing insufficient contrast on all three inspected pages.
+
+The focus ring remained visible, and Enter activation continued to work. The defect concerned focused text contrast, not focus visibility or link operability.
+
+### Evidence
+
+```text
+Pages: /, /project, /project/automation
+Visible text: Login / Account
+Selector: a[href$="login"]
+
+Normal foreground: #cbd5e1
+Normal background: #0f1f35
+Normal contrast: 11.15:1 — PASS
+
+Keyboard focus/focus-visible raw CSS color: rgba(0, 0, 0, 0.8)
+Effective focused foreground: #03060b
+Focused background: #0f1f35
+Focused contrast: 1.22:1 — FAIL
+Expected minimum: 4.5:1
+```
+
+### Affected Functionality
+
+The shared Login/Account navigation link during keyboard focus on `/`, `/project`, and `/project/automation`, in both the unauthenticated Login presentation and the authenticated Account presentation.
+
+### Requirement / Coverage Links
+
+- [TEST_CASES.md](TEST_CASES.md): **P-A11Y-006**, focused authentication-navigation contrast regression.
+- [RTM.md](RTM.md): accessibility traceability records the DEF-006 pre-fix and post-fix evidence.
+- [REQUIREMENTS.md](REQUIREMENTS.md): **REQ-UI-010** provides related authentication-navigation scope only; it does not define a standalone color-contrast requirement.
+
+### Root Cause / Technical Observation — Before Fix
+
+Bootstrap 5.3.3 applies:
+
+```css
+.nav-link:focus,
+.nav-link:hover {
+  color: var(--bs-nav-link-hover-color);
+}
+```
+
+The application already overrode hover color for the portfolio navbar but did not override focus. Bootstrap therefore applied the dark focused text color on the dark navbar. `:focus-visible` resolved to the same insufficient-contrast color.
+
+### Workaround — Before Fix
+
+No application-level workaround was verified. The visible focus ring and Enter activation remained functional, but they did not correct the focused text contrast.
+
+### Resolution
+
+**Fixed.** [public/styles/main.css](../../public/styles/main.css) adds a selector scoped to the shared portfolio navbar and authentication link:
+
+```css
+.portfolio-navbar .nav-link[href="/auth/login"]:focus,
+.portfolio-navbar .nav-link[href="/auth/login"]:focus-visible {
+  color: #38bdf8;
+}
+```
+
+The change preserves the normal and hover colors, Bootstrap focus ring, React Account navigation styling, routing, and authentication behavior.
+
+Post-fix focused contrast is **7.73:1** (`#38bdf8` on `#0f1f35`).
+
+### Retest Status
+
+**Passed.** P-A11Y-006 passed in the focused Chromium retest. The complete accessibility project passed **6/6**, and the final full Playwright run passed **100/100 configured executions** with 0 failed and 0 skipped.
+
+### Notes
+
+- Status is Closed / Fixed / Retest Passed.
+- P-A11Y-006 is one new unique accessibility case and increased the Playwright accessibility catalogue from five to six.
+- Manual reproduction covered `/`, `/project`, and `/project/automation`; P-A11Y-006 provides the automated focused-state regression on `/project` in Chromium. This does not establish complete accessibility of the React authentication pages or full WCAG compliance.

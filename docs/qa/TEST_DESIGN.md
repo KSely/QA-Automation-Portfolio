@@ -2,153 +2,178 @@
 
 ## Purpose and baseline
 
-Status: Reviewed documentation baseline with completed DEF-001/DEF-002 evidence, verified Jest unit results, verified Playwright accessibility evidence including closed DEF-003/DEF-004, and verified Selenium/Playwright API JSON Schema Validation evidence. Execution status for the remaining catalogue is not assessed by this document.
+Status: Reviewed documentation baseline. DEF-001 through DEF-006 are completed and closed. Jest unit testing covers contact and authentication validation. Playwright authentication/authorization integration coverage, manual authentication smoke testing, Playwright accessibility testing, and Selenium/Playwright API JSON Schema Validation have also been completed.
 
-Explain how the existing behaviors and automated cases can be classified, where formal techniques are defensible, and which conditions remain unimplemented. This document does not retrofit undocumented historical design intent or claim coverage measurements that were not collected.
+This document explains how the existing tests are classified, which test design techniques apply, and where coverage is still missing.
 
-Sources: [REQUIREMENTS.md](REQUIREMENTS.md), application source, Jest unit specifications, Java/JavaScript specifications, TestNG/Playwright configuration, and JMX plans. [TEST_CASES.md](TEST_CASES.md) maps exact existing methods/specifications/variants. [TEST_PLAN.md](TEST_PLAN.md) defines scope and proposed process criteria.
+Sources include [REQUIREMENTS.md](REQUIREMENTS.md), the application source, Jest tests, Selenium/TestNG tests, Playwright tests, configuration files, and JMeter plans. [TEST_CASES.md](TEST_CASES.md) contains the implemented test cases. [TEST_PLAN.md](TEST_PLAN.md) defines the overall scope and test approach.
 
-Cycle evidence and closure are tracked in [RTM.md](RTM.md) and [DEFECT_LOG.md](DEFECT_LOG.md), separately from baseline execution status.
+Execution evidence and defect history are recorded in [RTM.md](RTM.md) and [DEFECT_LOG.md](DEFECT_LOG.md).
 
 ## Test design methodology
 
-1. Identify the current source-derived behavior and its test boundary.
-2. Distinguish product behavior, environment prerequisites, and configured QA targets.
-3. Identify observable conditions and expected outcomes that source actually supports.
-4. Separate ambiguous behavior and suspected defects from approved expectations.
-5. Map existing assertions, not only test names, to each condition.
-6. Apply a formal technique only when its model/data selection is defensible.
-7. Record proposed missing conditions without assigning final future case IDs.
-8. Keep technique, test level, interface, execution mode, and result independent.
+1. Review the implemented behavior and define what is being tested.
+2. Separate product behavior from environment and test-configuration requirements.
+3. Identify test conditions and expected results supported by the implementation.
+4. Keep unclear behavior and suspected defects separate from confirmed requirements.
+5. Map test assertions to the related conditions and requirements.
+6. Apply a formal test design technique only where it clearly fits the test condition.
+7. Record missing coverage without creating test IDs before the tests are implemented.
+8. Keep test level, test type, technique, interface, execution type, and result as separate classifications.
 
-The design process is informed by ISTQB terminology, but this document does not claim certification of the framework or conformance to a formal documentation standard. Existing source remains authoritative.
+ISTQB terminology is used where it is helpful and applicable to the project.
 
 ## How Test Cases Are Classified
 
-| Dimension | Values | Interpretation in this portfolio |
+| Dimension | Values | Meaning in this portfolio |
 |---|---|---|
-| Test Level | Unit; Integration; System; End-to-End scope | Jest directly tests the contact validation module. E2E is a workflow-scope tag overlapping system/integration, not an exclusive extra level. |
-| Test Type / Purpose | Functional; Regression; Smoke; Cross-browser; Accessibility; API; Database; Performance; Load; Stress | Practical multi-tag taxonomy mixing objectives, selection purposes, interfaces, and workloads; not a mutually exclusive hierarchy. |
-| Test Approach | Black-box; Gray-box; White-box; Undetermined | Relative to the selected test object and oracle. |
-| Test Design Technique | Equivalence Partitioning; Boundary Value Analysis; Decision Table; State Transition; Use Case; Error Guessing; Checklist-based; Not specifically technique-driven | Technique is based on condition selection, not programming language or runner. |
-| Scenario | Positive; Negative; Mixed / Not applicable | A negative scenario can have a Passed execution result. |
-| Interface | UI; API; Database; Performance endpoint | Multiple interfaces may apply. Performance endpoint is an HTTP/API interface under workload. |
-| Execution | Manual; Automated | Manually dispatching CI does not make the tests manual. |
+| Test Level | Unit; Integration; System; End-to-End scope | Jest directly tests the contact and authentication validation modules. E2E describes a complete workflow and may include both System and Integration testing. |
+| Test Type / Purpose | Functional; Regression; Smoke; Cross-browser; Accessibility; API; Database; Performance; Load; Stress | A test can have more than one purpose or type. |
+| Test Approach | Black-box; Gray-box; White-box; Undetermined | Classification depends on what is being tested and what information the test uses. |
+| Test Design Technique | Equivalence Partitioning; Boundary Value Analysis; Decision Table; State Transition; Use Case; Error Guessing; Checklist-based; Not specifically technique-driven | The technique is based on how test conditions and data are selected. |
+| Scenario | Positive; Negative; Mixed / Not applicable | Positive/negative describes the scenario, not whether the test passed or failed. |
+| Interface | UI; API; Database; Performance endpoint | A test can use more than one interface. |
+| Execution | Manual; Automated | A manually triggered automated test is still an automated test. |
 
 ### Approach rules
 
-- API tests can be Black-box when they validate external HTTP behavior without internal structural objectives.
-- Direct PostgreSQL verification makes these application-level UI/API tests Gray-box because the oracle uses persistence internals.
-- Direct DB tests are classified relative to the whole application; a DB-as-test-object view could classify SQL-interface checks differently.
-- White-box is reserved for design intentionally targeting internal structure, branches, paths, or implementation logic.
-- Reading source during analysis does not automatically make a test White-box.
-- DOM attributes/validity inspection does not automatically make a test White-box.
-- Measured structural evidence is limited to **100% statement, branch, function, and line coverage for the contact validation module.** It is not application or portfolio coverage.
-- A case may use a black-box technique for input selection while its overall approach is Gray-box or White-box relative to the selected test object and oracle.
+- API tests are classified as Black-box when they verify external HTTP behavior without using internal implementation details.
+- UI or API tests that also query PostgreSQL are classified as Gray-box because they use internal database information for verification.
+- Direct database tests are classified relative to the application as the main test object.
+- White-box is used when tests intentionally exercise internal logic, branches, or implementation structure.
+- Reading source code while designing a test does not automatically make the test White-box.
+- Inspecting DOM attributes or browser validation does not automatically make a test White-box.
+- The verified structural coverage result is **100% statement, branch, function, and line coverage for the contact validation module only**. It is not whole-application coverage.
+- A test can use a Black-box design technique such as Equivalence Partitioning while still being Gray-box overall if it also checks the database.
 
 ### Project examples
 
-| Existing case | Independent classifications | Reason |
+| Existing case | Classification | Reason |
 |---|---|---|
-| A-UNIT-014: required-field error takes precedence | Unit; Functional/Regression; White-box; Decision Table; Negative; Module; Automated | Directly invokes the pure validation function and verifies the first rejection branch when required and email-format conditions are both invalid. |
-| P-UI-004: successful contact submission with DB verification | System/E2E scope; Integration verification; Functional/Regression/Cross-browser/Database; Gray-box; Use Case; Positive; UI + Database; Automated | Exercises the user journey and then reads PostgreSQL. |
-| P-API-004: omitted name | System; Functional/API; Black-box; Equivalence Partitioning; Negative; API; Automated | Asserts HTTP 400, exact rejection values, and the contact-response schema; no DB assertion in this PW family. |
-| S-API-004: whitespace name | Integration; Functional/API/Database; Gray-box; Equivalence Partitioning; Negative; API + Database; Automated | Asserts HTTP 400, exact rejection values, the contact-response schema, and non-persistence. |
-| P-A11Y-001: Home-page axe scan | System; Accessibility/Regression; Black-box; Checklist-based; Positive expectation; UI; Automated | Runs WCAG-oriented automated rules against the rendered page. Its initial failure confirmed DEF-003; its post-fix pass verifies the fix. The historical failure does not change the positive test-condition classification. |
-| J-PERF-007: 1,000-user plan | System; Performance/Stress; Black-box; Not specifically technique-driven; Positive requests under high workload; Performance endpoint; Automated | Workload configuration is not BVA; samples do not become separate cases. |
+| A-UNIT-014: required-field error takes precedence | Unit; Functional/Regression; White-box; Decision Table; Negative; Module; Automated | Calls the validation function directly and verifies the required-field branch when both required-field and email-format conditions are invalid. |
+| P-UI-004: successful contact submission with DB verification | System/E2E scope; Integration verification; Functional/Regression/Cross-browser/Database; Gray-box; Use Case; Positive; UI + Database; Automated | Exercises the contact workflow and then verifies the result in PostgreSQL. |
+| P-API-004: omitted name | System; Functional/API; Black-box; Equivalence Partitioning; Negative; API; Automated | Verifies HTTP 400, the expected response values, and the contact-response schema. |
+| S-API-004: whitespace name | Integration; Functional/API/Database; Gray-box; Equivalence Partitioning; Negative; API + Database; Automated | Verifies HTTP 400, the expected response, schema, and non-persistence in PostgreSQL. |
+| P-A11Y-001: Home-page axe scan | System; Accessibility/Regression; Black-box; Checklist-based; Positive expectation; UI; Automated | Runs automated accessibility rules against the rendered page. The initial failure identified DEF-003, and the post-fix run passed. |
+| P-UI-018: registration and protected Account workflow | System/End-to-End scope; Integration verification; Functional/Regression/Cross-browser/Database; Gray-box; Use Case; Positive; UI + API + Database; Automated | Verifies UI registration, safe response/session cookie, protected Account state, normalized user data, bcrypt hash behavior, default role, and cleanup. |
+| P-API-020: admin authorization matrix | System/Integration; Functional/API/Database; Gray-box; Decision Table; Mixed; API + Database; Automated | Verifies unauthenticated 401, normal-user 403, and admin 200 after controlled test-owned role elevation. |
+| J-PERF-007: 1,000-user plan | System; Performance/Stress; Black-box; Not specifically technique-driven; Positive requests under high workload; Performance endpoint; Automated | Represents a configured stress workload. The virtual-user count is not a Boundary Value Analysis test. |
 
 ### API response validation model
 
-The existing API cases use complementary assertion levels rather than treating a schema check as a replacement for functional behavior:
+API tests use several types of assertions together:
 
 | Assertion level | Purpose | Existing implementation |
 |---|---|---|
-| HTTP | Verify status and, where represented, JSON content type | REST Assured and Playwright request assertions |
-| Functional values | Verify exact status values, success booleans, and success/rejection messages | Existing status and contact assertions remain in place |
-| JSON Schema Validation | Verify object structure, required properties, and data types | Selenium uses `matchesJsonSchemaInClasspath(...)`; Playwright uses Ajv validators compiled once through `utils/schemaValidator.js` |
-| Persistence | Verify insertion or represented non-persistence behavior | Existing JDBC or `pg` checks remain in selected contact cases |
+| HTTP | Verify status code and, where applicable, JSON content type | REST Assured and Playwright request assertions |
+| Functional values | Verify expected status values, success values, and response messages | Existing status and contact assertions |
+| JSON Schema Validation | Verify response structure, required properties, and data types | Selenium uses `matchesJsonSchemaInClasspath(...)`; Playwright uses Ajv through `utils/schemaValidator.js` |
+| Persistence | Verify database insertion or non-persistence where applicable | JDBC and `pg` checks in selected contact tests |
 
-The status-response schemas require string `status` and `message` properties. The contact-response schemas require boolean `success` and string `message` properties. This is schema-based contract validation within the existing API cases. It creates no new test-design technique, requirement, or test-case ID and retains the existing formal technique classifications.
+The status schemas require `status` and `message` as strings. The contact schemas require `success` as a boolean and `message` as a string.
+
+JSON Schema Validation adds structure and type checks to the existing API tests. It does not replace the functional assertions and does not create separate test-case IDs.
 
 ## Technique Selection Rationale
 
-Techniques are selected from the behavior model and the question being investigated, not merely because Selenium, Playwright, or JMeter is used. Applicability does not mean that a technique is already fully represented.
+The test design technique is selected based on the behavior being tested.
 
 | Technique | Why it fits this project |
 |---|---|
-| Equivalence Partitioning | Representative valid/invalid input classes for contact validation |
-| Boundary Value Analysis | Ordered field-length and scroll-threshold boundaries |
-| Decision Table Testing | Combinations of validation conditions and rejection precedence |
-| State Transition Testing | Contact form lifecycle states and events; current coverage is partial |
-| Use Case Testing | The user's complete contact-submission goal and workflow |
-| Error Guessing | Experience-driven fault hypotheses grounded in concrete code observations |
-| Checklist-based Testing | Repeatable UI, content, navigation, semantic, keyboard, and automated accessibility checks |
+| Equivalence Partitioning | Used for representative valid and invalid contact and authentication inputs |
+| Boundary Value Analysis | Used for field lengths, password limits, and scroll thresholds |
+| Decision Table Testing | Used when the result depends on combinations of validation, registration, session, or role conditions |
+| State Transition Testing | Used for contact-form states and authentication/session changes such as login, logout, refresh, and role-based access |
+| Use Case Testing | Used for complete user workflows such as submitting a contact form, registering, logging in, accessing protected pages, and logging out |
+| Error Guessing | Used for likely failure conditions based on implementation and previous defects |
+| Checklist-based Testing | Used for repeatable UI, navigation, accessibility, authentication, and security-related checks |
 
-Simple existing visibility/navigation checks remain Not specifically technique-driven where a formal technique is not supported by their design.
+Simple visibility or navigation checks are marked **Not specifically technique-driven** when no formal test design technique is needed.
 
 ## Equivalence Partitioning
 
-**Definition:** A black-box technique that groups inputs expected to receive equivalent treatment and selects representative values.
+**Definition:** A Black-box technique that divides inputs into groups expected to behave the same way. Representative values are selected from each group.
 
-**Applicability / requirements:** Contact inputs and server/browser validation: REQ-CONTACT-002, REQ-API-002–004, REQ-DB-003.
+**Applicable requirements:** Contact validation: REQ-CONTACT-002, REQ-API-002–004, REQ-DB-003. Authentication: REQ-API-006–010, REQ-API-014, and REQ-DB-006.
 
-| Partition | Project example | Expected current behavior |
+| Partition | Project example | Expected behavior |
 |---|---|---|
-| Omitted required field | name key absent, others valid | 400 required-fields message |
-| Empty scalar | name = "" | 400 required-fields message |
-| Whitespace-only scalar | name = "   " | 400 required-fields message |
-| Ordinary accepted values | synthetic name, accepted email, nonblank message | Insert and 200, with storage/DB prerequisites satisfied |
-| Nonblank invalid email | test@ or @example.com | 400 invalid-email message |
-| Browser-invalid form | empty required input or malformed email | Native validity prevents normal submission |
+| Omitted contact required field | name key absent, others valid | 400 required-fields message |
+| Empty contact value | name = "" | 400 required-fields message |
+| Whitespace-only contact value | name = "   " | 400 required-fields message |
+| Valid contact values | synthetic name, accepted email, nonblank message | Insert and 200 when the database is available |
+| Invalid nonblank contact email | test@ or @example.com | 400 invalid-email message |
+| Browser-invalid contact form | empty required input or malformed email | Browser validation prevents normal submission |
+| Valid registration input | valid email, valid password, matching confirmation | Validation accepts the input and registration can continue |
+| Invalid registration email | malformed or unsupported email value | Registration validation rejects the input |
+| Password missing a required character type | no uppercase, lowercase, number, or special character | Registration validation rejects the input |
+| Password confirmation mismatch | valid password and different confirmation | Registration validation rejects the input |
+| Existing registration email | valid registration data for an email already stored | 409 conflict; no second account |
+| Valid login credentials | normalized registered email and correct password | Login succeeds and a session is created |
+| Invalid login credentials | unknown email or incorrect password | 401 generic invalid-credentials response |
+| Client supplies role=admin during registration | otherwise-valid registration | New account remains role=user |
 
-**Existing automated representation:** Selenium required-value provider (S-API-003–008), invalid-email provider (S-API-009–012), omitted fields (S-API-013–015), PW missing/whitespace/email families (P-API-004–013), negative UI cases, and A-UNIT-001–013/015. The Jest cases intentionally cover valid, invalid-format, empty, and whitespace-only partitions at the pure-module boundary. Positive API data represents a valid partition; successful UI flows are primarily classified Use Case.
+**Existing coverage:** Selenium API tests S-API-003–015, Playwright API tests P-API-004–013, negative UI tests, and A-UNIT-001–015 cover contact-validation partitions. The authentication Jest suite adds 13 unit tests for valid normalized input, invalid registration email, password rules, password confirmation mismatch, and normalized login input. P-UI-018–024 and P-API-014–020 cover selected registration, login, session, role, and protected-access partitions at higher levels.
 
-**Identified gaps:** PW explicit empty-string API cases and empty-email UI case; tabs/newlines; accepted email diversity; mixed whitespace and Unicode; distinction between validation trimming and original-value storage.
+The authentication unit tests verify validation logic only. They do not test HTTP responses, sessions, database persistence, or browser behavior.
 
-**Proposed future conditions:** Select representative values for each agreed partition; verify exact error class and appropriate non-persistence. Keep all other fields valid when isolating one partition. Clarify intended normalization before asserting transformed storage.
+**Current gaps:** Contact gaps include explicit Playwright empty-string API cases, an empty-email UI case, tabs/newlines, more accepted email formats, mixed whitespace/Unicode values, and storage normalization. Authentication gaps include route-level invalid-registration variants, selected boundaries, duplicate-email race behavior, authenticated GuestRoute redirect behavior, stale/deleted-user sessions, and malformed authentication payloads.
 
-These are defensible retrospective EP classifications, not proof that formal partition documentation existed when tests were written.
+**Future coverage:** Use representative values from each important input group. When testing one invalid condition, keep the other inputs valid so the failure is easy to identify. Authentication tests should also verify the related response, session, and database behavior where needed.
+
+The current tests can be mapped to Equivalence Partitioning, although EP was not formally documented when every test was originally created.
 
 ## Boundary Value Analysis
 
-**Definition:** A black-box technique selecting values at and adjacent to boundaries of ordered partitions.
+**Definition:** A Black-box technique that tests values at and around important boundaries.
 
-**Applicability / requirements:** REQ-DB-004 schema lengths; REQ-UI-008 scroll visibility threshold; minimum nonblank name/message behavior in REQ-API-002.
+**Applicable requirements:** REQ-DB-004 schema lengths; REQ-UI-008 scroll threshold; REQ-API-002 minimum nonblank contact behavior; REQ-API-007 authentication password limits; REQ-DB-005 authentication email storage/validation boundary.
 
-| Boundary | Proposed conditions | Qualification |
+| Boundary | Proposed or existing conditions | Notes |
 |---|---|---|
-| Name VARCHAR(255) | 254, 255, 256 ordinary characters, other fields valid | Database boundary; handler has no explicit length-validation response contract. |
-| Email VARCHAR(255) | 254, 255, 256 characters using format accepted by current regex | Isolate length from format; do not claim compliance with all email standards. |
-| Nonblank name/message | Length 0, 1, 2 using non-whitespace characters | Whitespace is a separate partition; this is not a general one-character email acceptance rule. |
-| Scroll threshold | scrollY 399, 400, 401 | Source shows visibility only above 400; inspect actual browser coordinates during future execution. |
+| Contact name VARCHAR(255) | 254, 255, 256 ordinary characters, other fields valid | Database boundary; the application has no separate name-length validation response |
+| Contact email VARCHAR(255) | 254, 255, 256 characters using an email format accepted by the current regex | Test length separately from email format |
+| Nonblank contact name/message | Length 0, 1, 2 using non-whitespace characters | Whitespace-only input is a separate partition |
+| Authentication password minimum | 7, 8, 9 characters while keeping all required character types | 8 is the implemented minimum |
+| Authentication password maximum | 63, 64, 65 characters while keeping all required character types | 64 is the implemented maximum |
+| Authentication email maximum | 319, 320, 321 characters using valid email structure where practical | Validation rejects normalized email length above 320 |
+| Scroll threshold | scrollY 399, 400, 401 | The control becomes visible only above 400 |
 
-**Existing automated representation:** Empty input cases overlap a possible lower boundary, but no systematic adjacent-value BVA suite is implemented.
+**Existing coverage:** Authentication password boundaries are covered by Jest with 7-character rejection, 8-character acceptance, 64-character acceptance, and 65-character rejection. Existing contact empty-input tests touch the lower boundary but do not provide a complete BVA set.
 
-**Identified gaps:** Length-boundary and scroll-threshold assertions; storage outcomes and controlled error behavior for oversize fields.
+**Current gaps:** Contact/database length boundaries, authentication email-length boundaries, scroll-threshold tests, and route-level verification of password-boundary failures are not yet automated.
 
-**Proposed future conditions:** Execute boundary checks against an identified schema; agree on expected application failure semantics before specifying a 400 response for oversized data.
+**Future coverage:** When testing password length, keep all other password rules valid and change only the length. For database boundaries, use a known schema and verify persistence or non-persistence where appropriate.
 
-Qualifications:
-- 255 is a PostgreSQL schema boundary, not an explicit application-level validation rule.
-- JMeter workflows use name VARCHAR(100): environment/schema drift, not a universal application boundary.
-- No small maximum message length is defined; do not invent one.
-- JMeter virtual-user values are workload choices, not automatically BVA.
-- Do not label all empty-field tests BVA merely because zero is a numerical value.
+Important notes:
+
+- 255 is the PostgreSQL contact-column limit, not a separate application validation rule.
+- Authentication password limits of 8 and 64 are implemented validation boundaries.
+- Authentication email values above 320 characters are rejected by the validation layer.
+- JMeter workflows currently use VARCHAR(100) for the contact name; this is an environment/schema difference, not the application-wide limit.
+- No small maximum length is defined for the contact message.
+- JMeter virtual-user counts are workload settings, not BVA.
+- An empty-field test is not automatically BVA just because its length is zero.
 
 ## Decision Table Testing
 
-**Definition:** A black-box technique deriving cases from combinations of conditions and their resulting actions.
+**Definition:** A Black-box technique used when the expected result depends on a combination of conditions.
 
-**Applicability / requirements:** REQ-API-002–005 and REQ-DB-003. The handler checks required fields before the email format and returns before insertion on rejection.
+**Applicable requirements:** Contact validation: REQ-API-002–005 and REQ-DB-003. Authentication and authorization: REQ-API-006–016, REQ-UI-011–014, and REQ-DB-006–007.
 
-### Formal contact validation decision table
+For contact validation, required-field checks happen before email-format validation. For authentication, the decision tables cover registration validation, duplicate accounts, session state, and user/admin access.
+
+### Contact validation decision table
 
 Definitions:
-- N/E/M = the corresponding name/email/message exists as an ordinary scalar string and remains nonempty after trim().
-- F = email.trim() matches the implemented regex.
-- Y = true; N = false; — = immaterial for this rule because an earlier rejection determines the outcome.
-- Table assumes parsable URL-encoded input. Successful-rule expectations require accepted storage lengths and an available database.
-- Structured values, malformed requests, and DB errors are outside the defined success/rejection rules.
+
+- N/E/M = name, email, or message is present and remains nonempty after `trim()`.
+- F = `email.trim()` matches the implemented email regex.
+- Y = Yes.
+- N = No.
+- — = this condition does not affect the result because an earlier condition already determines it.
+- The success case assumes valid storage lengths and an available database.
+- Malformed requests, structured values, and database failures are outside this table.
 
 | Condition / action | DT-01 | DT-02 | DT-03 | DT-04 | DT-05 |
 |---|---|---|---|---|---|
@@ -161,122 +186,277 @@ Definitions:
 | Response message | All fields are required. | All fields are required. | All fields are required. | Invalid email address. | Message sent successfully! |
 | Database insertion | No | No | No | No | Yes, before success response |
 
-The first three rules partition the required-field failure space for documentation; the implementation uses one combined required-field conditional, not three separate handlers.
+DT-01 through DT-03 show the different required-field conditions. The implementation handles them with one combined required-field check.
 
-**Existing automated representation:** Individual missing/empty/whitespace cases exercise DT-01–03, invalid emails exercise DT-04, and positive API cases exercise DT-05. A-UNIT-014 intentionally combines an empty required field with a malformed email and verifies required-field precedence; A-UNIT-015 verifies the invalid-email path when every required field is present. Earlier external cases retain their existing EP classifications rather than being relabelled retrospectively.
+**Existing coverage:** Missing, empty, and whitespace tests cover DT-01–03. Invalid-email tests cover DT-04. Positive API tests cover DT-05. A-UNIT-014 checks an empty required field together with a malformed email and confirms that the required-field error is returned first. A-UNIT-015 covers the invalid-email path when all required fields are present.
 
-**Identified gaps:** A-UNIT-014 covers empty name plus malformed email and establishes required-field precedence for that combination. Blank message plus malformed email, multiple simultaneous missing fields beyond all-empty input, and other combined-invalid permutations are not separately represented.
+**Current gaps:** Blank message plus malformed email, additional combinations of missing fields, and other multiple-invalid-input cases are not separately covered.
 
-**Proposed future conditions:** Blank message plus malformed email, selected multiple-missing combinations, and all fields omitted from a parseable form body. Expect required-field error and no insert where the current scalar-form contract applies. Review intended precedence with a human before treating additional combinations as independent product policy.
+**Future coverage:** Add selected combinations such as a blank message with malformed email and multiple missing fields. Expected behavior should remain the required-field error with no database insert where the current form contract applies.
 
-DT identifiers identify analysis rules, not new final test-case IDs.
+### Authentication registration decision table
+
+Definitions:
+
+- E = normalized email is valid and within the implemented length limit.
+- P = password meets the implemented length and character requirements.
+- C = password confirmation matches.
+- D = normalized email already exists.
+- R = client attempts to submit a role value.
+- Y = Yes.
+- N = No.
+- — = this condition does not affect the result because an earlier condition already determines it.
+
+| Condition / action | AUTH-REG-01 | AUTH-REG-02 | AUTH-REG-03 | AUTH-REG-04 | AUTH-REG-05 | AUTH-REG-06 |
+|---|---|---|---|---|---|---|
+| Valid email (E) | N | Y | Y | Y | Y | Y |
+| Valid password (P) | — | N | Y | Y | Y | Y |
+| Confirmation matches (C) | — | — | N | Y | Y | Y |
+| Existing email (D) | — | — | — | Y | N | N |
+| Client supplies role=admin (R) | — | — | — | — | N | Y |
+| Expected HTTP status | 400 | 400 | 400 | 409 | 201 | 201 |
+| Account created | No | No | No | No | Yes | Yes |
+| Persisted role | — | — | — | — | user | user |
+| Authenticated session created | No | No | No | No | Yes | Yes |
+
+The registration route does not use a client-supplied role when creating the account. It inserts the email and password hash, and PostgreSQL applies the default `user` role.
+
+### Authentication and authorization access decision table
+
+| Session / role condition | AUTH-ACCESS-01 | AUTH-ACCESS-02 | AUTH-ACCESS-03 |
+|---|---|---|---|
+| Authenticated session | N | Y | Y |
+| Current role | — | user | admin |
+| GET `/api/auth/me` | 401 | 200 | 200 |
+| GET `/api/auth/admin` | 401 | 403 | 200 |
+| React Account route | Redirect to Login | Allowed | Allowed |
+| React Admin route | Redirect to Login | Access denied | Allowed |
+
+**Existing coverage:** The authentication Jest tests cover validation logic. P-API-014 covers AUTH-REG-05/06, P-API-015 covers duplicate-email 409, and P-API-020 covers the `/admin` 401/403/200 access matrix. P-UI-023–024 cover representative normal-user denial and admin UI access. Manual smoke evidence remains a separate historical record.
+
+**Current gaps:** Dedicated route-level automation is still needed for registration HTTP 400 validation variants. P-API-015 does not independently assert the post-conflict database row count, and session-store contents are not directly inspected.
+
+**Future coverage:** Implement these route-level cases using the most appropriate API framework without copying every scenario into every framework. Each test should have isolated test data and reliable cleanup.
+
+The DT identifiers are design-analysis labels, not final test-case IDs.
 
 ## State Transition Testing
 
-**Definition:** A black-box technique that derives tests from states, events, and resulting transitions.
+**Definition:** A Black-box technique used to test how the system moves from one state to another after an event or action.
 
-**Applicability / requirements:** Limited but natural for contact form lifecycle: REQ-CONTACT-002, 004, 005. No complex business state machine exists.
+**Applicable requirements:** Contact form: REQ-CONTACT-002, REQ-CONTACT-004, REQ-CONTACT-005. Authentication/session behavior: REQ-UI-011–014, REQ-API-006, REQ-API-009–012, REQ-API-015, and REQ-DB-007.
 
-| State / event | Current transition or observation | Existing checks |
+### Contact form transitions
+
+| State / event | Expected or observed transition | Existing checks |
 |---|---|---|
-| Ready + browser-invalid submission | Native validity prevents normal submit-handler execution | Negative UI cases inspect validity; PW also checks success hidden/non-persistence |
-| Ready + browser-valid submit | Button disabled, label Sending..., request starts | Not explicitly asserted |
-| Submitting + success=true | Confirmation shown, form reset, button restored | Success visibility/text covered, other effects not explicit |
-| Submitting + valid JSON success=false | Button restored after the success-only branch; inputs remain available for correction | P-UI-017 verifies rejection, enabled button/restored label, and non-persistence |
-| Submitting + network/JSON failure | No catch/finally recovery implemented | No automated recovery check |
-| Successful display + another submission | New submit event can occur; prior success is not explicitly cleared first | No sequence coverage |
+| Ready + browser-invalid submission | Browser validation prevents normal submit-handler execution | Negative UI cases check validity; Playwright also checks hidden success state and non-persistence |
+| Ready + browser-valid submit | Button becomes disabled, label changes to Sending..., request starts | Not explicitly asserted |
+| Submitting + success=true | Success message appears, form resets, button is restored | Success message is covered; reset/button restoration are not fully asserted |
+| Submitting + valid JSON success=false | Button is restored and input remains available for correction | P-UI-017 verifies rejection, restored button/label, and non-persistence |
+| Submitting + network/JSON failure | No catch/finally recovery is currently implemented | No automated recovery check |
+| Success shown + another submission | Another submit event can occur | No sequence coverage |
 
-**Existing automated representation:** Partial. Success tests check a final state but not all transitions. P-DB-002 checks row existence before/after deletion, but this is not sufficient evidence of formal application state-transition design.
+### Authentication/session transitions
 
-**Identified gaps:** Loading control state, reset field values, second submission, stale success visibility, and recovery after network/JSON failures; valid-JSON button recovery is covered.
+| State / event | Expected transition | Existing evidence |
+|---|---|---|
+| Logged out + successful registration | Account created → session created → user becomes authenticated → Account page opens | P-UI-018; P-API-014 |
+| Logged out + successful login | Session created → authenticated user → Account page opens | P-UI-021; P-API-016 |
+| Logged out + direct Account navigation | Protected route detects no authenticated user → redirects to Login | P-UI-022 |
+| Authenticated user + page refresh | `/api/auth/me` restores the current user → protected page remains available | P-UI-019 |
+| Authenticated user + Logout | Session destroyed → React user state cleared → Login page | P-UI-020; P-API-019 |
+| Logged out + direct Account navigation after Logout | Authentication check fails → Login page | P-UI-020 |
+| Authenticated user + Admin navigation | Role check fails → Access denied; backend `/admin` returns 403 | P-UI-023; P-API-020 |
+| Authenticated admin + Admin navigation | Frontend allows access → backend `/admin` succeeds | P-UI-024; P-API-020 |
+| Authenticated account + controlled role elevation | Current role is reloaded and admin access succeeds | P-UI-024; P-API-020 |
 
-**Proposed future conditions:** Observe transitions with controlled response timing; verify the existing success transition fully. Define remaining network/JSON failure expectations before adding those assertions. Valid-JSON button recovery is implemented, but error feedback and an actual corrected retry are not asserted.
+**Existing coverage:** Contact state coverage is partial. Authentication validation is automated at unit level; P-UI-018–024 and P-API-014–020 now cover representative session and authorization transitions with real cookies and PostgreSQL-backed application behavior.
 
-**DEF-002 example:** Idle → Submitting → server success=false (valid JSON) → Recoverable state (button enabled, label Send Message). Pre-fix P-UI-017 failed because the button stayed disabled/Sending. Moving restoration outside data.success fixed that transition. Focused recovery and successful-contact tests passed, followed by 17/17 Chromium UI regression; DEF-001 cases still passed. Network and malformed-response recovery remain unverified. This is partial State Transition coverage, not complete lifecycle coverage; the combined UI/DB test uses a Gray-box oracle. See [DEFECT_LOG.md](DEFECT_LOG.md) and [TEST_SUMMARY_REPORT.md](TEST_SUMMARY_REPORT.md).
+**Current gaps:** Browser Back behavior after logout, authenticated GuestRoute redirects, requested-destination restoration, stale/deleted-user sessions, actual cookie expiration, and direct session-store-content assertions remain uncovered.
+
+**Future coverage:** Use Playwright for the most important browser/session flows and API-level tests for 401/403/session behavior. Do not duplicate every state transition in Selenium, Playwright, and pytest.
+
+**DEF-002 example:**
+Idle → Submitting → server returns `success=false` → Recoverable state.
+
+Before the fix, P-UI-017 failed because the button remained disabled with `Sending...`. After the fix, the button was restored correctly. The focused recovery test passed, the successful contact test passed, and the broader Chromium UI run passed 17/17. Network and malformed-response recovery are still not verified.
 
 ## Use Case Testing
 
-**Definition:** Derive scenarios from an actor's goal and its main and alternative interaction flows.
+**Definition:** A technique that tests complete user goals and the main steps needed to complete them.
 
-**Applicability / requirements:** Submit a contact message through the UI; REQ-CONTACT-003/005 and REQ-DB-002.
+**Applicable requirements:** Contact submission: REQ-CONTACT-003, REQ-CONTACT-005, and REQ-DB-002. Authentication: REQ-UI-010–014, REQ-API-006, REQ-API-009–012, and REQ-DB-006–007.
 
-**Project example:** Open home → enter valid synthetic values → submit → observe success → query persisted email/message → remove owned record.
+### Contact example
 
-**Existing automated representation:** S-UI-007 and P-UI-004 implement this main success flow with database verification. This is a retrospective mapping to a user journey, not a claim of pre-existing use-case specifications.
+Open Home → enter valid data → submit → verify success message → verify data in PostgreSQL → remove test-owned data.
 
-**Identified gaps:** Full stored-row correctness, form reset/button assertions, correction after rejection, second submission, and navigation through the automation page.
+### Authentication examples
 
-**Proposed future conditions:** Describe alternative/recovery flows after resolving their intended outcomes. Keep simple section visibility/navigation tests as Not specifically technique-driven unless a meaningful actor goal and flow are explicitly modelled.
+- **Registration:** Open Register → enter valid data → submit → account is created → session is created → Account shows email and role=user.
+- **Login:** Log out → log in with registered credentials → Account becomes available.
+- **Authorization:** Normal user opens Admin → access denied / backend 403 → controlled role change to admin → refresh → Admin access succeeds.
+- **Session:** Authenticate → refresh protected page → session remains active → logout → protected route redirects to Login.
+
+**Existing coverage:** S-UI-007 and P-UI-004 automate the successful contact workflow with database verification. P-UI-018–024 automate the selected authentication user journeys, and P-API-014–020 verify their API/session/authorization counterparts. Jest authentication tests cover validation only and are not End-to-End tests.
+
+**Current gaps:** Authenticated GuestRoute redirect behavior, requested-destination restoration, browser Back after logout, route-level invalid-registration variants, and additional session-failure states remain uncovered.
+
+**Future coverage:** Use Playwright for a small number of complete authentication user journeys. Use Selenium for selected cross-browser UI flows and pytest/API tools for detailed API/DB variations. Keep simple validation cases at the unit or API level.
 
 ## Error Guessing
 
-**Definition:** An experience-based technique using likely fault patterns and prior observations to select conditions.
+**Definition:** An experience-based technique used to test likely failure areas based on previous defects, implementation details, and common error patterns.
 
-**Applicability / requirements:** Shared-page scripts, contact error handling, body parsing, and persistence side effects. Some desired outcomes require clarification rather than an existing requirement ID.
+**Applicable areas:** Shared-page scripts, contact error handling, request parsing, database side effects, authentication/session handling, authorization, and security-sensitive inputs.
 
-**Project examples:** Footer without contact form; rejected fetch; non-JSON response; duplicate field names/structured form values reaching trim(); negative API unexpectedly inserting data; cleanup throwing after an assertion failure.
+### Project examples
 
-**Existing automated representation:** A-UNIT-002–004, A-UNIT-008, A-UNIT-010, A-UNIT-012, and A-UNIT-013 deliberately cover likely validation faults: missing `@`, missing local part, incomplete domain, whitespace-only fields, and all required fields empty. Earlier external invalid-email/whitespace cases retain EP where original error-guessing provenance cannot be established.
+- shared footer used on a page without the contact form;
+- rejected fetch response;
+- malformed or non-JSON response;
+- unexpected structured form values;
+- rejected contact request inserting data;
+- cleanup failure after a test;
+- duplicate registration race;
+- different login errors exposing whether an account exists;
+- client-supplied `role=admin`;
+- password hash returned in an API response;
+- protected endpoint accessible without a session;
+- normal user receiving admin access;
+- stale session for a deleted user;
+- protected access remaining after logout;
+- browser Back showing protected content after logout;
+- missing `SESSION_SECRET`;
+- SQL-injection-style input in authentication fields.
 
-**Identified gaps:** Direct checks for the listed failure hypotheses.
+**Existing coverage:** Contact unit tests cover several invalid-input conditions. Authentication Jest tests cover invalid email, password-rule failures, boundary failures, and password confirmation mismatch. Playwright now verifies duplicate normalized email, equivalent generic invalid-login errors, client-supplied role rejection, safe registration response fields, protected-route denial, logout invalidation, and user/admin authorization.
 
-**Proposed future conditions:** Design focused reproductions of source observations, record expected behavior or clarification needs, and retain original plus cleanup failure information. Negative testing is not automatically Error Guessing.
+**Current gaps:** Duplicate-email race behavior, stale/deleted-user sessions, browser Back after logout, malformed auth payloads, SQL-injection-style inputs, session-store failures, invalid/expired cookies, and production Secure-cookie behavior remain uncovered.
+
+**Future coverage:** Convert the most useful high-risk conditions into repeatable tests. Backend authentication and authorization must still be verified even when frontend route guards exist. Not every negative test should be classified as Error Guessing.
 
 ## Checklist-based Testing
 
-**Definition:** An experience-based approach applying an explicit list of checks consistently.
+**Definition:** An experience-based approach that uses a repeatable list of checks.
 
-**Applicability / requirements:** Page content, navigation, form labels, and browser presentation; REQ-UI-001–009 and contact UI behavior.
+**Applicable requirements:** UI content, navigation, form labels, authentication pages, protected routes, role-based access, keyboard behavior, and accessibility. This applies mainly to REQ-UI-001–014 and related authentication requirements.
 
-**Project examples:** Required sections visible; link reaches destination; fields labelled; browser console free of relevant application errors; mobile menu operates; keyboard can reach controls.
+### Project examples
 
-**Existing automated representation:** Visibility/navigation assertions resemble checklist items, but no formal checklist artifact or derivation exists. They remain Not specifically technique-driven in the catalogue. P-UI-015 and P-UI-016 explicitly check absence of startup JavaScript page errors after direct navigation. P-A11Y-001–005 apply a defined automated accessibility checklist through three axe scans and two focused keyboard/semantic checks.
+- required sections are visible;
+- navigation links reach the correct destination;
+- form controls have labels;
+- browser pages load without relevant JavaScript errors;
+- mobile navigation works;
+- keyboard users can reach controls;
+- Login/Register fields have correct labels and autocomplete attributes;
+- password guidance is connected to the password field;
+- authentication errors are announced;
+- Account shows email and role;
+- protected pages redirect when the user is not logged in;
+- normal user receives Admin access denied;
+- admin user receives Admin access;
+- logout removes protected access.
 
-**Identified gaps:** Explicit checklist ownership, automation-page rendering (REQ-UI-007) and navigation (REQ-UI-009), comprehensive manual keyboard/mobile checks, and browser-error assertions beyond /project and /project/automation startup. DEF-001 partially addresses browser-error coverage. The accessibility layer covers selected routes and interactions only; it does not cover every page state, later interaction, or manual accessibility condition.
+**Existing coverage:** Existing UI tests already cover several checklist-style conditions. P-UI-015 and P-UI-016 check for startup page errors. P-UI-018–024 cover representative authentication routes, account identity/role, protection, and authorization. P-A11Y-001–006 provide automated accessibility checks for the EJS portfolio and the focused shared authentication-navigation state.
 
-**Proposed future conditions:** Create a reviewed checklist mapping each item to existing automation, a proposed case, or a manual check. A planned manual check is not a historical manual execution.
+**Current gaps:** A maintained checklist covering all planned checks, automation-page navigation, broader keyboard/mobile checks, browser-error checks on more pages, and authentication-page accessibility.
 
-**DEF-001 example:** Source inspection identified an unconditional handler on a possibly absent form → browser reproduction confirmed the TypeError on /project and /project/automation → two Black-box System regression checks registered pageerror listeners before navigation → both failed pre-fix with `TypeError: Cannot read properties of null (reading 'addEventListener')` → both passed after optional chaining guarded registration. The successful-contact check and broader 16-case Chromium UI run also passed. This evidence is limited to Chromium; see [DEFECT_LOG.md](DEFECT_LOG.md).
+Login, Register, Account, and Admin still need dedicated axe scans, keyboard-flow checks, focus-order checks, and alert/status announcement checks.
+
+**Future coverage:** Maintain a simple checklist showing whether each item is covered by automation, manual testing, or still planned. Add selected accessibility checks to the React authentication routes without treating axe results as complete WCAG proof.
+
+**DEF-001 example:**
+Source review found an event handler attached to a form that did not exist on some pages. Browser reproduction confirmed the TypeError on `/project` and `/project/automation`. P-UI-015 and P-UI-016 failed before the fix and passed after optional chaining was added. The contact test and broader 16-case Chromium UI regression also passed.
 
 ## Accessibility Testing
 
-The implemented Playwright accessibility layer is classified as **System/UI Accessibility Testing**. It uses `@axe-core/playwright` and axe-core in a dedicated Chromium project. The three automated scans evaluate supported WCAG A/AA-oriented rule tags against the rendered Home, Project, and Automation pages. The two focused checks exercise one main-navigation focus/Enter path and selected contact-form accessible-name, required-attribute, and keyboard-focus behavior.
+The Playwright accessibility layer is classified as **System/UI Accessibility Testing**. It uses `@axe-core/playwright` and axe-core in a dedicated Chromium project.
 
-The axe scans are Black-box checks of externally rendered behavior. Their WCAG-oriented rule selection is an automated oracle, not evidence that all WCAG success criteria can be machine tested. P-A11Y-001 and P-A11Y-002 initially failed on genuine `color-contrast` findings linked to DEF-003 and DEF-004, then passed after the targeted fixes. P-A11Y-003–005 passed in both the initial and post-fix local Chromium runs. Both defects are Closed / Fixed / Retest Passed.
+The current automated accessibility scope includes:
 
-Automated accessibility coverage can detect issues such as missing accessible names, invalid ARIA, some landmark/semantic problems, and some color-contrast failures. It cannot establish full accessibility or full WCAG compliance.
+- full-page scans for Home, Project, and Automation pages;
+- one keyboard focus/Enter navigation check;
+- one keyboard-focused authentication-navigation contrast check;
+- selected contact-form accessible-name, required-field, and focus checks.
 
-Manual accessibility remains separate and should include:
+P-A11Y-001 and P-A11Y-002 initially failed because of color-contrast issues and led to DEF-003 and DEF-004. After the CSS fixes, both passed. P-A11Y-003–005 passed in both the initial and post-fix runs. Existing P-A11Y-002 later detected DEF-005 on the crowded Project navigation; DEF-006 added P-A11Y-006 to run axe while the shared authentication link retains keyboard focus. Both defects are Closed / Fixed / Retest Passed, and the current accessibility project passed 6/6 in Chromium.
 
-- complete keyboard-only navigation and logical tab order;
-- visible focus across interactive states;
+Automated accessibility checks can find issues such as:
+
+- missing accessible names;
+- invalid ARIA;
+- some landmark or semantic problems;
+- some color-contrast problems.
+
+They cannot prove full WCAG compliance.
+
+Manual accessibility testing should still include:
+
+- full keyboard-only navigation;
+- logical tab order;
+- visible focus;
 - 200% zoom and responsive reflow;
 - screen-reader names, roles, states, and announcements;
-- meaningful heading structure and reading order; and
-- usability of validation and error feedback.
+- heading structure and reading order;
+- validation and error-message usability.
 
-No standalone accessibility product requirement exists in [REQUIREMENTS.md](REQUIREMENTS.md). The implemented cases and confirmed defects are traced without inventing one.
+The React authentication pages (`/auth/login`, `/auth/register`, `/auth/account`, and `/auth/admin`) are not yet included in the dedicated Playwright accessibility suite.
 
-## Interpretation and ambiguity
+The implementation includes labels, required attributes, alert/status roles, `aria-live`, password guidance, and visible focus styling, but these still need testing.
 
-- EP/BVA are black-box design techniques; an integration case may still be Gray-box because its oracle reads the DB.
-- Data-driven providers/loops are execution mechanisms, not techniques.
-- Smoke and Regression describe selection/purpose; Cross-browser describes execution coverage.
-- Negative scenario classification is independent of Passed/Failed outcome.
-- End-to-End describes flow scope and can overlap System and Integration.
-- Direct DB tests change classification if the test object changes from the whole application to the database interface.
-- Browser DOM validity checks are treated as interface-contract checks here; a stricter taxonomy may call them Gray-box, but not White-box without structural design.
-- A status-only API case is System/Black-box in this baseline; organizations may use "API integration" more broadly. State the boundary instead of treating the label as universal.
-- JMeter stress labels represent profiles, not proven capacity exceedance or breaking points.
-- JMeter samples are measurements, not designed case count.
-- No automated compatibility, performance-capacity, or production-readiness conclusion follows from configuration alone.
+Future authentication accessibility coverage should include representative axe scans, keyboard navigation, focus behavior, accessible names, error announcements, and responsive/zoom checks.
 
-## Coverage gaps and future conditions
+No separate accessibility requirement ID is currently defined in [REQUIREMENTS.md](REQUIREMENTS.md). Existing accessibility tests and defects are tracked through the current documentation and traceability.
 
-Priorities for later design review: network/JSON failure recovery and rejection feedback/retry sequences, success reset/button verification, browser errors beyond the two covered startup routes, schema-length boundaries, additional combined-invalid conditions beyond the tested required-error precedence case, complete persisted fields/count, DB outages, automation-page navigation, comprehensive manual accessibility and accessibility requirement definition, mobile behavior, and contact-write workload testing.
+## Classification Notes
 
-No final future case IDs are assigned here. Failure handling, revised API contracts, stronger DB assertions, isolation, CI/schema reproducibility, reporting, and performance improvements are not implemented by these documents.
+- EP and BVA are Black-box design techniques.
+- A test can still be Gray-box if it uses the database as part of verification.
+- Data-driven providers and loops are execution methods, not test design techniques.
+- Smoke and Regression describe test purpose or selection.
+- Cross-browser describes where the test is executed.
+- Positive/Negative describes the scenario, not the test result.
+- End-to-End describes the workflow scope and may overlap System and Integration testing.
+- Direct database tests may be classified differently depending on whether the test object is the application or the database.
+- DOM/browser validation checks are treated as interface-level checks in this portfolio.
+- A status-only API test is classified as System/Black-box here.
+- JMeter stress profiles are workload configurations, not proof that the system reached a breaking point.
+- JMeter samples are measurements, not separate designed test cases.
+- Frontend `ProtectedRoute` and `GuestRoute` improve user flow, but backend middleware remains the real authentication/authorization security control.
+- Manual Register/Login/Logout/Admin smoke testing remains historical execution evidence; P-UI-018–024 and P-API-014–020 provide the current automated higher-level coverage.
+- The local `set-role` utility is a QA/development helper, not a public application feature.
+- Authentication and authorization are separate: a valid session can still receive 403 if the user does not have the required role.
+- Password verification should confirm that plaintext is not stored and that a hash exists. The hash should not be exposed or reversed.
+- Client-supplied role data is not trusted. Registration relies on the database default `user` role.
+- Configuration alone does not prove browser compatibility, performance capacity, or production readiness.
+
+## Coverage Gaps and Future Work
+
+Authentication/authorization automation now covers the principal UI/API/session/RBAC workflows. Remaining gaps are narrower conditions and production-specific behavior.
+
+Priority areas include:
+
+- password and email boundaries;
+- route-level invalid-registration variants;
+- authenticated GuestRoute redirects and protected-destination restoration;
+- duplicate-email race behavior and explicit post-conflict row-count verification;
+- `users` table constraints;
+- direct session-store content/failure behavior;
+- stale/deleted-user and invalid/expired session behavior;
+- browser Back after logout;
+- production Secure-cookie verification and actual expiration behavior;
+- automated verification of the local role-management utility;
+- accessibility of Login, Register, Account, and Admin pages.
+
+Other remaining areas include network/JSON failure recovery, contact error feedback and retry behavior, form reset/button restoration, browser errors on additional routes, contact length boundaries, additional combined-invalid cases, fuller database persistence checks, database outages, automation-page navigation, broader manual accessibility, mobile behavior, and performance testing for representative contact-form submissions.
+
+Future items such as CSRF protection, authentication rate limiting, OAuth, MFA, password reset, email verification, database migrations, and performance improvements are not part of the current tested implementation.
+
+New test-case IDs should be added only when the related tests are implemented.
 
 ## Reference
 
-Definitions use established testing terminology; project-specific mappings are based on the inspected source. See the [ISTQB CTFL syllabus](https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf) for terminology. This document does not claim that every listed technique was used during original test development.
+This document uses standard QA and ISTQB terminology where it fits the project. Project-specific classifications are based on the current implementation and existing tests.
