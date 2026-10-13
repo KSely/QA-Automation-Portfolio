@@ -46,7 +46,7 @@
 
     <!-- Displays different navigation links depending on the current page (Conditional Navigation) -->
     <div class="collapse navbar-collapse" id="portfolioNavbar">
-      <div class="navbar-nav ms-auto">
+      <div class="navbar-nav ms-auto<%= page === "project" ? " project-navigation" : "" %>">
 
         <!-- Navigation links for the project details page (Project Navigation) -->
         <% if (page === "project") { %>
