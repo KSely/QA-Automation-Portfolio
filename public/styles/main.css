@@ -99,6 +99,11 @@ body {
   min-height: 75vh;
 }
 
+.hero-section h1 {
+  font-size: clamp(2.25rem, 2.8vw, 2.75rem);
+  line-height: 1.15;
+}
+
 .hero-label {
   color: #38bdf8;
   font-size: 1.3rem;
@@ -138,6 +143,24 @@ body {
   font-size: 1.1rem;
   line-height: 1.8;
   color: #475569;
+}
+
+.about-link {
+  color: #2563eb;
+  text-underline-offset: 0.2em;
+  transition: color 0.2s ease;
+}
+
+.about-link:hover,
+.about-link:focus,
+.about-link:focus-visible {
+  color: #1d4ed8;
+}
+
+.about-link:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
 
@@ -695,6 +718,18 @@ body {
 
 
 /* ==================== RESPONSIVE ==================== */
+/* Keep the desktop hero balanced without excessive vertical whitespace */
+
+@media (min-width: 992px) {
+  .hero-section {
+    min-height: 78vh;
+  }
+
+  .hero-section .min-vh-75 {
+    min-height: 68vh;
+  }
+}
+
 /* Adjust layout for tablets and smaller screens */
 
 @media (max-width: 991px) {
