@@ -101,10 +101,6 @@ app.post("/contact", async (req, res) => {
     });
   }
 
-  console.log("Name: " + name);
-  console.log("Email: " + email);
-  console.log("Message: " + message);
-
   // Save the submitted message to PostgreSQL (Database Insert)
   await pool.query(
     "INSERT INTO messages (name, email, message) VALUES ($1, $2, $3)",
